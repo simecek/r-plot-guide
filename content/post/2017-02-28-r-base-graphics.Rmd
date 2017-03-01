@@ -4,6 +4,9 @@ date: '2017-02-28'
 slug: r-base-graphics
 categories:
   - R
+output:
+  blogdown::html_page:
+    toc: true
 ---
 
 One of the strength of R is its ability to produce a wide range of plots. Multiple plotting library exists and even the base R graphics is powerful and can be mastered in a few hours.
@@ -39,7 +42,7 @@ To the existing plot, you can add lines (`lines`, `abline`), points (`points`), 
 
 ## Gapminder dataset
 
-Gapminder is a an excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country. It is distributed as R package. The following code loads gapminder (and if missing install it) and prints the first few lines:
+Gapminder is a an excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country. It is distributed as R package. The following code loads gapminder (if missing, installs it) and prints the first few lines of its data frame:
 
 ```{r}
 # check if gapminder can be loaded, if not install it
@@ -173,7 +176,12 @@ dev.off()
 
 Are the plots same or different? Why?
 
-## Sources:
+## Summary:
+
+You can do almost anything with base graphics but some common actions are not straightforward (nice colors, facetting, legends, error bars). Complex graphs can be time consuming and their code hard to read. R Base graphics is the best for qick exploratory analysis but for publication level graphics [ggplot2](http://ggplot2.org/) is superior.
+
+#### Sources:
 
 * [http://rpubs.com/SusanEJohnston/7953](http://rpubs.com/SusanEJohnston/7953)
 * [http://www.statmethods.net/graphs/scatterplot.html](http://www.statmethods.net/graphs/scatterplot.html)
+* [http://www.statmethods.net/advgraphs/parameters.html](http://www.statmethods.net/advgraphs/parameters.html)

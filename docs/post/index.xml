@@ -15,7 +15,19 @@
       <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
       
       <guid>/2017/02/28/r-base-graphics/</guid>
-      <description>&lt;p&gt;One of the strength of R is its ability to produce a wide range of plots. Multiple plotting library exists and even the base R graphics is powerful and can be mastered in a few hours.&lt;/p&gt;
+      <description>&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#x-y-plotting&#34;&gt;X-Y Plotting&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#gapminder-dataset&#34;&gt;Gapminder dataset&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#histograms&#34;&gt;Histograms&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#barplot&#34;&gt;Barplot&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#more-than-one-plot-in-a-window&#34;&gt;More than one plot in a window&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#boxplot&#34;&gt;Boxplot&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#saving-the-plots&#34;&gt;Saving the plots&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#summary&#34;&gt;Summary:&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;One of the strength of R is its ability to produce a wide range of plots. Multiple plotting library exists and even the base R graphics is powerful and can be mastered in a few hours.&lt;/p&gt;
 &lt;div id=&#34;x-y-plotting&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;X-Y Plotting&lt;/h2&gt;
 &lt;p&gt;Basic plot call takes the following form &lt;code&gt;plot(x=, y=)&lt;/code&gt;, for example&lt;/p&gt;
@@ -36,7 +48,7 @@ plot(height, weight)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;gapminder-dataset&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Gapminder dataset&lt;/h2&gt;
-&lt;p&gt;Gapminder is a an excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country. It is distributed as R package. The following code loads gapminder (and if missing install it) and prints the first few lines:&lt;/p&gt;
+&lt;p&gt;Gapminder is a an excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country. It is distributed as R package. The following code loads gapminder (if missing, installs it) and prints the first few lines of its data frame:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# check if gapminder can be loaded, if not install it
 if (!require(&amp;quot;gapminder&amp;quot;)) {
   install.packages(&amp;quot;gapminder&amp;quot;)
@@ -114,12 +126,17 @@ boxplot(lifeExp ~ continent, data=year2007, las=2)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Are the plots same or different? Why?&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;sources&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Sources:&lt;/h2&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Summary:&lt;/h2&gt;
+&lt;p&gt;You can do almost anything with base graphics but some common actions are not straightforward (nice colors, facetting, legends, error bars). Complex graphs can be time consuming and their code hard to read. R Base graphics is the best for qick exploratory analysis but for publication level graphics &lt;a href=&#34;http://ggplot2.org/&#34;&gt;ggplot2&lt;/a&gt; is superior.&lt;/p&gt;
+&lt;div id=&#34;sources&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Sources:&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://rpubs.com/SusanEJohnston/7953&#34; class=&#34;uri&#34;&gt;http://rpubs.com/SusanEJohnston/7953&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.statmethods.net/graphs/scatterplot.html&#34; class=&#34;uri&#34;&gt;http://www.statmethods.net/graphs/scatterplot.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.statmethods.net/advgraphs/parameters.html&#34; class=&#34;uri&#34;&gt;http://www.statmethods.net/advgraphs/parameters.html&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 </description>
     </item>

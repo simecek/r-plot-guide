@@ -4,9 +4,24 @@ date: '2017-02-28'
 slug: r-base-graphics
 categories:
   - R
+output:
+  blogdown::html_page:
+    toc: true
 ---
 
 
+<div id="TOC">
+<ul>
+<li><a href="#x-y-plotting">X-Y Plotting</a></li>
+<li><a href="#gapminder-dataset">Gapminder dataset</a></li>
+<li><a href="#histograms">Histograms</a></li>
+<li><a href="#barplot">Barplot</a></li>
+<li><a href="#more-than-one-plot-in-a-window">More than one plot in a window</a></li>
+<li><a href="#boxplot">Boxplot</a></li>
+<li><a href="#saving-the-plots">Saving the plots</a></li>
+<li><a href="#summary">Summary:</a></li>
+</ul>
+</div>
 <p>One of the strength of R is its ability to produce a wide range of plots. Multiple plotting library exists and even the base R graphics is powerful and can be mastered in a few hours.</p>
 <div id="x-y-plotting" class="section level2">
 <h2>X-Y Plotting</h2>
@@ -28,7 +43,7 @@ plot(height, weight)</code></pre>
 </div>
 <div id="gapminder-dataset" class="section level2">
 <h2>Gapminder dataset</h2>
-<p>Gapminder is a an excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country. It is distributed as R package. The following code loads gapminder (and if missing install it) and prints the first few lines:</p>
+<p>Gapminder is a an excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country. It is distributed as R package. The following code loads gapminder (if missing, installs it) and prints the first few lines of its data frame:</p>
 <pre class="r"><code># check if gapminder can be loaded, if not install it
 if (!require(&quot;gapminder&quot;)) {
   install.packages(&quot;gapminder&quot;)
@@ -106,10 +121,15 @@ boxplot(lifeExp ~ continent, data=year2007, las=2)</code></pre>
 <p>Are the plots same or different? Why?</p>
 </div>
 </div>
-<div id="sources" class="section level2">
-<h2>Sources:</h2>
+<div id="summary" class="section level2">
+<h2>Summary:</h2>
+<p>You can do almost anything with base graphics but some common actions are not straightforward (nice colors, facetting, legends, error bars). Complex graphs can be time consuming and their code hard to read. R Base graphics is the best for qick exploratory analysis but for publication level graphics <a href="http://ggplot2.org/">ggplot2</a> is superior.</p>
+<div id="sources" class="section level4">
+<h4>Sources:</h4>
 <ul>
 <li><a href="http://rpubs.com/SusanEJohnston/7953" class="uri">http://rpubs.com/SusanEJohnston/7953</a></li>
 <li><a href="http://www.statmethods.net/graphs/scatterplot.html" class="uri">http://www.statmethods.net/graphs/scatterplot.html</a></li>
+<li><a href="http://www.statmethods.net/advgraphs/parameters.html" class="uri">http://www.statmethods.net/advgraphs/parameters.html</a></li>
 </ul>
+</div>
 </div>
