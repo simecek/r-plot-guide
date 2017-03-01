@@ -159,7 +159,7 @@ See the help and examples for `pdf`, `png`, `dev.off` and `dev.copy` functions.
 
 Save the last plot into PDF and PNG files.
 
-```{r, echo=FALSE, include=FALSE}
+```{r, eval=FALSE, include=FALSE}
 # png
 png("boxplot.png", width = 500, height = 500, res = 72)
   boxplot(lifeExp ~ continent, data=year2007, las=2)
