@@ -73,15 +73,15 @@
 <ul>
 <li><a href="#x-y-plotting">X-Y Plotting</a></li>
 <li><a href="#gapminder-dataset">Gapminder dataset</a></li>
-<li><a href="#histograms">Histograms</a></li>
+<li><a href="#histogram">Histogram</a></li>
 <li><a href="#barplot">Barplot</a></li>
 <li><a href="#more-than-one-plot-in-a-window">More than one plot in a window</a></li>
 <li><a href="#boxplot">Boxplot</a></li>
 <li><a href="#saving-the-plots">Saving the plots</a></li>
-<li><a href="#summary">Summary:</a></li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </div>
-<p>One of the strength of R is its ability to produce a wide range of plots. Multiple plotting library exists and even the base R graphics is powerful and can be mastered in a few hours.</p>
+<p>One of the strengths of R is its ability to produce a wide range of plots. Multiple plotting libraries exist and even the base R graphics is powerful and can be mastered in a few hours.</p>
 <div id="x-y-plotting" class="section level2">
 <h2>X-Y Plotting</h2>
 <p>Basic plot call takes the following form <code>plot(x=, y=)</code>, for example</p>
@@ -93,16 +93,16 @@ plot(height, weight)</code></pre>
 <p>Use <code>main</code> to set the title, <code>xlab</code> and <code>ylab</code> for x- and y- labels, <code>xlim</code> and <code>ylim</code> for x- and y- limits, <code>type</code> to set a type of the graph (“p”=points, “l”=lines, “b”=both, “n”=none) and <code>col</code> to choose colors.</p>
 <div id="challenge-1" class="section level4">
 <h4>Challenge 1:</h4>
-<p>Modify the code above to get points connected by line</p>
+<p>Modify the code above to get points connected by a line</p>
 <p><img src="../../../../post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>Or to see both points and lines like on the plot below.</p>
+<p>Or to see both points and a line like on the plot below.</p>
 <p><img src="../../../../post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>To the existing plot, you can add lines (<code>lines</code>, <code>abline</code>), points (<code>points</code>), legend (<code>legend</code>), text (<code>text</code>) and other objects.</p>
 </div>
 </div>
 <div id="gapminder-dataset" class="section level2">
 <h2>Gapminder dataset</h2>
-<p>Gapminder is a an excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country. It is distributed as R package. The following code loads gapminder (if missing, installs it) and prints the first few lines of its data frame:</p>
+<p>Gapminder is a an excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country. It is distributed as R package. The following code loads <code>gapminder</code> (if missing, installs it) and prints the first few lines:</p>
 <pre class="r"><code># check if gapminder can be loaded, if not install it
 if (!require(&quot;gapminder&quot;)) {
   install.packages(&quot;gapminder&quot;)
@@ -125,18 +125,18 @@ head(gapminder)</code></pre>
 </div>
 <div id="challenge-3" class="section level4">
 <h4>Challenge 3</h4>
-<p>For 2007, make a scatterplot of life expectancy vs. GDP per capita and color each state by its continent.</p>
+<p>For 2007, make a scatter-plot of life expectancy vs. GDP per capita and color each state by its continent.</p>
 <p><img src="../../../../post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>Now try to style the plot a bit by ading the title, labels and a legend.</p>
+<p>Now try to style the plot a bit by adding the title, labels and a legend.</p>
 <p><img src="../../../../post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 </div>
-<div id="histograms" class="section level2">
-<h2>Histograms</h2>
+<div id="histogram" class="section level2">
+<h2>Histogram</h2>
 <p>Histograms are plotted with <code>hist</code> function (see <code>?hist</code> for help and examples).</p>
 <div id="challenge-4" class="section level4">
 <h4>Challenge 4</h4>
-<p>Plot a histogram of life expectancies in 2007 over all countries: <img src="../../../../post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Plot a histogram of life expectancy in 2007 over all countries: <img src="../../../../post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 </div>
 <div id="barplot" class="section level2">
@@ -150,7 +150,7 @@ head(gapminder)</code></pre>
 </div>
 <div id="more-than-one-plot-in-a-window" class="section level2">
 <h2>More than one plot in a window</h2>
-<p>With a graphical parameter <code>mfrow</code> we can get two or more plots into one window (or file). For example comparing the histogram plot to a density plot like below.</p>
+<p>With a graphical parameter <code>mfrow</code> we can get two or more plots into one window (or file). For example, see the comparison of the histogram to a density plot below.</p>
 <pre class="r"><code>czech &lt;- subset(gapminder, country == &quot;Czech Republic&quot;)
 
 par(mfrow = c(1,2)) # one row, two columns
@@ -163,7 +163,7 @@ plot(density(czech$gdpPercap), main=&quot;Density&quot;)</code></pre>
 <p>Boxplots can be used to compare data from several groups.</p>
 <div id="challenge-6" class="section level4">
 <h4>Challenge 6</h4>
-<p>For 2007, compare life expectancies between the continents.</p>
+<p>For 2007, compare life expectancy between the continents.</p>
 <pre class="r"><code>year2007 &lt;- subset(gapminder, year == 2007)
 
 # las = 2 plots text perpendicularly to axis
@@ -181,8 +181,9 @@ boxplot(lifeExp ~ continent, data=year2007, las=2)</code></pre>
 </div>
 </div>
 <div id="summary" class="section level2">
-<h2>Summary:</h2>
-<p>You can do almost anything with base graphics but some common actions are not straightforward (nice colors, facetting, legends, error bars). Complex graphs can be time consuming and their code hard to read. R Base graphics is the best for qick exploratory analysis but for publication level graphics <a href="http://ggplot2.org/">ggplot2</a> is superior.</p>
+<h2>Summary</h2>
+<p>You can do almost anything with base graphics but some common actions are not straightforward (nice colors, faceting, legends, error bars). Complex graphs can be time consuming and their code hard to read.</p>
+<p>R Base graphics is great for a quick exploratory analysis but for a publication level graphics, I prefer <a href="http://ggplot2.org/">ggplot2</a>. More about it next time.</p>
 <div id="sources" class="section level4">
 <h4>Sources:</h4>
 <ul>

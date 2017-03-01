@@ -18,15 +18,15 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#x-y-plotting&#34;&gt;X-Y Plotting&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#gapminder-dataset&#34;&gt;Gapminder dataset&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#histograms&#34;&gt;Histograms&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#histogram&#34;&gt;Histogram&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#barplot&#34;&gt;Barplot&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#more-than-one-plot-in-a-window&#34;&gt;More than one plot in a window&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#boxplot&#34;&gt;Boxplot&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#saving-the-plots&#34;&gt;Saving the plots&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#summary&#34;&gt;Summary:&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#summary&#34;&gt;Summary&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
-&lt;p&gt;One of the strength of R is its ability to produce a wide range of plots. Multiple plotting library exists and even the base R graphics is powerful and can be mastered in a few hours.&lt;/p&gt;
+&lt;p&gt;One of the strengths of R is its ability to produce a wide range of plots. Multiple plotting libraries exist and even the base R graphics is powerful and can be mastered in a few hours.&lt;/p&gt;
 &lt;div id=&#34;x-y-plotting&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;X-Y Plotting&lt;/h2&gt;
 &lt;p&gt;Basic plot call takes the following form &lt;code&gt;plot(x=, y=)&lt;/code&gt;, for example&lt;/p&gt;
@@ -38,16 +38,16 @@ plot(height, weight)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Use &lt;code&gt;main&lt;/code&gt; to set the title, &lt;code&gt;xlab&lt;/code&gt; and &lt;code&gt;ylab&lt;/code&gt; for x- and y- labels, &lt;code&gt;xlim&lt;/code&gt; and &lt;code&gt;ylim&lt;/code&gt; for x- and y- limits, &lt;code&gt;type&lt;/code&gt; to set a type of the graph (“p”=points, “l”=lines, “b”=both, “n”=none) and &lt;code&gt;col&lt;/code&gt; to choose colors.&lt;/p&gt;
 &lt;div id=&#34;challenge-1&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Challenge 1:&lt;/h4&gt;
-&lt;p&gt;Modify the code above to get points connected by line&lt;/p&gt;
+&lt;p&gt;Modify the code above to get points connected by a line&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../../post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Or to see both points and lines like on the plot below.&lt;/p&gt;
+&lt;p&gt;Or to see both points and a line like on the plot below.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../../post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;To the existing plot, you can add lines (&lt;code&gt;lines&lt;/code&gt;, &lt;code&gt;abline&lt;/code&gt;), points (&lt;code&gt;points&lt;/code&gt;), legend (&lt;code&gt;legend&lt;/code&gt;), text (&lt;code&gt;text&lt;/code&gt;) and other objects.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;gapminder-dataset&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Gapminder dataset&lt;/h2&gt;
-&lt;p&gt;Gapminder is a an excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country. It is distributed as R package. The following code loads gapminder (if missing, installs it) and prints the first few lines of its data frame:&lt;/p&gt;
+&lt;p&gt;Gapminder is a an excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country. It is distributed as R package. The following code loads &lt;code&gt;gapminder&lt;/code&gt; (if missing, installs it) and prints the first few lines:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# check if gapminder can be loaded, if not install it
 if (!require(&amp;quot;gapminder&amp;quot;)) {
   install.packages(&amp;quot;gapminder&amp;quot;)
@@ -70,18 +70,18 @@ head(gapminder)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;challenge-3&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Challenge 3&lt;/h4&gt;
-&lt;p&gt;For 2007, make a scatterplot of life expectancy vs. GDP per capita and color each state by its continent.&lt;/p&gt;
+&lt;p&gt;For 2007, make a scatter-plot of life expectancy vs. GDP per capita and color each state by its continent.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../../post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Now try to style the plot a bit by ading the title, labels and a legend.&lt;/p&gt;
+&lt;p&gt;Now try to style the plot a bit by adding the title, labels and a legend.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../../post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;histograms&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Histograms&lt;/h2&gt;
+&lt;div id=&#34;histogram&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Histogram&lt;/h2&gt;
 &lt;p&gt;Histograms are plotted with &lt;code&gt;hist&lt;/code&gt; function (see &lt;code&gt;?hist&lt;/code&gt; for help and examples).&lt;/p&gt;
 &lt;div id=&#34;challenge-4&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Challenge 4&lt;/h4&gt;
-&lt;p&gt;Plot a histogram of life expectancies in 2007 over all countries: &lt;img src=&#34;../../post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Plot a histogram of life expectancy in 2007 over all countries: &lt;img src=&#34;../../post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;barplot&#34; class=&#34;section level2&#34;&gt;
@@ -95,7 +95,7 @@ head(gapminder)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;more-than-one-plot-in-a-window&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;More than one plot in a window&lt;/h2&gt;
-&lt;p&gt;With a graphical parameter &lt;code&gt;mfrow&lt;/code&gt; we can get two or more plots into one window (or file). For example comparing the histogram plot to a density plot like below.&lt;/p&gt;
+&lt;p&gt;With a graphical parameter &lt;code&gt;mfrow&lt;/code&gt; we can get two or more plots into one window (or file). For example, see the comparison of the histogram to a density plot below.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;czech &amp;lt;- subset(gapminder, country == &amp;quot;Czech Republic&amp;quot;)
 
 par(mfrow = c(1,2)) # one row, two columns
@@ -108,7 +108,7 @@ plot(density(czech$gdpPercap), main=&amp;quot;Density&amp;quot;)&lt;/code&gt;&lt
 &lt;p&gt;Boxplots can be used to compare data from several groups.&lt;/p&gt;
 &lt;div id=&#34;challenge-6&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Challenge 6&lt;/h4&gt;
-&lt;p&gt;For 2007, compare life expectancies between the continents.&lt;/p&gt;
+&lt;p&gt;For 2007, compare life expectancy between the continents.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;year2007 &amp;lt;- subset(gapminder, year == 2007)
 
 # las = 2 plots text perpendicularly to axis
@@ -126,8 +126,9 @@ boxplot(lifeExp ~ continent, data=year2007, las=2)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Summary:&lt;/h2&gt;
-&lt;p&gt;You can do almost anything with base graphics but some common actions are not straightforward (nice colors, facetting, legends, error bars). Complex graphs can be time consuming and their code hard to read. R Base graphics is the best for qick exploratory analysis but for publication level graphics &lt;a href=&#34;http://ggplot2.org/&#34;&gt;ggplot2&lt;/a&gt; is superior.&lt;/p&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
+&lt;p&gt;You can do almost anything with base graphics but some common actions are not straightforward (nice colors, faceting, legends, error bars). Complex graphs can be time consuming and their code hard to read.&lt;/p&gt;
+&lt;p&gt;R Base graphics is great for a quick exploratory analysis but for a publication level graphics, I prefer &lt;a href=&#34;http://ggplot2.org/&#34;&gt;ggplot2&lt;/a&gt;. More about it next time.&lt;/p&gt;
 &lt;div id=&#34;sources&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Sources:&lt;/h4&gt;
 &lt;ul&gt;

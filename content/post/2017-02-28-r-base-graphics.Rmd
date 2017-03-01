@@ -9,7 +9,7 @@ output:
     toc: true
 ---
 
-One of the strength of R is its ability to produce a wide range of plots. Multiple plotting library exists and even the base R graphics is powerful and can be mastered in a few hours.
+One of the strengths of R is its ability to produce a wide range of plots. Multiple plotting libraries exist and even the base R graphics is powerful and can be mastered in a few hours.
 
 ## X-Y Plotting
 
@@ -26,13 +26,13 @@ Use `main` to set the title, `xlab` and `ylab` for x- and y- labels, `xlim` and 
 
 #### Challenge 1:
 
-Modify the code above to get points connected by line
+Modify the code above to get points connected by a line
 
 ```{r, echo=FALSE}
 plot(height, weight, type="l")
 ```
 
-Or to see both points and lines like on the plot below.
+Or to see both points and a line like on the plot below.
 
 ```{r, echo=FALSE}
 plot(height, weight, type="b")
@@ -42,7 +42,7 @@ To the existing plot, you can add lines (`lines`, `abline`), points (`points`), 
 
 ## Gapminder dataset
 
-Gapminder is a an excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country. It is distributed as R package. The following code loads gapminder (if missing, installs it) and prints the first few lines of its data frame:
+Gapminder is a an excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country. It is distributed as R package. The following code loads `gapminder` (if missing, installs it) and prints the first few lines:
 
 ```{r}
 # check if gapminder can be loaded, if not install it
@@ -78,7 +78,7 @@ year2007[max.idx,]
 
 #### Challenge 3
 
-For 2007, make a scatterplot of life expectancy vs. GDP per capita and color each state by its continent. 
+For 2007, make a scatter-plot of life expectancy vs. GDP per capita and color each state by its continent. 
 
 ```{r, echo=FALSE}
 year2007 <- subset(gapminder, year == 2007)
@@ -90,7 +90,7 @@ col <- as.numeric(year2007$continent) + 1
 plot(x=gdpPercap2007, y=lifeExp2007, col=col)
 ```
 
-Now try to style the plot a bit by ading the title, labels and a legend.
+Now try to style the plot a bit by adding the title, labels and a legend.
 
 ```{r, echo=FALSE}
 plot(x=gdpPercap2007, y=lifeExp2007, col=col, main="2007",
@@ -98,13 +98,13 @@ plot(x=gdpPercap2007, y=lifeExp2007, col=col, main="2007",
 legend("bottomright", levels(year2007$continent), col=2:6, pch=19)
 ```
 
-## Histograms
+## Histogram
 
 Histograms are plotted with `hist` function (see `?hist` for help and examples). 
 
 #### Challenge 4
 
-Plot a histogram of life expectancies in 2007 over all countries:
+Plot a histogram of life expectancy in 2007 over all countries:
 ```{r, echo=FALSE}
 year2007 <- subset(gapminder, year == 2007)
 lifeExp2007 <- year2007$lifeExp
@@ -129,7 +129,7 @@ barplot(czech$pop / 1e6, ylab="population [in millions]")
 
 ## More than one plot in a window
 
-With a graphical parameter `mfrow` we can get two or more plots into one window (or file). For example comparing the histogram plot to a density plot like below.
+With a graphical parameter `mfrow` we can get two or more plots into one window (or file). For example, see the comparison of the histogram to a density plot below.
 
 ```{r}
 czech <- subset(gapminder, country == "Czech Republic")
@@ -145,7 +145,7 @@ Boxplots can be used to compare data from several groups.
 
 #### Challenge 6
 
-For 2007, compare life expectancies between the continents.
+For 2007, compare life expectancy between the continents.
 
 ```{r}
 year2007 <- subset(gapminder, year == 2007)
@@ -176,9 +176,11 @@ dev.off()
 
 Are the plots same or different? Why?
 
-## Summary:
+## Summary
 
-You can do almost anything with base graphics but some common actions are not straightforward (nice colors, facetting, legends, error bars). Complex graphs can be time consuming and their code hard to read. R Base graphics is the best for qick exploratory analysis but for publication level graphics [ggplot2](http://ggplot2.org/) is superior.
+You can do almost anything with base graphics but some common actions are not straightforward (nice colors, faceting, legends, error bars). Complex graphs can be time consuming and their code hard to read. 
+
+R Base graphics is great for a quick exploratory analysis but for a publication level graphics, I prefer [ggplot2](http://ggplot2.org/). More about it next time.
 
 #### Sources:
 
