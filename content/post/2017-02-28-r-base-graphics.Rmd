@@ -1,0 +1,179 @@
+---
+title: R Base Graphics
+date: '2017-02-28'
+slug: r-base-graphics
+categories:
+  - R
+---
+
+One of the strength of R is its ability to produce a wide range of plots. Multiple plotting library exists and even the base R graphics is powerful and can be mastered in a few hours.
+
+## X-Y Plotting
+
+Basic plot call takes the following form `plot(x=, y=)`, for example
+
+```{r}
+height <- c(123, 145, 150, 167, 176)
+weight <- c(40, 51, 55, 63, 64)
+
+plot(height, weight)
+```
+
+Use `main` to set the title, `xlab` and `ylab` for x- and y- labels, `xlim` and `ylim` for x- and y- limits, `type` to set a type of the graph ("p"=points, "l"=lines, "b"=both, "n"=none) and `col` to choose colors.
+
+#### Challenge 1:
+
+Modify the code above to get points connected by line
+
+```{r, echo=FALSE}
+plot(height, weight, type="l")
+```
+
+Or to see both points and lines like on the plot below.
+
+```{r, echo=FALSE}
+plot(height, weight, type="b")
+```
+
+To the existing plot, you can add lines (`lines`, `abline`), points (`points`), legend (`legend`), text (`text`) and other objects.
+
+## Gapminder dataset
+
+Gapminder is a an excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country. It is distributed as R package. The following code loads gapminder (and if missing install it) and prints the first few lines:
+
+```{r}
+# check if gapminder can be loaded, if not install it
+if (!require("gapminder")) {
+  install.packages("gapminder")
+  library("gapminder")
+}
+
+data(gapminder)
+head(gapminder)
+```
+
+Type `?gapminder` into your console to get info about the dataset and try to answer the following questions.
+
+#### Challenge 2
+
+How many rows and columns are in gapminder? What was the population of Czech Republic in 1952? Which country has the highest GDP per capita in 2007?
+
+```{r, include=FALSE}
+# number of rows and columns 
+nrow(gapminder)
+ncol(gapminder)
+dim(gapminder)
+
+# life expectancy in 1952 Czechia
+subset(gapminder, country=="Czech Republic" & year == 1952)
+
+# highest GDP per capita in 2007
+year2007 <- subset(gapminder, year == 2007)
+max.idx <- which.max(year2007$gdpPercap)
+year2007[max.idx,]
+```
+
+#### Challenge 3
+
+For 2007, make a scatterplot of life expectancy vs. GDP per capita and color each state by its continent. 
+
+```{r, echo=FALSE}
+year2007 <- subset(gapminder, year == 2007)
+gdpPercap2007 <- year2007$gdpPercap
+lifeExp2007 <- year2007$lifeExp
+# use as.numeric to convert factor to integer (+1 to avoid black)
+col <- as.numeric(year2007$continent) + 1
+
+plot(x=gdpPercap2007, y=lifeExp2007, col=col)
+```
+
+Now try to style the plot a bit by ading the title, labels and a legend.
+
+```{r, echo=FALSE}
+plot(x=gdpPercap2007, y=lifeExp2007, col=col, main="2007",
+     xlab = "GDP per capita [US dollars]", ylab = "life expectancy at birth [years]", pch=19)
+legend("bottomright", levels(year2007$continent), col=2:6, pch=19)
+```
+
+## Histograms
+
+Histograms are plotted with `hist` function (see `?hist` for help and examples). 
+
+#### Challenge 4
+
+Plot a histogram of life expectancies in 2007 over all countries:
+```{r, echo=FALSE}
+year2007 <- subset(gapminder, year == 2007)
+lifeExp2007 <- year2007$lifeExp
+
+hist(x = lifeExp2007)
+```
+
+## Barplot
+
+Barplots are plotted with `barplot` function. 
+
+#### Challenge 5
+
+Visualize how the population of the Czech Republic grows by a line and a barplot. Which plot do you prefer?
+
+```{r, echo=FALSE}
+czech <- subset(gapminder, country == "Czech Republic")
+
+plot(x = czech$year, y = czech$pop / 1e6, type="l", las=2)
+barplot(czech$pop / 1e6, ylab="population [in millions]")
+```
+
+## More than one plot in a window
+
+With a graphical parameter `mfrow` we can get two or more plots into one window (or file). For example comparing the histogram plot to a density plot like below.
+
+```{r}
+czech <- subset(gapminder, country == "Czech Republic")
+
+par(mfrow = c(1,2)) # one row, two columns
+hist(czech$gdpPercap, main="Histogram")
+plot(density(czech$gdpPercap), main="Density")
+```
+
+## Boxplot
+
+Boxplots can be used to compare data from several groups. 
+
+#### Challenge 6
+
+For 2007, compare life expectancies between the continents.
+
+```{r}
+year2007 <- subset(gapminder, year == 2007)
+
+# las = 2 plots text perpendicularly to axis
+boxplot(lifeExp ~ continent, data=year2007, las=2)
+```
+
+## Saving the plots
+
+See the help and examples for `pdf`, `png`, `dev.off` and `dev.copy` functions.
+
+#### Challenge 7
+
+Save the last plot into PDF and PNG files.
+
+```{r, echo=FALSE, include=FALSE}
+# png
+png("boxplot.png", width = 500, height = 500, res = 72)
+  boxplot(lifeExp ~ continent, data=year2007, las=2)
+dev.off()
+
+# pdf
+pdf("boxplot.pdf", width = 6, height = 6)
+  boxplot(lifeExp ~ continent, data=year2007, las=2)
+dev.off()
+```
+
+Are the plots same or different? Why?
+
+## Sources:
+
+* [http://rpubs.com/SusanEJohnston/7953](http://rpubs.com/SusanEJohnston/7953)
+* [http://www.statmethods.net/graphs/scatterplot.html](http://www.statmethods.net/graphs/scatterplot.html)

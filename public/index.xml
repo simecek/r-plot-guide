@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lithium Theme</title>
+    <link>/index.xml</link>
+    <description>Recent content on Lithium Theme</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Feb 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>R Base Graphics</title>
+      <link>/2017/02/28/r-base-graphics/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/02/28/r-base-graphics/</guid>
+      <description>&lt;p&gt;One of the strength of R is its ability to produce a wide range of plots. Multiple plotting library exists and even the base R graphics is powerful and can be mastered in a few hours.&lt;/p&gt;
+&lt;div id=&#34;x-y-plotting&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;X-Y Plotting&lt;/h2&gt;
+&lt;p&gt;Basic plot call takes the following form &lt;code&gt;plot(x=, y=)&lt;/code&gt;, for example&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;height &amp;lt;- c(123, 145, 150, 167, 176)
+weight &amp;lt;- c(40, 51, 55, 63, 64)
+
+plot(height, weight)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Use &lt;code&gt;main&lt;/code&gt; to set the title, &lt;code&gt;xlab&lt;/code&gt; and &lt;code&gt;ylab&lt;/code&gt; for x- and y- labels, &lt;code&gt;xlim&lt;/code&gt; and &lt;code&gt;ylim&lt;/code&gt; for x- and y- limits, &lt;code&gt;type&lt;/code&gt; to set a type of the graph (“p”=points, “l”=lines, “b”=both, “n”=none) and &lt;code&gt;col&lt;/code&gt; to choose colors.&lt;/p&gt;
+&lt;div id=&#34;challenge-1&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 1:&lt;/h4&gt;
+&lt;p&gt;Modify the code above to get points connected by line&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Or to see both points and lines like on the plot below.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;To the existing plot, you can add lines (&lt;code&gt;lines&lt;/code&gt;, &lt;code&gt;abline&lt;/code&gt;), points (&lt;code&gt;points&lt;/code&gt;), legend (&lt;code&gt;legend&lt;/code&gt;), text (&lt;code&gt;text&lt;/code&gt;) and other objects.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;gapminder-dataset&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Gapminder dataset&lt;/h2&gt;
+&lt;p&gt;Gapminder is a an excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country. It is distributed as R package. The following code loads gapminder (and if missing install it) and prints the first few lines:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# check if gapminder can be loaded, if not install it
+if (!require(&amp;quot;gapminder&amp;quot;)) {
+  install.packages(&amp;quot;gapminder&amp;quot;)
+  library(&amp;quot;gapminder&amp;quot;)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: gapminder&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data(gapminder)
+head(gapminder)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##       country continent year lifeExp      pop gdpPercap
+## 1 Afghanistan      Asia 1952  28.801  8425333  779.4453
+## 2 Afghanistan      Asia 1957  30.332  9240934  820.8530
+## 3 Afghanistan      Asia 1962  31.997 10267083  853.1007
+## 4 Afghanistan      Asia 1967  34.020 11537966  836.1971
+## 5 Afghanistan      Asia 1972  36.088 13079460  739.9811
+## 6 Afghanistan      Asia 1977  38.438 14880372  786.1134&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Type &lt;code&gt;?gapminder&lt;/code&gt; into your console to get info about the dataset and try to answer the following questions.&lt;/p&gt;
+&lt;div id=&#34;challenge-2&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 2&lt;/h4&gt;
+&lt;p&gt;How many rows and columns are in gapminder? What was the population of Czech Republic in 1952? Which country has the highest GDP per capita in 2007?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;challenge-3&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 3&lt;/h4&gt;
+&lt;p&gt;For 2007, make a scatterplot of life expectancy vs. GDP per capita and color each state by its continent.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Now try to style the plot a bit by ading the title, labels and a legend.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;histograms&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Histograms&lt;/h2&gt;
+&lt;p&gt;Histograms are plotted with &lt;code&gt;hist&lt;/code&gt; function (see &lt;code&gt;?hist&lt;/code&gt; for help and examples).&lt;/p&gt;
+&lt;div id=&#34;challenge-4&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 4&lt;/h4&gt;
+&lt;p&gt;Plot a histogram of life expectancies in 2007 over all countries: &lt;img src=&#34;./post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;barplot&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Barplot&lt;/h2&gt;
+&lt;p&gt;Barplots are plotted with &lt;code&gt;barplot&lt;/code&gt; function.&lt;/p&gt;
+&lt;div id=&#34;challenge-5&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 5&lt;/h4&gt;
+&lt;p&gt;Visualize how the population of the Czech Republic grows by a line and a barplot. Which plot do you prefer?&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;img src=&#34;./post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-9-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;more-than-one-plot-in-a-window&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;More than one plot in a window&lt;/h2&gt;
+&lt;p&gt;With a graphical parameter &lt;code&gt;mfrow&lt;/code&gt; we can get two or more plots into one window (or file). For example comparing the histogram plot to a density plot like below.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;czech &amp;lt;- subset(gapminder, country == &amp;quot;Czech Republic&amp;quot;)
+
+par(mfrow = c(1,2)) # one row, two columns
+hist(czech$gdpPercap, main=&amp;quot;Histogram&amp;quot;)
+plot(density(czech$gdpPercap), main=&amp;quot;Density&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;boxplot&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Boxplot&lt;/h2&gt;
+&lt;p&gt;Boxplots can be used to compare data from several groups.&lt;/p&gt;
+&lt;div id=&#34;challenge-6&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 6&lt;/h4&gt;
+&lt;p&gt;For 2007, compare life expectancies between the continents.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;year2007 &amp;lt;- subset(gapminder, year == 2007)
+
+# las = 2 plots text perpendicularly to axis
+boxplot(lifeExp ~ continent, data=year2007, las=2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;saving-the-plots&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Saving the plots&lt;/h2&gt;
+&lt;p&gt;See the help and examples for &lt;code&gt;pdf&lt;/code&gt;, &lt;code&gt;png&lt;/code&gt;, &lt;code&gt;dev.off&lt;/code&gt; and &lt;code&gt;dev.copy&lt;/code&gt; functions.&lt;/p&gt;
+&lt;div id=&#34;challenge-7&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 7&lt;/h4&gt;
+&lt;p&gt;Save the last plot into PDF and PNG files.&lt;/p&gt;
+&lt;p&gt;Are the plots same or different? Why?&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sources&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Sources:&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://rpubs.com/SusanEJohnston/7953&#34; class=&#34;uri&#34;&gt;http://rpubs.com/SusanEJohnston/7953&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.statmethods.net/graphs/scatterplot.html&#34; class=&#34;uri&#34;&gt;http://www.statmethods.net/graphs/scatterplot.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
+      
+      <guid>/about/</guid>
+      <description>&lt;p&gt;This site is powered by &lt;a href=&#34;https://github.com/rstudio/blogdown&#34;&gt;&lt;strong&gt;blogdown&lt;/strong&gt;&lt;/a&gt; package. The theme was forked from &lt;a href=&#34;https://github.com/jrutheiser/hugo-lithium-theme&#34;&gt;@jrutheiser/hugo-lithium-theme&lt;/a&gt; and modified by &lt;a href=&#34;https://github.com/yihui/hugo-lithium-theme&#34;&gt;Yihui Xie&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

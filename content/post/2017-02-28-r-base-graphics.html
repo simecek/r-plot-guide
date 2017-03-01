@@ -1,0 +1,115 @@
+---
+title: R Base Graphics
+date: '2017-02-28'
+slug: r-base-graphics
+categories:
+  - R
+---
+
+
+<p>One of the strength of R is its ability to produce a wide range of plots. Multiple plotting library exists and even the base R graphics is powerful and can be mastered in a few hours.</p>
+<div id="x-y-plotting" class="section level2">
+<h2>X-Y Plotting</h2>
+<p>Basic plot call takes the following form <code>plot(x=, y=)</code>, for example</p>
+<pre class="r"><code>height &lt;- c(123, 145, 150, 167, 176)
+weight &lt;- c(40, 51, 55, 63, 64)
+
+plot(height, weight)</code></pre>
+<p><img src="/post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>Use <code>main</code> to set the title, <code>xlab</code> and <code>ylab</code> for x- and y- labels, <code>xlim</code> and <code>ylim</code> for x- and y- limits, <code>type</code> to set a type of the graph (“p”=points, “l”=lines, “b”=both, “n”=none) and <code>col</code> to choose colors.</p>
+<div id="challenge-1" class="section level4">
+<h4>Challenge 1:</h4>
+<p>Modify the code above to get points connected by line</p>
+<p><img src="/post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Or to see both points and lines like on the plot below.</p>
+<p><img src="/post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>To the existing plot, you can add lines (<code>lines</code>, <code>abline</code>), points (<code>points</code>), legend (<code>legend</code>), text (<code>text</code>) and other objects.</p>
+</div>
+</div>
+<div id="gapminder-dataset" class="section level2">
+<h2>Gapminder dataset</h2>
+<p>Gapminder is a an excerpt of the Gapminder data on life expectancy, GDP per capita, and population by country. It is distributed as R package. The following code loads gapminder (and if missing install it) and prints the first few lines:</p>
+<pre class="r"><code># check if gapminder can be loaded, if not install it
+if (!require(&quot;gapminder&quot;)) {
+  install.packages(&quot;gapminder&quot;)
+  library(&quot;gapminder&quot;)
+}</code></pre>
+<pre><code>## Loading required package: gapminder</code></pre>
+<pre class="r"><code>data(gapminder)
+head(gapminder)</code></pre>
+<pre><code>##       country continent year lifeExp      pop gdpPercap
+## 1 Afghanistan      Asia 1952  28.801  8425333  779.4453
+## 2 Afghanistan      Asia 1957  30.332  9240934  820.8530
+## 3 Afghanistan      Asia 1962  31.997 10267083  853.1007
+## 4 Afghanistan      Asia 1967  34.020 11537966  836.1971
+## 5 Afghanistan      Asia 1972  36.088 13079460  739.9811
+## 6 Afghanistan      Asia 1977  38.438 14880372  786.1134</code></pre>
+<p>Type <code>?gapminder</code> into your console to get info about the dataset and try to answer the following questions.</p>
+<div id="challenge-2" class="section level4">
+<h4>Challenge 2</h4>
+<p>How many rows and columns are in gapminder? What was the population of Czech Republic in 1952? Which country has the highest GDP per capita in 2007?</p>
+</div>
+<div id="challenge-3" class="section level4">
+<h4>Challenge 3</h4>
+<p>For 2007, make a scatterplot of life expectancy vs. GDP per capita and color each state by its continent.</p>
+<p><img src="/post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Now try to style the plot a bit by ading the title, labels and a legend.</p>
+<p><img src="/post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+</div>
+<div id="histograms" class="section level2">
+<h2>Histograms</h2>
+<p>Histograms are plotted with <code>hist</code> function (see <code>?hist</code> for help and examples).</p>
+<div id="challenge-4" class="section level4">
+<h4>Challenge 4</h4>
+<p>Plot a histogram of life expectancies in 2007 over all countries: <img src="/post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+</div>
+<div id="barplot" class="section level2">
+<h2>Barplot</h2>
+<p>Barplots are plotted with <code>barplot</code> function.</p>
+<div id="challenge-5" class="section level4">
+<h4>Challenge 5</h4>
+<p>Visualize how the population of the Czech Republic grows by a line and a barplot. Which plot do you prefer?</p>
+<p><img src="/post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-9-1.png" width="672" /><img src="/post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
+</div>
+</div>
+<div id="more-than-one-plot-in-a-window" class="section level2">
+<h2>More than one plot in a window</h2>
+<p>With a graphical parameter <code>mfrow</code> we can get two or more plots into one window (or file). For example comparing the histogram plot to a density plot like below.</p>
+<pre class="r"><code>czech &lt;- subset(gapminder, country == &quot;Czech Republic&quot;)
+
+par(mfrow = c(1,2)) # one row, two columns
+hist(czech$gdpPercap, main=&quot;Histogram&quot;)
+plot(density(czech$gdpPercap), main=&quot;Density&quot;)</code></pre>
+<p><img src="/post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="boxplot" class="section level2">
+<h2>Boxplot</h2>
+<p>Boxplots can be used to compare data from several groups.</p>
+<div id="challenge-6" class="section level4">
+<h4>Challenge 6</h4>
+<p>For 2007, compare life expectancies between the continents.</p>
+<pre class="r"><code>year2007 &lt;- subset(gapminder, year == 2007)
+
+# las = 2 plots text perpendicularly to axis
+boxplot(lifeExp ~ continent, data=year2007, las=2)</code></pre>
+<p><img src="/post/2017-02-28-r-base-graphics_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+</div>
+<div id="saving-the-plots" class="section level2">
+<h2>Saving the plots</h2>
+<p>See the help and examples for <code>pdf</code>, <code>png</code>, <code>dev.off</code> and <code>dev.copy</code> functions.</p>
+<div id="challenge-7" class="section level4">
+<h4>Challenge 7</h4>
+<p>Save the last plot into PDF and PNG files.</p>
+<p>Are the plots same or different? Why?</p>
+</div>
+</div>
+<div id="sources" class="section level2">
+<h2>Sources:</h2>
+<ul>
+<li><a href="http://rpubs.com/SusanEJohnston/7953" class="uri">http://rpubs.com/SusanEJohnston/7953</a></li>
+<li><a href="http://www.statmethods.net/graphs/scatterplot.html" class="uri">http://www.statmethods.net/graphs/scatterplot.html</a></li>
+</ul>
+</div>
