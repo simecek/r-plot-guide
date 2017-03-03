@@ -6,8 +6,164 @@
     <description>Recent content in Posts on Lithium Theme</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Feb 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 02 Mar 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Grammar of graphics (ggplot2) [Part 1]</title>
+      <link>/2017/03/02/grammar-of-graphics-ggplot2/</link>
+      <pubDate>Thu, 02 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/03/02/grammar-of-graphics-ggplot2/</guid>
+      <description>&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#mpg-dataset&#34;&gt;mpg dataset&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#aesthetic-mappings&#34;&gt;aesthetic mappings&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#set-vs.map&#34;&gt;set vs. map&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#facets&#34;&gt;facets&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#geoms&#34;&gt;geoms&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#grouping&#34;&gt;grouping&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#diamonds-dataset&#34;&gt;diamonds dataset&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#stats&#34;&gt;stats&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#position-adjustment&#34;&gt;position adjustment&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#coordinate-systems&#34;&gt;coordinate systems&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#summary&#34;&gt;Summary&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;ggplot2 is a plotting system for R, based on the grammar of graphics, which tries to take the good parts of base and lattice graphics and none of the bad parts.&lt;/p&gt;
+&lt;div id=&#34;mpg-dataset&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;mpg dataset&lt;/h2&gt;
+&lt;p&gt;Fuel economy data from 1999 and 2008 for 38 popular models of car., see &lt;code&gt;?mpg&lt;/code&gt; for details.&lt;/p&gt;
+&lt;p&gt;What is the relationship between an engine size &lt;code&gt;displ&lt;/code&gt; and mileage on highway &lt;code&gt;hwy&lt;/code&gt;?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = mpg) +
+  geom_point(aes(x = displ, y = hwy))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;aesthetic-mappings&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;aesthetic mappings&lt;/h2&gt;
+&lt;p&gt;Aesthetic mappings &lt;code&gt;aes&lt;/code&gt; connect data space and visual spaces.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;set-vs.map&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;set vs. map&lt;/h2&gt;
+&lt;div id=&#34;challenge-1&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 1&lt;/h4&gt;
+&lt;p&gt;What is a difference between those two graphs? First guess, then try.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Graph 1: color is in aes
+ggplot(data = mpg) + geom_point(aes(x = displ, y = hwy, color = &amp;quot;green&amp;quot;))
+# Graph 2: color is out of aes
+ggplot(data = mpg) + geom_point(aes(x = displ, y = hwy), color = &amp;quot;green&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Why is that?&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;facets&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;facets&lt;/h2&gt;
+&lt;p&gt;There are two functions for facets: &lt;code&gt;facet_grid&lt;/code&gt; (= 2D grid) and &lt;code&gt;facet_wrap&lt;/code&gt; (= 1D ribbon wrapped into 2D).&lt;/p&gt;
+&lt;div id=&#34;challenge-2&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 2:&lt;/h4&gt;
+&lt;p&gt;What will be the arrangement of the following four graphs. First guess, then try.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p &amp;lt;- ggplot(data = mpg) + geom_point(aes(x = displ, y = hwy))
+p + facet_grid(. ~ cyl)
+p + facet_grid(. ~ cyl)
+p + facet_grid(drv ~ cyl)
+p + facet_wrap(~ class)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;geoms&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;geoms&lt;/h2&gt;
+&lt;p&gt;Download &lt;a href=&#34;https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf&#34;&gt;ggplot2 Cheat Sheet&lt;/a&gt; to see many geoms of ggplot2.&lt;/p&gt;
+&lt;div id=&#34;challenge-3&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 3:&lt;/h4&gt;
+&lt;p&gt;There are many ways how to capture dependence between a car type &lt;code&gt;class&lt;/code&gt; and mileage &lt;code&gt;hwy&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = mpg, aes(x = class, y = hwy))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Try to add different geoms from cheat sheet to get different visualization. For example, adding &lt;code&gt;geom_boxplot&lt;/code&gt; will look like&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = mpg, aes(x = class, y = hwy)) +
+  geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;challenge-4&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 4:&lt;/h4&gt;
+&lt;p&gt;What happens if you try to add multiple geoms? First guess, then try.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;grouping&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;grouping&lt;/h2&gt;
+&lt;p&gt;Automatically draws a geom for each group, for example&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = mpg, aes(x = displ, y = hwy, color = drv)) +
+  geom_point() +
+  geom_smooth(se = FALSE) # se = std. error bars&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &amp;#39;loess&amp;#39; and formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;challenge-5&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 5:&lt;/h4&gt;
+&lt;p&gt;Try to create the following plot.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;diamonds-dataset&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;diamonds dataset&lt;/h2&gt;
+&lt;p&gt;A dataset containing the prices and other attributes of almost 54,000 diamonds. Try &lt;code&gt;?diamonds&lt;/code&gt; and &lt;code&gt;?View(diamonds)&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;stats&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;stats&lt;/h2&gt;
+&lt;p&gt;Many geoms display not raw data but values derived from the raw data. The process that calculates the values is called &lt;code&gt;stat&lt;/code&gt;.&lt;/p&gt;
+&lt;div id=&#34;challenge-6&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 6:&lt;/h4&gt;
+&lt;p&gt;Guess what ggplot2 puts on the y axis? Try and see.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(diamonds, aes(x=cut)) +
+  geom_bar()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;position-adjustment&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;position adjustment&lt;/h2&gt;
+&lt;div id=&#34;challenge-7&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 7:&lt;/h4&gt;
+&lt;p&gt;What do each of these adjustment do? (run the code and interpret)&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p &amp;lt;- ggplot(diamonds, aes(x = cut, fill = clarity))
+p + geom_bar(position = &amp;quot;stack&amp;quot;)
+p + geom_bar(position = &amp;quot;dodge&amp;quot;)
+p + geom_bar(position = &amp;quot;identity&amp;quot;)
+p + geom_bar(position = &amp;quot;fill&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Another frequent use of position argument is jittering, that is moving each point a bit in a random direction to avoid overplotting.&lt;/p&gt;
+&lt;p&gt;Compare the following two plots. The are 236 data points on the second one, but only 126 data points on the first one.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p &amp;lt;- ggplot(mpg, aes(displ, hwy))
+p + geom_point() + ggtitle(&amp;quot;No jittering&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p + geom_point(position = &amp;quot;jitter&amp;quot;) + ggtitle(&amp;quot;Jittered&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-12-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;coordinate-systems&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;coordinate systems&lt;/h2&gt;
+&lt;p&gt;A pie chart is just a bar chart in polar coordinates.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(diamonds, aes(x = factor(1), fill = cut)) +
+  geom_bar(width = 1) +
+  coord_polar(theta=&amp;quot;y&amp;quot;) + 
+  theme_void() # to remove grey backgroud&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;challenge-7-1&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 7:&lt;/h4&gt;
+&lt;p&gt;Read about coordinate systems on ggplot2 cheat sheet. How to you switch x and y axis to get the following graph?&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
+&lt;p&gt;There is more that one approach to ggplot2. It might be viewed as a magic set of powerful spells that you discover on StackExchange or Kaggle, memorize and later use on your dataset.&lt;/p&gt;
+&lt;p&gt;However, if your understand how ggplot2 magic works, you can become much more powerful magician.&lt;/p&gt;
+&lt;p&gt;Next time we will learn how to make ggplot2 output not to look like (grey ugly) ggplot2 output but rather something like &lt;a href=&#34;https://www.kaggle.com/juliasilge/d/stackoverflow/stacklite/weekends-and-weekdays&#34;&gt;this&lt;/a&gt;.&lt;/p&gt;
+&lt;div id=&#34;sources&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Sources:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Data Visualization with ggplot2 (rstudio::conf, Tidyverse workshop)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://ggplot2.org/&#34;&gt;ggplot2 documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>R Base Graphics</title>

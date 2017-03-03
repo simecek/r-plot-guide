@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.19" />
+
+
+<title>Grammar of graphics (ggplot2) [Part 1] - Lithium Theme</title>
+<meta property="og:title" content="Grammar of graphics (ggplot2) [Part 1] - Lithium Theme">
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css' rel='stylesheet' type='text/css'>
+
+
+
+<link rel="stylesheet" href="../../../../css/fonts.css" media="all">
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="../../../../" class="nav-logo">
+    <img src="../../../../images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="../../../../about/">About</a></li>
+    
+    <li><a href="https://github.com/simecek">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/simecek">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">4 min read</span>
+    
+
+    <h1 class="article-title">Grammar of graphics (ggplot2) [Part 1]</h1>
+
+    
+    <span class="article-date">2017/03/02</span>
+    
+
+    <div class="article-content">
+      <div id="TOC">
+<ul>
+<li><a href="#mpg-dataset">mpg dataset</a></li>
+<li><a href="#aesthetic-mappings">aesthetic mappings</a></li>
+<li><a href="#set-vs.map">set vs. map</a></li>
+<li><a href="#facets">facets</a></li>
+<li><a href="#geoms">geoms</a></li>
+<li><a href="#grouping">grouping</a></li>
+<li><a href="#diamonds-dataset">diamonds dataset</a></li>
+<li><a href="#stats">stats</a></li>
+<li><a href="#position-adjustment">position adjustment</a></li>
+<li><a href="#coordinate-systems">coordinate systems</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul>
+</div>
+<p>ggplot2 is a plotting system for R, based on the grammar of graphics, which tries to take the good parts of base and lattice graphics and none of the bad parts.</p>
+<div id="mpg-dataset" class="section level2">
+<h2>mpg dataset</h2>
+<p>Fuel economy data from 1999 and 2008 for 38 popular models of car., see <code>?mpg</code> for details.</p>
+<p>What is the relationship between an engine size <code>displ</code> and mileage on highway <code>hwy</code>?</p>
+<pre class="r"><code>ggplot(data = mpg) +
+  geom_point(aes(x = displ, y = hwy))</code></pre>
+<p><img src="../../../../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="aesthetic-mappings" class="section level2">
+<h2>aesthetic mappings</h2>
+<p>Aesthetic mappings <code>aes</code> connect data space and visual spaces.</p>
+</div>
+<div id="set-vs.map" class="section level2">
+<h2>set vs. map</h2>
+<div id="challenge-1" class="section level4">
+<h4>Challenge 1</h4>
+<p>What is a difference between those two graphs? First guess, then try.</p>
+<pre class="r"><code># Graph 1: color is in aes
+ggplot(data = mpg) + geom_point(aes(x = displ, y = hwy, color = &quot;green&quot;))
+# Graph 2: color is out of aes
+ggplot(data = mpg) + geom_point(aes(x = displ, y = hwy), color = &quot;green&quot;)</code></pre>
+<p>Why is that?</p>
+</div>
+</div>
+<div id="facets" class="section level2">
+<h2>facets</h2>
+<p>There are two functions for facets: <code>facet_grid</code> (= 2D grid) and <code>facet_wrap</code> (= 1D ribbon wrapped into 2D).</p>
+<div id="challenge-2" class="section level4">
+<h4>Challenge 2:</h4>
+<p>What will be the arrangement of the following four graphs. First guess, then try.</p>
+<pre class="r"><code>p &lt;- ggplot(data = mpg) + geom_point(aes(x = displ, y = hwy))
+p + facet_grid(. ~ cyl)
+p + facet_grid(. ~ cyl)
+p + facet_grid(drv ~ cyl)
+p + facet_wrap(~ class)</code></pre>
+</div>
+</div>
+<div id="geoms" class="section level2">
+<h2>geoms</h2>
+<p>Download <a href="https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf">ggplot2 Cheat Sheet</a> to see many geoms of ggplot2.</p>
+<div id="challenge-3" class="section level4">
+<h4>Challenge 3:</h4>
+<p>There are many ways how to capture dependence between a car type <code>class</code> and mileage <code>hwy</code>.</p>
+<pre class="r"><code>ggplot(data = mpg, aes(x = class, y = hwy))</code></pre>
+<p>Try to add different geoms from cheat sheet to get different visualization. For example, adding <code>geom_boxplot</code> will look like</p>
+<pre class="r"><code>ggplot(data = mpg, aes(x = class, y = hwy)) +
+  geom_boxplot()</code></pre>
+<p><img src="../../../../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="challenge-4" class="section level4">
+<h4>Challenge 4:</h4>
+<p>What happens if you try to add multiple geoms? First guess, then try.</p>
+<pre class="r"><code>ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth()</code></pre>
+</div>
+</div>
+<div id="grouping" class="section level2">
+<h2>grouping</h2>
+<p>Automatically draws a geom for each group, for example</p>
+<pre class="r"><code>ggplot(data = mpg, aes(x = displ, y = hwy, color = drv)) +
+  geom_point() +
+  geom_smooth(se = FALSE) # se = std. error bars</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="../../../../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div id="challenge-5" class="section level4">
+<h4>Challenge 5:</h4>
+<p>Try to create the following plot.</p>
+<p><img src="../../../../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+</div>
+<div id="diamonds-dataset" class="section level2">
+<h2>diamonds dataset</h2>
+<p>A dataset containing the prices and other attributes of almost 54,000 diamonds. Try <code>?diamonds</code> and <code>?View(diamonds)</code>.</p>
+</div>
+<div id="stats" class="section level2">
+<h2>stats</h2>
+<p>Many geoms display not raw data but values derived from the raw data. The process that calculates the values is called <code>stat</code>.</p>
+<div id="challenge-6" class="section level4">
+<h4>Challenge 6:</h4>
+<p>Guess what ggplot2 puts on the y axis? Try and see.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x=cut)) +
+  geom_bar()</code></pre>
+</div>
+</div>
+<div id="position-adjustment" class="section level2">
+<h2>position adjustment</h2>
+<div id="challenge-7" class="section level4">
+<h4>Challenge 7:</h4>
+<p>What do each of these adjustment do? (run the code and interpret)</p>
+<pre class="r"><code>p &lt;- ggplot(diamonds, aes(x = cut, fill = clarity))
+p + geom_bar(position = &quot;stack&quot;)
+p + geom_bar(position = &quot;dodge&quot;)
+p + geom_bar(position = &quot;identity&quot;)
+p + geom_bar(position = &quot;fill&quot;)</code></pre>
+<p>Another frequent use of position argument is jittering, that is moving each point a bit in a random direction to avoid overplotting.</p>
+<p>Compare the following two plots. The are 236 data points on the second one, but only 126 data points on the first one.</p>
+<pre class="r"><code>p &lt;- ggplot(mpg, aes(displ, hwy))
+p + geom_point() + ggtitle(&quot;No jittering&quot;)</code></pre>
+<p><img src="../../../../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<pre class="r"><code>p + geom_point(position = &quot;jitter&quot;) + ggtitle(&quot;Jittered&quot;)</code></pre>
+<p><img src="../../../../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-12-2.png" width="672" /></p>
+</div>
+</div>
+<div id="coordinate-systems" class="section level2">
+<h2>coordinate systems</h2>
+<p>A pie chart is just a bar chart in polar coordinates.</p>
+<pre class="r"><code>ggplot(diamonds, aes(x = factor(1), fill = cut)) +
+  geom_bar(width = 1) +
+  coord_polar(theta=&quot;y&quot;) + 
+  theme_void() # to remove grey backgroud</code></pre>
+<p><img src="../../../../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div id="challenge-7-1" class="section level4">
+<h4>Challenge 7:</h4>
+<p>Read about coordinate systems on ggplot2 cheat sheet. How to you switch x and y axis to get the following graph?</p>
+<p><img src="../../../../post/2017-03-02-grammar-of-graphics-ggplot2_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>There is more that one approach to ggplot2. It might be viewed as a magic set of powerful spells that you discover on StackExchange or Kaggle, memorize and later use on your dataset.</p>
+<p>However, if your understand how ggplot2 magic works, you can become much more powerful magician.</p>
+<p>Next time we will learn how to make ggplot2 output not to look like (grey ugly) ggplot2 output but rather something like <a href="https://www.kaggle.com/juliasilge/d/stackoverflow/stacklite/weekends-and-weekdays">this</a>.</p>
+<div id="sources" class="section level4">
+<h4>Sources:</h4>
+<ul>
+<li>Data Visualization with ggplot2 (rstudio::conf, Tidyverse workshop)</li>
+<li><a href="http://ggplot2.org/">ggplot2 documentation</a></li>
+</ul>
+</div>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="../../../../images/hugo-logo.png" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+
