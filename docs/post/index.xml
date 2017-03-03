@@ -49,9 +49,11 @@
 &lt;h4&gt;Challenge 1&lt;/h4&gt;
 &lt;p&gt;What is a difference between those two graphs? First guess, then try.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Graph 1: color is in aes
-ggplot(data = mpg) + geom_point(aes(x = displ, y = hwy, color = &amp;quot;green&amp;quot;))
+ggplot(data = mpg) + 
+  geom_point(aes(x = displ, y = hwy, color = &amp;quot;green&amp;quot;))
 # Graph 2: color is out of aes
-ggplot(data = mpg) + geom_point(aes(x = displ, y = hwy), color = &amp;quot;green&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+ggplot(data = mpg) + 
+  geom_point(aes(x = displ, y = hwy), color = &amp;quot;green&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Why is that?&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -61,7 +63,7 @@ ggplot(data = mpg) + geom_point(aes(x = displ, y = hwy), color = &amp;quot;green
 &lt;div id=&#34;challenge-2&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Challenge 2:&lt;/h4&gt;
 &lt;p&gt;What will be the arrangement of the following four graphs. First guess, then try.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p &amp;lt;- ggplot(data = mpg) + geom_point(aes(x = displ, y = hwy))
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p &amp;lt;- ggplot(data = mpg) + geom_point(aes(x=displ, y=hwy))
 p + facet_grid(. ~ cyl)
 p + facet_grid(. ~ cyl)
 p + facet_grid(drv ~ cyl)
