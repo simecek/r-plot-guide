@@ -1,0 +1,161 @@
+---
+title: Grammar of Graphics (ggplot2) [Part 2]
+date: '2017-03-07'
+slug: ggplot2-part-2
+categories:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+```{r, include=FALSE}
+suppressMessages(library(ggplot2)) 
+data(diamonds)
+```
+
+## ggplot2 recap
+
+* Input data into `ggplot`
+* Add visualization layers with `geom_` functions
+* Map *variables* to aesthetics with `aes()`
+* Plot summaries with `stat=`
+* Handle collisions with `position=`
+* Change coordinate systems with a `coord_` function
+* Facet the plot with a `facet_` function
+
+#### Challenge 1:
+
+Try to make the following plot (density plot of `price` in dependence on `cut`) and save it into variable `p1`.
+
+```{r, echo=FALSE}
+p1 <- ggplot(diamonds, aes(x = price, color = cut)) +
+  geom_density()
+p1
+```
+
+## labels
+
+A function to add labels to a plot is `labs`. You can add a title, subtitle and caption as follow.
+
+```{r}
+p1 + labs(title = "Poorly cut diamonds appear to fetch unexpectedly high prices",
+      subtitle = "The lowest cut rating is associated with the highest mode price",
+      caption = "Data by Hadley Wickham")
+```
+
+Similarly, you can change axis labels and legend.
+
+```{r}
+p1 + labs(x = "Price", y = "Density", color = "Cut Rating")
+```
+
+## themes
+
+Themes change appearance of non-data elements.
+
+First, you change theme manually using `theme` function. See the list of what you can control in [the documentation](http://docs.ggplot2.org/current/theme.html). For example, you can take the previous plot and remove the legend:
+
+```{r}
+p1 + theme(legend.position = "none")
+```
+
+
+Second, you can use predefined themes. Take the `p1` plot and try to add the following themes:
+
+* `p1 + theme_bw()`
+* `p1 + theme_classic()`
+* `p1 + theme_dark()`
+* `p1 + theme_light()`
+* `p1 + theme_linedraw()`
+* `p1 + theme_minimal()`
+* `p1 + theme_void()`
+
+Many developers come with their own ggplot2 themes. For example with `library(ggthemes)` you can try `p1 + theme_wsj()` to style your plot like Wall Street Journal, with `library(xkcd)` you can style your plot as [xkcd comics](https://xkcd.com/1798/) and Bob Rudis creates his [hrbrthemes](https://github.com/hrbrmstr/hrbrthemes) for his style.
+
+```{r}
+# devtools package can be installed as install.packages("devtools")
+# hrbrthemes package can be then installed as devtools::install_github("hrbrmstr/hrbrthemes")
+library(hrbrthemes)
+p1 + theme_ipsum()   # or theme_ipsum_rc() on MacOS  
+```
+
+## scales
+
+You can add a `scale_` function for each aesthetics.
+
+Let us plot the dependence between price and weight (`carat`):
+
+```{r}
+s <- ggplot(diamonds, aes(carat, price)) +
+   geom_point(aes(color = cut))
+s
+```
+
+#### Challenge 2:
+
+Try to apply various scales to the graph `s`:
+
+* for color, try `scale_color_grey` and `scale_color_brewer(palette = "Set1")`
+* for axis, try `scale_x_log10()` and `scale_y_log10()`
+
+#### Challenge 3:
+
+If we now color previous graph by `price` instead of `cut`:
+
+```{r}
+s1 <- ggplot(diamonds, aes(carat, price)) +
+   geom_point(aes(color = price))
+```
+
+Try to apply various continuous color scales.
+
+* from `library(viridis)`: `scale_color_viridis()` and `scale_color_viridis(option = "A")`
+* `scale_color_distiller(palette = "Spectral")`
+* `scale_color_brewer(palette = "Purples")`
+
+#### Challenge 4:
+
+Now experiment with labels, themes, and scales to make a clear graph how a price of diamond depends on its weight. Perhaps this one, or any other you like.
+
+```{r, echo=FALSE}
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point() +
+  geom_smooth(aes(color = cut), se = FALSE) +
+  labs(title = "Ideal cut diamonds command the best price for ever carat size",
+       subtitle = "Lines show GAM estimate of mean values for each level of cut",
+       caption = "Data provided by Hadley Wickham",
+       x = "Log Carat Size",
+       y = "Log Price Size",
+       color = "Cut Rating") +
+  scale_x_log10() +
+  scale_y_log10() +
+  scale_color_brewer(palette = "Greens") +
+  theme_light()
+```
+
+## saving graphs
+
+There is more than one way to save the graph:
+
+* In RStudio you can use `Export` tab in `Plots` panel
+* In `ggplot2` package you can use a `ggsave` function (see `?ggsave` for help and examples)
+* You can `pdf`, `png` and `dev.off` as in base graphics 
+
+#### Challenge 5:
+
+Save the plot generated in Challenge 4 into PDF file.
+
+```{r, eval=FALSE, include=FALSE}
+ggsave("my-plot.pdf", width = 6, height = 6)
+```
+
+## summary 
+
+`ggplot2` in a combination with custom themes are a fast route to creation of (almost) publication-quality graphics.
+
+#### Sources:
+
+* Data Visualization with ggplot2 (rstudio::conf, Tidyverse workshop)
+* [ggplot2 documentation](http://ggplot2.org/)
+

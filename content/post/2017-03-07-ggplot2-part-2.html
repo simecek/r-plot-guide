@@ -1,0 +1,132 @@
+---
+title: Grammar of Graphics (ggplot2) [Part 2]
+date: '2017-03-07'
+slug: ggplot2-part-2
+categories:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#ggplot2-recap">ggplot2 recap</a></li>
+<li><a href="#labels">labels</a></li>
+<li><a href="#themes">themes</a></li>
+<li><a href="#scales">scales</a></li>
+<li><a href="#saving-graphs">saving graphs</a></li>
+<li><a href="#summary">summary</a></li>
+</ul>
+</div>
+<div id="ggplot2-recap" class="section level2">
+<h2>ggplot2 recap</h2>
+<ul>
+<li>Input data into <code>ggplot</code></li>
+<li>Add visualization layers with <code>geom_</code> functions</li>
+<li>Map <em>variables</em> to aesthetics with <code>aes()</code></li>
+<li>Plot summaries with <code>stat=</code></li>
+<li>Handle collisions with <code>position=</code></li>
+<li>Change coordinate systems with a <code>coord_</code> function</li>
+<li>Facet the plot with a <code>facet_</code> function</li>
+</ul>
+<div id="challenge-1" class="section level4">
+<h4>Challenge 1:</h4>
+<p>Try to make the following plot (density plot of <code>price</code> in dependence on <code>cut</code>) and save it into variable <code>p1</code>.</p>
+<p><img src="/post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+</div>
+<div id="labels" class="section level2">
+<h2>labels</h2>
+<p>A function to add labels to a plot is <code>labs</code>. You can add a title, subtitle and caption as follow.</p>
+<pre class="r"><code>p1 + labs(title = &quot;Poorly cut diamonds appear to fetch unexpectedly high prices&quot;,
+      subtitle = &quot;The lowest cut rating is associated with the highest mode price&quot;,
+      caption = &quot;Data by Hadley Wickham&quot;)</code></pre>
+<p><img src="/post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Similarly, you can change axis labels and legend.</p>
+<pre class="r"><code>p1 + labs(x = &quot;Price&quot;, y = &quot;Density&quot;, color = &quot;Cut Rating&quot;)</code></pre>
+<p><img src="/post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="themes" class="section level2">
+<h2>themes</h2>
+<p>Themes change appearance of non-data elements.</p>
+<p>First, you change theme manually using <code>theme</code> function. See the list of what you can control in <a href="http://docs.ggplot2.org/current/theme.html">the documentation</a>. For example, you can take the previous plot and remove the legend:</p>
+<pre class="r"><code>p1 + theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="/post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Second, you can use predefined themes. Take the <code>p1</code> plot and try to add the following themes:</p>
+<ul>
+<li><code>p1 + theme_bw()</code></li>
+<li><code>p1 + theme_classic()</code></li>
+<li><code>p1 + theme_dark()</code></li>
+<li><code>p1 + theme_light()</code></li>
+<li><code>p1 + theme_linedraw()</code></li>
+<li><code>p1 + theme_minimal()</code></li>
+<li><code>p1 + theme_void()</code></li>
+</ul>
+<p>Many developers come with their own ggplot2 themes. For example with <code>library(ggthemes)</code> you can try <code>p1 + theme_wsj()</code> to style your plot like Wall Street Journal, with <code>library(xkcd)</code> you can style your plot as <a href="https://xkcd.com/1798/">xkcd comics</a> and Bob Rudis creates his <a href="https://github.com/hrbrmstr/hrbrthemes">hrbrthemes</a> for his style.</p>
+<pre class="r"><code># devtools package can be installed as install.packages(&quot;devtools&quot;)
+# hrbrthemes package can be then installed as devtools::install_github(&quot;hrbrmstr/hrbrthemes&quot;)
+library(hrbrthemes)
+p1 + theme_ipsum()   # or theme_ipsum_rc() on MacOS  </code></pre>
+<p><img src="/post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="scales" class="section level2">
+<h2>scales</h2>
+<p>You can add a <code>scale_</code> function for each aesthetics.</p>
+<p>Let us plot the dependence between price and weight (<code>carat</code>):</p>
+<pre class="r"><code>s &lt;- ggplot(diamonds, aes(carat, price)) +
+   geom_point(aes(color = cut))
+s</code></pre>
+<p><img src="/post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div id="challenge-2" class="section level4">
+<h4>Challenge 2:</h4>
+<p>Try to apply various scales to the graph <code>s</code>:</p>
+<ul>
+<li>for color, try <code>scale_color_grey</code> and <code>scale_color_brewer(palette = &quot;Set1&quot;)</code></li>
+<li>for axis, try <code>scale_x_log10()</code> and <code>scale_y_log10()</code></li>
+</ul>
+</div>
+<div id="challenge-3" class="section level4">
+<h4>Challenge 3:</h4>
+<p>If we now color previous graph by <code>price</code> instead of <code>cut</code>:</p>
+<pre class="r"><code>s1 &lt;- ggplot(diamonds, aes(carat, price)) +
+   geom_point(aes(color = price))</code></pre>
+<p>Try to apply various continuous color scales.</p>
+<ul>
+<li>from <code>library(viridis)</code>: <code>scale_color_viridis()</code> and <code>scale_color_viridis(option = &quot;A&quot;)</code></li>
+<li><code>scale_color_distiller(palette = &quot;Spectral&quot;)</code></li>
+<li><code>scale_color_brewer(palette = &quot;Purples&quot;)</code></li>
+</ul>
+</div>
+<div id="challenge-4" class="section level4">
+<h4>Challenge 4:</h4>
+<p>Now experiment with labels, themes, and scales to make a clear graph how a price of diamond depends on its weight. Perhaps this one, or any other you like.</p>
+<pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<p><img src="/post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+</div>
+<div id="saving-graphs" class="section level2">
+<h2>saving graphs</h2>
+<p>There is more than one way to save the graph:</p>
+<ul>
+<li>In RStudio you can use <code>Export</code> tab in <code>Plots</code> panel</li>
+<li>In <code>ggplot2</code> package you can use a <code>ggsave</code> function (see <code>?ggsave</code> for help and examples)</li>
+<li>You can <code>pdf</code>, <code>png</code> and <code>dev.off</code> as in base graphics</li>
+</ul>
+<div id="challenge-5" class="section level4">
+<h4>Challenge 5:</h4>
+<p>Save the plot generated in Challenge 4 into PDF file.</p>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2>summary</h2>
+<p><code>ggplot2</code> in a combination with custom themes are a fast route to creation of (almost) publication-quality graphics.</p>
+<div id="sources" class="section level4">
+<h4>Sources:</h4>
+<ul>
+<li>Data Visualization with ggplot2 (rstudio::conf, Tidyverse workshop)</li>
+<li><a href="http://ggplot2.org/">ggplot2 documentation</a></li>
+</ul>
+</div>
+</div>

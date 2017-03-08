@@ -6,11 +6,140 @@
     <description>Recent content in Posts on Lithium Theme</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 Mar 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 07 Mar 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Grammar of graphics (ggplot2) [Part 1]</title>
+      <title>Grammar of Graphics (ggplot2) [Part 2]</title>
+      <link>/2017/03/07/ggplot2-part-2/</link>
+      <pubDate>Tue, 07 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/03/07/ggplot2-part-2/</guid>
+      <description>&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#ggplot2-recap&#34;&gt;ggplot2 recap&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#labels&#34;&gt;labels&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#themes&#34;&gt;themes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#scales&#34;&gt;scales&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#saving-graphs&#34;&gt;saving graphs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#summary&#34;&gt;summary&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ggplot2-recap&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;ggplot2 recap&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Input data into &lt;code&gt;ggplot&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Add visualization layers with &lt;code&gt;geom_&lt;/code&gt; functions&lt;/li&gt;
+&lt;li&gt;Map &lt;em&gt;variables&lt;/em&gt; to aesthetics with &lt;code&gt;aes()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Plot summaries with &lt;code&gt;stat=&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Handle collisions with &lt;code&gt;position=&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Change coordinate systems with a &lt;code&gt;coord_&lt;/code&gt; function&lt;/li&gt;
+&lt;li&gt;Facet the plot with a &lt;code&gt;facet_&lt;/code&gt; function&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;challenge-1&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 1:&lt;/h4&gt;
+&lt;p&gt;Try to make the following plot (density plot of &lt;code&gt;price&lt;/code&gt; in dependence on &lt;code&gt;cut&lt;/code&gt;) and save it into variable &lt;code&gt;p1&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;labels&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;labels&lt;/h2&gt;
+&lt;p&gt;A function to add labels to a plot is &lt;code&gt;labs&lt;/code&gt;. You can add a title, subtitle and caption as follow.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p1 + labs(title = &amp;quot;Poorly cut diamonds appear to fetch unexpectedly high prices&amp;quot;,
+      subtitle = &amp;quot;The lowest cut rating is associated with the highest mode price&amp;quot;,
+      caption = &amp;quot;Data by Hadley Wickham&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Similarly, you can change axis labels and legend.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p1 + labs(x = &amp;quot;Price&amp;quot;, y = &amp;quot;Density&amp;quot;, color = &amp;quot;Cut Rating&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;themes&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;themes&lt;/h2&gt;
+&lt;p&gt;Themes change appearance of non-data elements.&lt;/p&gt;
+&lt;p&gt;First, you change theme manually using &lt;code&gt;theme&lt;/code&gt; function. See the list of what you can control in &lt;a href=&#34;http://docs.ggplot2.org/current/theme.html&#34;&gt;the documentation&lt;/a&gt;. For example, you can take the previous plot and remove the legend:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p1 + theme(legend.position = &amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Second, you can use predefined themes. Take the &lt;code&gt;p1&lt;/code&gt; plot and try to add the following themes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;p1 + theme_bw()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;p1 + theme_classic()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;p1 + theme_dark()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;p1 + theme_light()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;p1 + theme_linedraw()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;p1 + theme_minimal()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;p1 + theme_void()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Many developers come with their own ggplot2 themes. For example with &lt;code&gt;library(ggthemes)&lt;/code&gt; you can try &lt;code&gt;p1 + theme_wsj()&lt;/code&gt; to style your plot like Wall Street Journal, with &lt;code&gt;library(xkcd)&lt;/code&gt; you can style your plot as &lt;a href=&#34;https://xkcd.com/1798/&#34;&gt;xkcd comics&lt;/a&gt; and Bob Rudis creates his &lt;a href=&#34;https://github.com/hrbrmstr/hrbrthemes&#34;&gt;hrbrthemes&lt;/a&gt; for his style.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# devtools package can be installed as install.packages(&amp;quot;devtools&amp;quot;)
+# hrbrthemes package can be then installed as devtools::install_github(&amp;quot;hrbrmstr/hrbrthemes&amp;quot;)
+library(hrbrthemes)
+p1 + theme_ipsum()   # or theme_ipsum_rc() on MacOS  &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;scales&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;scales&lt;/h2&gt;
+&lt;p&gt;You can add a &lt;code&gt;scale_&lt;/code&gt; function for each aesthetics.&lt;/p&gt;
+&lt;p&gt;Let us plot the dependence between price and weight (&lt;code&gt;carat&lt;/code&gt;):&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;s &amp;lt;- ggplot(diamonds, aes(carat, price)) +
+   geom_point(aes(color = cut))
+s&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;challenge-2&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 2:&lt;/h4&gt;
+&lt;p&gt;Try to apply various scales to the graph &lt;code&gt;s&lt;/code&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;for color, try &lt;code&gt;scale_color_grey&lt;/code&gt; and &lt;code&gt;scale_color_brewer(palette = &amp;quot;Set1&amp;quot;)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;for axis, try &lt;code&gt;scale_x_log10()&lt;/code&gt; and &lt;code&gt;scale_y_log10()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;challenge-3&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 3:&lt;/h4&gt;
+&lt;p&gt;If we now color previous graph by &lt;code&gt;price&lt;/code&gt; instead of &lt;code&gt;cut&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;s1 &amp;lt;- ggplot(diamonds, aes(carat, price)) +
+   geom_point(aes(color = price))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Try to apply various continuous color scales.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;from &lt;code&gt;library(viridis)&lt;/code&gt;: &lt;code&gt;scale_color_viridis()&lt;/code&gt; and &lt;code&gt;scale_color_viridis(option = &amp;quot;A&amp;quot;)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;scale_color_distiller(palette = &amp;quot;Spectral&amp;quot;)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;scale_color_brewer(palette = &amp;quot;Purples&amp;quot;)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;challenge-4&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 4:&lt;/h4&gt;
+&lt;p&gt;Now experiment with labels, themes, and scales to make a clear graph how a price of diamond depends on its weight. Perhaps this one, or any other you like.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &amp;#39;gam&amp;#39; and formula &amp;#39;y ~ s(x, bs = &amp;quot;cs&amp;quot;)&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;saving-graphs&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;saving graphs&lt;/h2&gt;
+&lt;p&gt;There is more than one way to save the graph:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;In RStudio you can use &lt;code&gt;Export&lt;/code&gt; tab in &lt;code&gt;Plots&lt;/code&gt; panel&lt;/li&gt;
+&lt;li&gt;In &lt;code&gt;ggplot2&lt;/code&gt; package you can use a &lt;code&gt;ggsave&lt;/code&gt; function (see &lt;code&gt;?ggsave&lt;/code&gt; for help and examples)&lt;/li&gt;
+&lt;li&gt;You can &lt;code&gt;pdf&lt;/code&gt;, &lt;code&gt;png&lt;/code&gt; and &lt;code&gt;dev.off&lt;/code&gt; as in base graphics&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;challenge-5&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 5:&lt;/h4&gt;
+&lt;p&gt;Save the plot generated in Challenge 4 into PDF file.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;summary&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;ggplot2&lt;/code&gt; in a combination with custom themes are a fast route to creation of (almost) publication-quality graphics.&lt;/p&gt;
+&lt;div id=&#34;sources&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Sources:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Data Visualization with ggplot2 (rstudio::conf, Tidyverse workshop)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://ggplot2.org/&#34;&gt;ggplot2 documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Grammar of Graphics (ggplot2) [Part 1]</title>
       <link>/2017/03/02/grammar-of-graphics-ggplot2/</link>
       <pubDate>Thu, 02 Mar 2017 00:00:00 +0000</pubDate>
       

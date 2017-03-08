@@ -1,5 +1,5 @@
 ---
-title: Grammar of graphics (ggplot2) [Part 1]
+title: Grammar of Graphics (ggplot2) [Part 1]
 date: '2017-03-02'
 slug: grammar-of-graphics-ggplot2
 categories:
@@ -34,7 +34,7 @@ Aesthetic mappings `aes` connect data space and visual spaces.
 
 ## set vs. map
 
-#### Challenge  1
+#### Challenge 1
 
 What is a difference between those two graphs? First guess, then try.
 
