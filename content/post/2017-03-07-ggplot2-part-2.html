@@ -68,7 +68,7 @@ output:
 <pre class="r"><code># devtools package can be installed as install.packages(&quot;devtools&quot;)
 # hrbrthemes package can be then installed as devtools::install_github(&quot;hrbrmstr/hrbrthemes&quot;)
 library(hrbrthemes)
-p1 + theme_ipsum()   # or theme_ipsum_rc() on MacOS  </code></pre>
+p1 + theme_ipsum_rc()   # or theme_ipsum() on Windows</code></pre>
 <p><img src="/post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 <div id="scales" class="section level2">
@@ -86,6 +86,12 @@ s</code></pre>
 <li>for color, try <code>scale_color_grey</code> and <code>scale_color_brewer(palette = &quot;Set1&quot;)</code></li>
 <li>for axis, try <code>scale_x_log10()</code> and <code>scale_y_log10()</code></li>
 </ul>
+<p>There are also several packages with more exotic color scales:</p>
+<ul>
+<li><code>ggsci</code>: scientific journal color palettes <a href="https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html">[link]</a></li>
+<li><code>wesanderson</code>: palletes inspired by Wes Anderson’s movies <a href="https://github.com/karthik/wesanderson">[link]</a></li>
+<li><code>RSkittleBrewer</code>: for those times you want to make plots with candy-themed color schemes <a href="https://github.com/alyssafrazee/RSkittleBrewer">[link]</a></li>
+</ul>
 </div>
 <div id="challenge-3" class="section level4">
 <h4>Challenge 3:</h4>
@@ -102,7 +108,6 @@ s</code></pre>
 <div id="challenge-4" class="section level4">
 <h4>Challenge 4:</h4>
 <p>Now experiment with labels, themes, and scales to make a clear graph how a price of diamond depends on its weight. Perhaps this one, or any other you like.</p>
-<pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
 <p><img src="/post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 </div>

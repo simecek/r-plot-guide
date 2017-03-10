@@ -73,7 +73,7 @@
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# devtools package can be installed as install.packages(&amp;quot;devtools&amp;quot;)
 # hrbrthemes package can be then installed as devtools::install_github(&amp;quot;hrbrmstr/hrbrthemes&amp;quot;)
 library(hrbrthemes)
-p1 + theme_ipsum()   # or theme_ipsum_rc() on MacOS  &lt;/code&gt;&lt;/pre&gt;
+p1 + theme_ipsum_rc()   # or theme_ipsum() on Windows&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;../post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;scales&#34; class=&#34;section level2&#34;&gt;
@@ -91,6 +91,12 @@ s&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;for color, try &lt;code&gt;scale_color_grey&lt;/code&gt; and &lt;code&gt;scale_color_brewer(palette = &amp;quot;Set1&amp;quot;)&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;for axis, try &lt;code&gt;scale_x_log10()&lt;/code&gt; and &lt;code&gt;scale_y_log10()&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;There are also several packages with more exotic color scales:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ggsci&lt;/code&gt;: scientific journal color palettes &lt;a href=&#34;https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html&#34;&gt;[link]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;wesanderson&lt;/code&gt;: palletes inspired by Wes Anderson’s movies &lt;a href=&#34;https://github.com/karthik/wesanderson&#34;&gt;[link]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RSkittleBrewer&lt;/code&gt;: for those times you want to make plots with candy-themed color schemes &lt;a href=&#34;https://github.com/alyssafrazee/RSkittleBrewer&#34;&gt;[link]&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/div&gt;
 &lt;div id=&#34;challenge-3&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Challenge 3:&lt;/h4&gt;
@@ -107,7 +113,6 @@ s&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;challenge-4&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Challenge 4:&lt;/h4&gt;
 &lt;p&gt;Now experiment with labels, themes, and scales to make a clear graph how a price of diamond depends on its weight. Perhaps this one, or any other you like.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &amp;#39;gam&amp;#39; and formula &amp;#39;y ~ s(x, bs = &amp;quot;cs&amp;quot;)&amp;#39;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;../post/2017-03-07-ggplot2-part-2_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
