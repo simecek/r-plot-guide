@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.19" />
+
+
+<title>Data Manipulation (dplyr) - Lithium Theme</title>
+<meta property="og:title" content="Data Manipulation (dplyr) - Lithium Theme">
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css' rel='stylesheet' type='text/css'>
+
+
+
+<link rel="stylesheet" href="../../../../css/fonts.css" media="all">
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="../../../../" class="nav-logo">
+    <img src="../../../../images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="../../../../about/">About</a></li>
+    
+    <li><a href="https://github.com/simecek">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/simecek">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">3 min read</span>
+    
+
+    <h1 class="article-title">Data Manipulation (dplyr)</h1>
+
+    
+    <span class="article-date">2017/03/13</span>
+    
+
+    <div class="article-content">
+      <div id="TOC">
+<ul>
+<li><a href="#dataset-babynames">Dataset babynames</a></li>
+<li><a href="#single-table-verbs">Single table verbs</a><ul>
+<li><a href="#filter">filter</a></li>
+<li><a href="#arrange">arrange</a></li>
+<li><a href="#select">select</a></li>
+<li><a href="#mutate">mutate</a></li>
+<li><a href="#summarise">summarise</a></li>
+</ul></li>
+<li><a href="#operator">Operator %&gt;%</a></li>
+<li><a href="#grouping-cases">Grouping cases</a></li>
+<li><a href="#joining-data-sets">Joining data sets</a></li>
+</ul>
+</div>
+<p>Python programmers believe that there should be one – and preferably only one – obvious way to do things. In R we love chaos and embrace originality. Therefore, we often have many ways to try.</p>
+<p>For data manipulation, we have a solid set of tools in base R like <code>subset</code>, <code>duplicated</code>, <code>cbind</code>, <code>rbind</code>, <code>match</code> and four ways to use <code>[</code> operator (numeric index, negative numeric index, logical index, and character index). For example:</p>
+<p>Here I will talk about package <code>dplyr</code> that can be installed as <code>install.packages(dplyr)</code> and loaded as <code>library(dplyr)</code>. The package gains popularity due to its speed and readable code (<code>%&gt;%</code> operator).</p>
+<div id="dataset-babynames" class="section level2">
+<h2>Dataset babynames</h2>
+<p>Install and load package <code>babynames</code>. Names of male and female babies in US Social Security Administration (from 1880 to 2014).</p>
+<p>Get the info about the dataset with <code>?babynames</code> and <code>View(babynames)</code>.</p>
+</div>
+<div id="single-table-verbs" class="section level2">
+<h2>Single table verbs</h2>
+<p>The are six single table verbs:</p>
+<ul>
+<li><code>filter()</code> - extract cases</li>
+<li><code>arrange()</code> - reorder cases</li>
+<li><code>group_by()</code> - group cases</li>
+<li><code>select()</code> - extract variables</li>
+<li><code>mutate()</code> - create new variables</li>
+<li><code>summarise()</code> - summarise variables / create cases</li>
+</ul>
+<p>Download <a href="https://www.rstudio.com/resources/cheatsheets/">dData Transformation Cheat Sheet</a> to see other <code>dplyr</code>data transformations.</p>
+<div id="filter" class="section level3">
+<h3>filter</h3>
+<p>Extract rows that meet logical criteria, see <code>?filter</code> for help. Also, see <code>?Comparison</code> and <code>?base::Logic</code> for logical operators in R.</p>
+<div id="challenge-1" class="section level4">
+<h4>Challenge 1</h4>
+<p>Try to plot a proportion of the name Wendy in US population.</p>
+<p><img src="../../../../post/2017-03-13-data-manipulation-dplyr_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+</div>
+<div id="arrange" class="section level3">
+<h3>arrange</h3>
+<p>Order rows from smallest to largest values. See <code>?arrange</code> for help.</p>
+<div id="challenge-2" class="section level4">
+<h4>Challenge 2</h4>
+<p>What was the most popular name in a single year? In what year was Wendy the most popular?</p>
+</div>
+</div>
+<div id="select" class="section level3">
+<h3>select</h3>
+<p>Extract columns by name. See <code>?select</code> and <em>select helpers</em> in the cheat sheet.</p>
+</div>
+<div id="mutate" class="section level3">
+<h3>mutate</h3>
+<p>Create new columns, see <code>?mutate</code>.</p>
+<div id="challenge-3" class="section level4">
+<h4>Challenge 3</h4>
+<p>Create a new table <code>babynames2</code> with a new percent column <code>perc = 100*prop</code>, then drop the column <code>prop</code>.</p>
+<pre><code>## # A tibble: 1,825,433 × 5
+##     year   sex      name     n     perc
+##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;int&gt;    &lt;dbl&gt;
+## 1   1880     F      Mary  7065 7.238359
+## 2   1880     F      Anna  2604 2.667896
+## 3   1880     F      Emma  2003 2.052149
+## 4   1880     F Elizabeth  1939 1.986579
+## 5   1880     F    Minnie  1746 1.788843
+## 6   1880     F  Margaret  1578 1.616720
+## 7   1880     F       Ida  1472 1.508119
+## 8   1880     F     Alice  1414 1.448696
+## 9   1880     F    Bertha  1320 1.352390
+## 10  1880     F     Sarah  1288 1.319605
+## # ... with 1,825,423 more rows</code></pre>
+</div>
+</div>
+<div id="summarise" class="section level3">
+<h3>summarise</h3>
+<p>Compute table of summaries.</p>
+<div id="challenge-4" class="section level4">
+<h4>Challenge 4</h4>
+<ul>
+<li>Create a summary that displays the min, mean, and max prop for Wendy.</li>
+<li>Determine how many unique names appear in the data set. (see cheat sheet or help for <code>n_distinct</code>).</li>
+<li>How many times a single names was given to <span class="math inline">\(1\%\)</span> or more of the boys or girls?</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="operator" class="section level2">
+<h2>Operator %&gt;%</h2>
+<p>A little bunny hopped though the forrest, scooped up the field mouse and bopped on his head. It could be expressed as follows.</p>
+<pre class="r"><code>foo_foo &lt;- little_bunny()
+foo_foo2 &lt;- hop_through(foo_foo, forest)
+foo_foo3 &lt;- scoop_up(foo_foo2, field_mouse)
+bop_on(foo_foo3, head)</code></pre>
+<p>Or the equivalently as…</p>
+<pre class="r"><code>bop_on(
+  scoop_up(
+    hop_through(little_bunny(), forest),
+    field_mouse
+  ),
+head)</code></pre>
+<p>The operator <code>%&gt;%</code> enables us to sequentially describe the procedure without creating extra variables.</p>
+<pre class="r"><code>little_bunny() %&gt;%
+  hop_through(forest) %&gt;%
+  scoop_up(field_mouse) %&gt;%
+  bop_on(head)</code></pre>
+</div>
+<div id="grouping-cases" class="section level2">
+<h2>Grouping cases</h2>
+</div>
+<div id="joining-data-sets" class="section level2">
+<h2>Joining data sets</h2>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="../../../../images/hugo-logo.png" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<script async type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    
+  </body>
+</html>
+

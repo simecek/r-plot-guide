@@ -6,8 +6,134 @@
     <description>Recent content on Lithium Theme</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 07 Mar 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 13 Mar 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Data Manipulation (dplyr)</title>
+      <link>/2017/03/13/data-manipulation-dplyr/</link>
+      <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/03/13/data-manipulation-dplyr/</guid>
+      <description>&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#dataset-babynames&#34;&gt;Dataset babynames&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#single-table-verbs&#34;&gt;Single table verbs&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#filter&#34;&gt;filter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#arrange&#34;&gt;arrange&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#select&#34;&gt;select&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#mutate&#34;&gt;mutate&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#summarise&#34;&gt;summarise&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#operator&#34;&gt;Operator %&amp;gt;%&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#grouping-cases&#34;&gt;Grouping cases&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#joining-data-sets&#34;&gt;Joining data sets&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;Python programmers believe that there should be one – and preferably only one – obvious way to do things. In R we love chaos and embrace originality. Therefore, we often have many ways to try.&lt;/p&gt;
+&lt;p&gt;For data manipulation, we have a solid set of tools in base R like &lt;code&gt;subset&lt;/code&gt;, &lt;code&gt;duplicated&lt;/code&gt;, &lt;code&gt;cbind&lt;/code&gt;, &lt;code&gt;rbind&lt;/code&gt;, &lt;code&gt;match&lt;/code&gt; and four ways to use &lt;code&gt;[&lt;/code&gt; operator (numeric index, negative numeric index, logical index, and character index). For example:&lt;/p&gt;
+&lt;p&gt;Here I will talk about package &lt;code&gt;dplyr&lt;/code&gt; that can be installed as &lt;code&gt;install.packages(dplyr)&lt;/code&gt; and loaded as &lt;code&gt;library(dplyr)&lt;/code&gt;. The package gains popularity due to its speed and readable code (&lt;code&gt;%&amp;gt;%&lt;/code&gt; operator).&lt;/p&gt;
+&lt;div id=&#34;dataset-babynames&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Dataset babynames&lt;/h2&gt;
+&lt;p&gt;Install and load package &lt;code&gt;babynames&lt;/code&gt;. Names of male and female babies in US Social Security Administration (from 1880 to 2014).&lt;/p&gt;
+&lt;p&gt;Get the info about the dataset with &lt;code&gt;?babynames&lt;/code&gt; and &lt;code&gt;View(babynames)&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;single-table-verbs&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Single table verbs&lt;/h2&gt;
+&lt;p&gt;The are six single table verbs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;filter()&lt;/code&gt; - extract cases&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;arrange()&lt;/code&gt; - reorder cases&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;group_by()&lt;/code&gt; - group cases&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;select()&lt;/code&gt; - extract variables&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mutate()&lt;/code&gt; - create new variables&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;summarise()&lt;/code&gt; - summarise variables / create cases&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Download &lt;a href=&#34;https://www.rstudio.com/resources/cheatsheets/&#34;&gt;dData Transformation Cheat Sheet&lt;/a&gt; to see other &lt;code&gt;dplyr&lt;/code&gt;data transformations.&lt;/p&gt;
+&lt;div id=&#34;filter&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;filter&lt;/h3&gt;
+&lt;p&gt;Extract rows that meet logical criteria, see &lt;code&gt;?filter&lt;/code&gt; for help. Also, see &lt;code&gt;?Comparison&lt;/code&gt; and &lt;code&gt;?base::Logic&lt;/code&gt; for logical operators in R.&lt;/p&gt;
+&lt;div id=&#34;challenge-1&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 1&lt;/h4&gt;
+&lt;p&gt;Try to plot a proportion of the name Wendy in US population.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./post/2017-03-13-data-manipulation-dplyr_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;arrange&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;arrange&lt;/h3&gt;
+&lt;p&gt;Order rows from smallest to largest values. See &lt;code&gt;?arrange&lt;/code&gt; for help.&lt;/p&gt;
+&lt;div id=&#34;challenge-2&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 2&lt;/h4&gt;
+&lt;p&gt;What was the most popular name in a single year? In what year was Wendy the most popular?&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;select&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;select&lt;/h3&gt;
+&lt;p&gt;Extract columns by name. See &lt;code&gt;?select&lt;/code&gt; and &lt;em&gt;select helpers&lt;/em&gt; in the cheat sheet.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;mutate&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;mutate&lt;/h3&gt;
+&lt;p&gt;Create new columns, see &lt;code&gt;?mutate&lt;/code&gt;.&lt;/p&gt;
+&lt;div id=&#34;challenge-3&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 3&lt;/h4&gt;
+&lt;p&gt;Create a new table &lt;code&gt;babynames2&lt;/code&gt; with a new percent column &lt;code&gt;perc = 100*prop&lt;/code&gt;, then drop the column &lt;code&gt;prop&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,825,433 × 5
+##     year   sex      name     n     perc
+##    &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt;    &amp;lt;dbl&amp;gt;
+## 1   1880     F      Mary  7065 7.238359
+## 2   1880     F      Anna  2604 2.667896
+## 3   1880     F      Emma  2003 2.052149
+## 4   1880     F Elizabeth  1939 1.986579
+## 5   1880     F    Minnie  1746 1.788843
+## 6   1880     F  Margaret  1578 1.616720
+## 7   1880     F       Ida  1472 1.508119
+## 8   1880     F     Alice  1414 1.448696
+## 9   1880     F    Bertha  1320 1.352390
+## 10  1880     F     Sarah  1288 1.319605
+## # ... with 1,825,423 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summarise&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;summarise&lt;/h3&gt;
+&lt;p&gt;Compute table of summaries.&lt;/p&gt;
+&lt;div id=&#34;challenge-4&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 4&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a summary that displays the min, mean, and max prop for Wendy.&lt;/li&gt;
+&lt;li&gt;Determine how many unique names appear in the data set. (see cheat sheet or help for &lt;code&gt;n_distinct&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;How many times a single names was given to &lt;span class=&#34;math inline&#34;&gt;\(1\%\)&lt;/span&gt; or more of the boys or girls?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;operator&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Operator %&amp;gt;%&lt;/h2&gt;
+&lt;p&gt;A little bunny hopped though the forrest, scooped up the field mouse and bopped on his head. It could be expressed as follows.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;foo_foo &amp;lt;- little_bunny()
+foo_foo2 &amp;lt;- hop_through(foo_foo, forest)
+foo_foo3 &amp;lt;- scoop_up(foo_foo2, field_mouse)
+bop_on(foo_foo3, head)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or the equivalently as…&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bop_on(
+  scoop_up(
+    hop_through(little_bunny(), forest),
+    field_mouse
+  ),
+head)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The operator &lt;code&gt;%&amp;gt;%&lt;/code&gt; enables us to sequentially describe the procedure without creating extra variables.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;little_bunny() %&amp;gt;%
+  hop_through(forest) %&amp;gt;%
+  scoop_up(field_mouse) %&amp;gt;%
+  bop_on(head)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;grouping-cases&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Grouping cases&lt;/h2&gt;
+&lt;/div&gt;
+&lt;div id=&#34;joining-data-sets&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Joining data sets&lt;/h2&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Grammar of Graphics (ggplot2) [Part 2]</title>

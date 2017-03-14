@@ -1,0 +1,154 @@
+---
+title: Data Manipulation (dplyr)
+date: '2017-03-13'
+slug: data-manipulation-dplyr
+categories:
+  - R
+output:
+  blogdown::html_page:
+    toc: true  
+---
+
+```{r, include=FALSE}
+suppressMessages(library(ggplot2)) 
+suppressMessages(library(dplyr)) 
+suppressMessages(library(babynames)) 
+```
+
+Python programmers believe that there should be one -- and preferably only one -- obvious way to do things. In R we love chaos and embrace originality. Therefore, we often have many ways to try.
+
+For data manipulation, we have a solid set of tools in base R like `subset`, `duplicated`, `cbind`, `rbind`, `match` and four ways to use `[` operator (numeric index, negative numeric index, logical index, and character index). For example:
+
+```{r, eval=FALSE, include=FALSE}
+var = c(a = 1, b = 2, c = 3, d = 4)
+var[1:2]
+var[-(3:4)]
+var[c(TRUE,TRUE,FALSE,FALSE)]
+var[c("a","b")]
+```
+
+Here I will talk about package `dplyr` that can be installed as `install.packages(dplyr)` and loaded as `library(dplyr)`. The package gains popularity due to its speed and readable code (`%>%` operator). 
+
+
+
+## Dataset babynames
+
+Install and load package `babynames`. Names of male and female babies in US Social Security Administration (from 1880 to 2014). 
+
+Get the info about the dataset with `?babynames` and `View(babynames)`.
+
+## Single table verbs
+
+The are six single table verbs:
+
+* `filter()` - extract cases
+* `arrange()` - reorder cases
+* `group_by()` - group cases
+* `select()` - extract variables
+* `mutate()` - create new variables
+* `summarise()` - summarise variables / create cases
+
+Download [dData Transformation Cheat Sheet](https://www.rstudio.com/resources/cheatsheets/) to see other `dplyr `data transformations.
+
+### filter
+
+Extract rows that meet logical criteria, see `?filter` for help. Also, see `?Comparison` and `?base::Logic` for logical operators in R.
+
+#### Challenge 1
+
+Try to plot a proportion of the name Wendy in US population.
+
+```{r, echo=FALSE}
+wendy <- filter(babynames, name == "Wendy", sex == "F")
+ggplot(wendy, aes(x=year, y=prop)) +
+  geom_line() +
+  labs(title = "Wendy")
+```
+
+### arrange
+
+Order rows from smallest to largest values. See `?arrange` for help. 
+
+#### Challenge 2
+
+What was the most popular name in a single year? In what year was Wendy the most popular?
+
+```{r, eval=FALSE, include=FALSE}
+arrange(babynames, -prop) # John in 1880
+wendy <- filter(babynames, name == "Wendy", sex == "F")
+# instead of -prop, you can also use desc(prop)
+arrange(wendy, desc(prop)) #1967
+```
+
+### select 
+
+Extract columns by name. See `?select` and *select helpers* in the cheat sheet.
+
+### mutate
+
+Create new columns, see `?mutate`.
+
+#### Challenge 3
+
+Create a new table `babynames2` with a new percent column `perc = 100*prop`, then drop the column `prop`.
+
+```{r, echo=FALSE}
+tmp = mutate(babynames, perc = 100 * prop)
+babynames2 = select(tmp, -prop)
+babynames2
+```
+
+### summarise
+
+Compute table of summaries.
+
+#### Challenge 4
+
+* Create a summary that displays the min, mean, and max prop for Wendy. 
+* Determine how many unique names appear in the data set. (see cheat sheet or help for `n_distinct`).
+* How many times a single names was given to $1\%$ or more of the boys or girls?
+
+```{r, include=FALSE}
+wendy = filter(babynames, name == "Wendy")
+summarize(wendy, min(prop), mean(prop), max(prop))
+
+summarize(babynames, n = n_distinct(name))
+
+babynames2 <- filter(babynames, prop > 0.01)
+summarise(babynames2, nn = n())
+```
+
+## Operator %>%
+
+A little bunny hopped though the forrest, scooped up the field mouse and bopped on his head. It could be expressed as follows.
+
+```{r, eval=FALSE}
+foo_foo <- little_bunny()
+foo_foo2 <- hop_through(foo_foo, forest)
+foo_foo3 <- scoop_up(foo_foo2, field_mouse)
+bop_on(foo_foo3, head)
+```
+
+Or the equivalently as...
+
+```{r, eval=FALSE}
+bop_on(
+  scoop_up(
+    hop_through(little_bunny(), forest),
+    field_mouse
+  ),
+head)
+```
+
+The operator `%>%` enables us to sequentially describe the procedure without creating extra variables.
+
+```{r, eval=FALSE}
+little_bunny() %>%
+  hop_through(forest) %>%
+  scoop_up(field_mouse) %>%
+  bop_on(head)
+```
+
+## Grouping cases
+
+## Joining data sets
