@@ -59,7 +59,7 @@
 
   <article class="article">
     
-    <span class="article-duration">3 min read</span>
+    <span class="article-duration">5 min read</span>
     
 
     <h1 class="article-title">Data Manipulation (dplyr)</h1>
@@ -81,7 +81,11 @@
 </ul></li>
 <li><a href="#operator">Operator %&gt;%</a></li>
 <li><a href="#grouping-cases">Grouping cases</a></li>
-<li><a href="#joining-data-sets">Joining data sets</a></li>
+<li><a href="#joining-datasets">Joining datasets</a><ul>
+<li><a href="#two-table-verbs">Two table verbs</a></li>
+<li><a href="#dataset-nycflights13">Dataset nycflights13</a></li>
+</ul></li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </div>
 <p>Python programmers believe that there should be one – and preferably only one – obvious way to do things. In R we love chaos and embrace originality. Therefore, we often have many ways to try.</p>
@@ -162,7 +166,7 @@
 </div>
 <div id="operator" class="section level2">
 <h2>Operator %&gt;%</h2>
-<p>A little bunny hopped though the forrest, scooped up the field mouse and bopped on his head. It could be expressed as follows.</p>
+<p>A little bunny hopped though the forest, scooped up the field mouse and bopped on his head. It could be expressed as follows.</p>
 <pre class="r"><code>foo_foo &lt;- little_bunny()
 foo_foo2 &lt;- hop_through(foo_foo, forest)
 foo_foo3 &lt;- scoop_up(foo_foo2, field_mouse)
@@ -182,9 +186,94 @@ head)</code></pre>
 </div>
 <div id="grouping-cases" class="section level2">
 <h2>Grouping cases</h2>
+<p>Groups cases by common values.</p>
+<p>Are there more boys in the data set or girls?</p>
+<pre class="r"><code>babynames %&gt;%
+  group_by(sex) %&gt;%
+  summarise(total = sum(n))</code></pre>
+<pre><code>## # A tibble: 2 × 2
+##     sex     total
+##   &lt;chr&gt;     &lt;int&gt;
+## 1     F 167070477
+## 2     M 170064949</code></pre>
+<p>How does boys vs. girls ratio changes over time?</p>
+<pre class="r"><code>babynames %&gt;%
+  group_by(year, sex) %&gt;%
+  summarise(total = sum(n)) %&gt;%
+  ggplot(aes(x = year, y = total, color = sex)) +
+geom_line()</code></pre>
+<p><img src="../../../../post/2017-03-13-data-manipulation-dplyr_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div id="challenge-5" class="section level4">
+<h4>Challenge 5:</h4>
+<p>Plot the number of unique names by year over time. Does it change? (Note in English, the same name could be given to a boy and a girl)</p>
+<p><img src="../../../../post/2017-03-13-data-manipulation-dplyr_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
-<div id="joining-data-sets" class="section level2">
-<h2>Joining data sets</h2>
+</div>
+<div id="joining-datasets" class="section level2">
+<h2>Joining datasets</h2>
+<div id="two-table-verbs" class="section level3">
+<h3>Two table verbs</h3>
+<p>There are multiple ways to join tables <code>x</code> and <code>y</code>.</p>
+<p>For example, imagine you want to join a table of <code>airports</code> to a table of <code>flights</code>. What should happen to airports with no flight? And what should happen to flights from airports not included in <code>airports</code> table?</p>
+<ul>
+<li><code>inner_join</code>: return all rows from <code>x</code> where there are matching values in <code>y</code>, and all columns from <code>x</code> and <code>y</code>. If there are multiple matches between <code>x</code> and <code>y</code>, all combination of the matches are returned.</li>
+<li><code>left_join</code>: same as <code>inner_join</code> but also keeps rows in <code>x</code> with no match in <code>y</code> (add <code>NA</code> values)</li>
+<li><code>right_join</code>: same as <code>inner_join</code> but also keeps rows in <code>y</code> with no match in <code>x</code> (add <code>NA</code> values)</li>
+<li><code>full_join</code>: return all rows and all columns from both x and y. Where there are not matching values, returns NA for the one missing.</li>
+</ul>
+</div>
+<div id="dataset-nycflights13" class="section level3">
+<h3>Dataset nycflights13</h3>
+<p>Data about every flight that departed La Guardia, JFK, or Newark airports in 2013.</p>
+<pre class="r"><code># install.packages(&quot;nycflights13&quot;)
+library(nycflights13)</code></pre>
+<p>Look at <code>?flights</code> and <code>?airlines</code> tables.</p>
+<div id="challenge-6" class="section level4">
+<h4>Challenge 6:</h4>
+<p>Which airlines had the largest arrival delays? Try to complete the template below.</p>
+<pre class="r"><code>flights %&gt;%
+  tidyr::drop_na(arr_delay) %&gt;%
+  ... join airlines to flights ... %&gt;%
+  group_by( ...  ) %&gt;% 
+  ... compute the average delay ... %&gt;%
+  arrange( ...order by delay...  )</code></pre>
+<pre class="r"><code>flights %&gt;%
+  tidyr::drop_na(arr_delay) %&gt;%
+  left_join(airlines, by = &quot;carrier&quot;) %&gt;%
+  group_by(name) %&gt;%
+  summarise(delay = mean(arr_delay)) %&gt;%
+  arrange(-delay)</code></pre>
+<pre><code>## # A tibble: 16 × 2
+##                           name      delay
+##                          &lt;chr&gt;      &lt;dbl&gt;
+## 1       Frontier Airlines Inc. 21.9207048
+## 2  AirTran Airways Corporation 20.1159055
+## 3     ExpressJet Airlines Inc. 15.7964311
+## 4           Mesa Airlines Inc. 15.5569853
+## 5        SkyWest Airlines Inc. 11.9310345
+## 6                    Envoy Air 10.7747334
+## 7       Southwest Airlines Co.  9.6491199
+## 8              JetBlue Airways  9.4579733
+## 9            Endeavor Air Inc.  7.3796692
+## 10       United Air Lines Inc.  3.5580111
+## 11             US Airways Inc.  2.1295951
+## 12              Virgin America  1.7644644
+## 13        Delta Air Lines Inc.  1.6443409
+## 14      American Airlines Inc.  0.3642909
+## 15      Hawaiian Airlines Inc. -6.9152047
+## 16        Alaska Airlines Inc. -9.9308886</code></pre>
+</div>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p><code>dplyr</code> in a library for data transformation and manipulation. It is part of a collection of packages called <a href="http://www.tidyverse.org">Tidyverse</a></p>
+<div id="sources" class="section level4">
+<h4>Sources:</h4>
+<ul>
+<li>Data Transformation with dplyr (rstudio::conf, Tidyverse workshop)</li>
+</ul>
+</div>
 </div>
 
     </div>

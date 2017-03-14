@@ -120,7 +120,7 @@ summarise(babynames2, nn = n())
 
 ## Operator %>%
 
-A little bunny hopped though the forrest, scooped up the field mouse and bopped on his head. It could be expressed as follows.
+A little bunny hopped though the forest, scooped up the field mouse and bopped on his head. It could be expressed as follows.
 
 ```{r, eval=FALSE}
 foo_foo <- little_bunny()
@@ -151,4 +151,89 @@ little_bunny() %>%
 
 ## Grouping cases
 
-## Joining data sets
+Groups cases by common values.
+
+Are there more boys in the data set or girls?
+
+```{r}
+babynames %>%
+  group_by(sex) %>%
+  summarise(total = sum(n))
+```
+
+How does boys vs. girls ratio changes over time?
+
+```{r}
+babynames %>%
+  group_by(year, sex) %>%
+  summarise(total = sum(n)) %>%
+  ggplot(aes(x = year, y = total, color = sex)) +
+geom_line()
+```
+
+#### Challenge 5:
+
+Plot the number of unique names by year over time. Does it change? (Note in English, the same name could be given to a boy and a girl)
+
+```{r, echo=FALSE}
+babynames %>%
+  group_by(year) %>%
+  summarise(n_names = n_distinct(name)) %>%
+  ggplot(aes(year, n_names)) + geom_line()
+```
+
+
+## Joining datasets
+
+### Two table verbs
+
+There are multiple ways to join tables `x` and `y`.
+
+For example, imagine you want to join a table of `airports` to a table of `flights`. What should happen to airports with no flight? And what should happen to flights from airports not included in `airports` table?
+
+* `inner_join`: return all rows from `x` where there are matching values in `y`, and all columns from `x` and `y`. If there are multiple matches between `x` and `y`, all combination of the matches are returned.
+* `left_join`: same as `inner_join` but also keeps rows in `x` with no match in `y` (add `NA` values)
+* `right_join`: same as `inner_join` but also keeps rows in `y` with no match in `x` (add `NA` values)
+* `full_join`: return all rows and all columns from both x and y. Where there are not matching values, returns NA for the one missing.
+
+### Dataset nycflights13
+
+Data about every flight that departed La Guardia, JFK, or Newark airports in 2013. 
+
+```{r}
+# install.packages("nycflights13")
+library(nycflights13)
+```
+
+Look at `?flights` and `?airlines` tables.
+
+#### Challenge 6:
+
+Which airlines had the largest arrival delays? Try to complete the template below.
+
+```{r, eval=FALSE}
+flights %>%
+  tidyr::drop_na(arr_delay) %>%
+  ... join airlines to flights ... %>%
+  group_by( ...  ) %>% 
+  ... compute the average delay ... %>%
+  arrange( ...order by delay...  )
+```
+
+
+```{r}
+flights %>%
+  tidyr::drop_na(arr_delay) %>%
+  left_join(airlines, by = "carrier") %>%
+  group_by(name) %>%
+  summarise(delay = mean(arr_delay)) %>%
+  arrange(-delay)
+```
+
+## Summary 
+
+`dplyr` in a library for data transformation and manipulation. It is part of a collection of packages called [Tidyverse](http://www.tidyverse.org)
+
+#### Sources:
+
+* Data Transformation with dplyr (rstudio::conf, Tidyverse workshop)

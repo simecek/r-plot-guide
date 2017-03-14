@@ -26,7 +26,11 @@
 &lt;/ul&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#operator&#34;&gt;Operator %&amp;gt;%&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#grouping-cases&#34;&gt;Grouping cases&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#joining-data-sets&#34;&gt;Joining data sets&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#joining-datasets&#34;&gt;Joining datasets&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#two-table-verbs&#34;&gt;Two table verbs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#dataset-nycflights13&#34;&gt;Dataset nycflights13&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#summary&#34;&gt;Summary&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;p&gt;Python programmers believe that there should be one – and preferably only one – obvious way to do things. In R we love chaos and embrace originality. Therefore, we often have many ways to try.&lt;/p&gt;
@@ -107,7 +111,7 @@
 &lt;/div&gt;
 &lt;div id=&#34;operator&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Operator %&amp;gt;%&lt;/h2&gt;
-&lt;p&gt;A little bunny hopped though the forrest, scooped up the field mouse and bopped on his head. It could be expressed as follows.&lt;/p&gt;
+&lt;p&gt;A little bunny hopped though the forest, scooped up the field mouse and bopped on his head. It could be expressed as follows.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;foo_foo &amp;lt;- little_bunny()
 foo_foo2 &amp;lt;- hop_through(foo_foo, forest)
 foo_foo3 &amp;lt;- scoop_up(foo_foo2, field_mouse)
@@ -127,9 +131,94 @@ head)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;grouping-cases&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Grouping cases&lt;/h2&gt;
+&lt;p&gt;Groups cases by common values.&lt;/p&gt;
+&lt;p&gt;Are there more boys in the data set or girls?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;babynames %&amp;gt;%
+  group_by(sex) %&amp;gt;%
+  summarise(total = sum(n))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2 × 2
+##     sex     total
+##   &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt;
+## 1     F 167070477
+## 2     M 170064949&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;How does boys vs. girls ratio changes over time?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;babynames %&amp;gt;%
+  group_by(year, sex) %&amp;gt;%
+  summarise(total = sum(n)) %&amp;gt;%
+  ggplot(aes(x = year, y = total, color = sex)) +
+geom_line()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2017-03-13-data-manipulation-dplyr_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;challenge-5&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 5:&lt;/h4&gt;
+&lt;p&gt;Plot the number of unique names by year over time. Does it change? (Note in English, the same name could be given to a boy and a girl)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../../post/2017-03-13-data-manipulation-dplyr_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;joining-data-sets&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Joining data sets&lt;/h2&gt;
+&lt;/div&gt;
+&lt;div id=&#34;joining-datasets&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Joining datasets&lt;/h2&gt;
+&lt;div id=&#34;two-table-verbs&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Two table verbs&lt;/h3&gt;
+&lt;p&gt;There are multiple ways to join tables &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;For example, imagine you want to join a table of &lt;code&gt;airports&lt;/code&gt; to a table of &lt;code&gt;flights&lt;/code&gt;. What should happen to airports with no flight? And what should happen to flights from airports not included in &lt;code&gt;airports&lt;/code&gt; table?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;inner_join&lt;/code&gt;: return all rows from &lt;code&gt;x&lt;/code&gt; where there are matching values in &lt;code&gt;y&lt;/code&gt;, and all columns from &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt;. If there are multiple matches between &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt;, all combination of the matches are returned.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;left_join&lt;/code&gt;: same as &lt;code&gt;inner_join&lt;/code&gt; but also keeps rows in &lt;code&gt;x&lt;/code&gt; with no match in &lt;code&gt;y&lt;/code&gt; (add &lt;code&gt;NA&lt;/code&gt; values)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;right_join&lt;/code&gt;: same as &lt;code&gt;inner_join&lt;/code&gt; but also keeps rows in &lt;code&gt;y&lt;/code&gt; with no match in &lt;code&gt;x&lt;/code&gt; (add &lt;code&gt;NA&lt;/code&gt; values)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;full_join&lt;/code&gt;: return all rows and all columns from both x and y. Where there are not matching values, returns NA for the one missing.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;dataset-nycflights13&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Dataset nycflights13&lt;/h3&gt;
+&lt;p&gt;Data about every flight that departed La Guardia, JFK, or Newark airports in 2013.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# install.packages(&amp;quot;nycflights13&amp;quot;)
+library(nycflights13)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Look at &lt;code&gt;?flights&lt;/code&gt; and &lt;code&gt;?airlines&lt;/code&gt; tables.&lt;/p&gt;
+&lt;div id=&#34;challenge-6&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 6:&lt;/h4&gt;
+&lt;p&gt;Which airlines had the largest arrival delays? Try to complete the template below.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;flights %&amp;gt;%
+  tidyr::drop_na(arr_delay) %&amp;gt;%
+  ... join airlines to flights ... %&amp;gt;%
+  group_by( ...  ) %&amp;gt;% 
+  ... compute the average delay ... %&amp;gt;%
+  arrange( ...order by delay...  )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;flights %&amp;gt;%
+  tidyr::drop_na(arr_delay) %&amp;gt;%
+  left_join(airlines, by = &amp;quot;carrier&amp;quot;) %&amp;gt;%
+  group_by(name) %&amp;gt;%
+  summarise(delay = mean(arr_delay)) %&amp;gt;%
+  arrange(-delay)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 16 × 2
+##                           name      delay
+##                          &amp;lt;chr&amp;gt;      &amp;lt;dbl&amp;gt;
+## 1       Frontier Airlines Inc. 21.9207048
+## 2  AirTran Airways Corporation 20.1159055
+## 3     ExpressJet Airlines Inc. 15.7964311
+## 4           Mesa Airlines Inc. 15.5569853
+## 5        SkyWest Airlines Inc. 11.9310345
+## 6                    Envoy Air 10.7747334
+## 7       Southwest Airlines Co.  9.6491199
+## 8              JetBlue Airways  9.4579733
+## 9            Endeavor Air Inc.  7.3796692
+## 10       United Air Lines Inc.  3.5580111
+## 11             US Airways Inc.  2.1295951
+## 12              Virgin America  1.7644644
+## 13        Delta Air Lines Inc.  1.6443409
+## 14      American Airlines Inc.  0.3642909
+## 15      Hawaiian Airlines Inc. -6.9152047
+## 16        Alaska Airlines Inc. -9.9308886&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;dplyr&lt;/code&gt; in a library for data transformation and manipulation. It is part of a collection of packages called &lt;a href=&#34;http://www.tidyverse.org&#34;&gt;Tidyverse&lt;/a&gt;&lt;/p&gt;
+&lt;div id=&#34;sources&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Sources:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Data Transformation with dplyr (rstudio::conf, Tidyverse workshop)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 </description>
     </item>
