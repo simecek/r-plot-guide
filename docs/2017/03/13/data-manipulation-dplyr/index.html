@@ -90,10 +90,15 @@
 </div>
 <p>Python programmers believe that there should be one – and preferably only one – obvious way to do things. In R we love chaos and embrace originality. Therefore, we often have many ways to try.</p>
 <p>For data manipulation, we have a solid set of tools in base R like <code>subset</code>, <code>duplicated</code>, <code>cbind</code>, <code>rbind</code>, <code>match</code> and four ways to use <code>[</code> operator (numeric index, negative numeric index, logical index, and character index). For example:</p>
+<pre class="r"><code>var = c(a = 1, b = 2, c = 3, d = 4)
+var[1:2]
+var[-(3:4)]
+var[c(TRUE,TRUE,FALSE,FALSE)]
+var[c(&quot;a&quot;,&quot;b&quot;)]</code></pre>
 <p>Here I will talk about package <code>dplyr</code> that can be installed as <code>install.packages(dplyr)</code> and loaded as <code>library(dplyr)</code>. The package gains popularity due to its speed and readable code (<code>%&gt;%</code> operator).</p>
 <div id="dataset-babynames" class="section level2">
 <h2>Dataset babynames</h2>
-<p>Install and load package <code>babynames</code>. Names of male and female babies in US Social Security Administration (from 1880 to 2014).</p>
+<p>Install and load package <code>babynames</code> with names of male and female babies in US Social Security Administration (from 1880 to 2014).</p>
 <p>Get the info about the dataset with <code>?babynames</code> and <code>View(babynames)</code>.</p>
 </div>
 <div id="single-table-verbs" class="section level2">
@@ -107,13 +112,13 @@
 <li><code>mutate()</code> - create new variables</li>
 <li><code>summarise()</code> - summarise variables / create cases</li>
 </ul>
-<p>Download <a href="https://www.rstudio.com/resources/cheatsheets/">dData Transformation Cheat Sheet</a> to see other <code>dplyr</code>data transformations.</p>
+<p>Download <a href="https://www.rstudio.com/resources/cheatsheets/">Data Transformation Cheat Sheet</a> to see other <code>dplyr</code> data transformations.</p>
 <div id="filter" class="section level3">
 <h3>filter</h3>
 <p>Extract rows that meet logical criteria, see <code>?filter</code> for help. Also, see <code>?Comparison</code> and <code>?base::Logic</code> for logical operators in R.</p>
 <div id="challenge-1" class="section level4">
 <h4>Challenge 1</h4>
-<p>Try to plot a proportion of the name Wendy in US population.</p>
+<p>Try to plot a proportion of the name “Wendy” in US population.</p>
 <p><img src="../../../../post/2017-03-13-data-manipulation-dplyr_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 </div>
@@ -127,7 +132,7 @@
 </div>
 <div id="select" class="section level3">
 <h3>select</h3>
-<p>Extract columns by name. See <code>?select</code> and <em>select helpers</em> in the cheat sheet.</p>
+<p>Extract columns by name. See <code>?select</code> and <em>Select Helpers</em> in the cheat sheet.</p>
 </div>
 <div id="mutate" class="section level3">
 <h3>mutate</h3>
@@ -157,7 +162,7 @@
 <div id="challenge-4" class="section level4">
 <h4>Challenge 4</h4>
 <ul>
-<li>Create a summary that displays the min, mean, and max prop for Wendy.</li>
+<li>Create a summary that displays the min, mean, and max <code>prop</code> for Wendy.</li>
 <li>Determine how many unique names appear in the data set. (see cheat sheet or help for <code>n_distinct</code>).</li>
 <li>How many times a single names was given to <span class="math inline">\(1\%\)</span> or more of the boys or girls?</li>
 </ul>
@@ -178,6 +183,7 @@ bop_on(foo_foo3, head)</code></pre>
     field_mouse
   ),
 head)</code></pre>
+<p>Ugly, is not it?</p>
 <p>The operator <code>%&gt;%</code> enables us to sequentially describe the procedure without creating extra variables.</p>
 <pre class="r"><code>little_bunny() %&gt;%
   hop_through(forest) %&gt;%
@@ -205,7 +211,7 @@ geom_line()</code></pre>
 <p><img src="../../../../post/2017-03-13-data-manipulation-dplyr_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <div id="challenge-5" class="section level4">
 <h4>Challenge 5:</h4>
-<p>Plot the number of unique names by year over time. Does it change? (Note in English, the same name could be given to a boy and a girl)</p>
+<p>Plot the number of unique names by year over time. Does it change? (Note in English, the same name could be given to a boy and a girl at the same year)</p>
 <p><img src="../../../../post/2017-03-13-data-manipulation-dplyr_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
 </div>
@@ -232,13 +238,13 @@ library(nycflights13)</code></pre>
 <h4>Challenge 6:</h4>
 <p>Which airlines had the largest arrival delays? Try to complete the template below.</p>
 <pre class="r"><code>flights %&gt;%
-  tidyr::drop_na(arr_delay) %&gt;%
+  filter(!is.na(arr_delay)) %&gt;%
   ... join airlines to flights ... %&gt;%
   group_by( ...  ) %&gt;% 
   ... compute the average delay ... %&gt;%
   arrange( ...order by delay...  )</code></pre>
 <pre class="r"><code>flights %&gt;%
-  tidyr::drop_na(arr_delay) %&gt;%
+  filter(!is.na(arr_delay)) %&gt;%
   left_join(airlines, by = &quot;carrier&quot;) %&gt;%
   group_by(name) %&gt;%
   summarise(delay = mean(arr_delay)) %&gt;%
@@ -267,7 +273,7 @@ library(nycflights13)</code></pre>
 </div>
 <div id="summary" class="section level2">
 <h2>Summary</h2>
-<p><code>dplyr</code> in a library for data transformation and manipulation. It is part of a collection of packages called <a href="http://www.tidyverse.org">Tidyverse</a></p>
+<p><code>dplyr</code> is a library for data transformation and manipulation. It is part of a collection of packages called <a href="http://www.tidyverse.org">Tidyverse</a>. It uses a modified version of data frames called <a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html">tibbles</a>.</p>
 <div id="sources" class="section level4">
 <h4>Sources:</h4>
 <ul>

@@ -35,10 +35,15 @@
 &lt;/div&gt;
 &lt;p&gt;Python programmers believe that there should be one – and preferably only one – obvious way to do things. In R we love chaos and embrace originality. Therefore, we often have many ways to try.&lt;/p&gt;
 &lt;p&gt;For data manipulation, we have a solid set of tools in base R like &lt;code&gt;subset&lt;/code&gt;, &lt;code&gt;duplicated&lt;/code&gt;, &lt;code&gt;cbind&lt;/code&gt;, &lt;code&gt;rbind&lt;/code&gt;, &lt;code&gt;match&lt;/code&gt; and four ways to use &lt;code&gt;[&lt;/code&gt; operator (numeric index, negative numeric index, logical index, and character index). For example:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;var = c(a = 1, b = 2, c = 3, d = 4)
+var[1:2]
+var[-(3:4)]
+var[c(TRUE,TRUE,FALSE,FALSE)]
+var[c(&amp;quot;a&amp;quot;,&amp;quot;b&amp;quot;)]&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Here I will talk about package &lt;code&gt;dplyr&lt;/code&gt; that can be installed as &lt;code&gt;install.packages(dplyr)&lt;/code&gt; and loaded as &lt;code&gt;library(dplyr)&lt;/code&gt;. The package gains popularity due to its speed and readable code (&lt;code&gt;%&amp;gt;%&lt;/code&gt; operator).&lt;/p&gt;
 &lt;div id=&#34;dataset-babynames&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Dataset babynames&lt;/h2&gt;
-&lt;p&gt;Install and load package &lt;code&gt;babynames&lt;/code&gt;. Names of male and female babies in US Social Security Administration (from 1880 to 2014).&lt;/p&gt;
+&lt;p&gt;Install and load package &lt;code&gt;babynames&lt;/code&gt; with names of male and female babies in US Social Security Administration (from 1880 to 2014).&lt;/p&gt;
 &lt;p&gt;Get the info about the dataset with &lt;code&gt;?babynames&lt;/code&gt; and &lt;code&gt;View(babynames)&lt;/code&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;single-table-verbs&#34; class=&#34;section level2&#34;&gt;
@@ -52,13 +57,13 @@
 &lt;li&gt;&lt;code&gt;mutate()&lt;/code&gt; - create new variables&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;summarise()&lt;/code&gt; - summarise variables / create cases&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Download &lt;a href=&#34;https://www.rstudio.com/resources/cheatsheets/&#34;&gt;dData Transformation Cheat Sheet&lt;/a&gt; to see other &lt;code&gt;dplyr&lt;/code&gt;data transformations.&lt;/p&gt;
+&lt;p&gt;Download &lt;a href=&#34;https://www.rstudio.com/resources/cheatsheets/&#34;&gt;Data Transformation Cheat Sheet&lt;/a&gt; to see other &lt;code&gt;dplyr&lt;/code&gt; data transformations.&lt;/p&gt;
 &lt;div id=&#34;filter&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;filter&lt;/h3&gt;
 &lt;p&gt;Extract rows that meet logical criteria, see &lt;code&gt;?filter&lt;/code&gt; for help. Also, see &lt;code&gt;?Comparison&lt;/code&gt; and &lt;code&gt;?base::Logic&lt;/code&gt; for logical operators in R.&lt;/p&gt;
 &lt;div id=&#34;challenge-1&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Challenge 1&lt;/h4&gt;
-&lt;p&gt;Try to plot a proportion of the name Wendy in US population.&lt;/p&gt;
+&lt;p&gt;Try to plot a proportion of the name “Wendy” in US population.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../../post/2017-03-13-data-manipulation-dplyr_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -72,7 +77,7 @@
 &lt;/div&gt;
 &lt;div id=&#34;select&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;select&lt;/h3&gt;
-&lt;p&gt;Extract columns by name. See &lt;code&gt;?select&lt;/code&gt; and &lt;em&gt;select helpers&lt;/em&gt; in the cheat sheet.&lt;/p&gt;
+&lt;p&gt;Extract columns by name. See &lt;code&gt;?select&lt;/code&gt; and &lt;em&gt;Select Helpers&lt;/em&gt; in the cheat sheet.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;mutate&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;mutate&lt;/h3&gt;
@@ -102,7 +107,7 @@
 &lt;div id=&#34;challenge-4&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Challenge 4&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;Create a summary that displays the min, mean, and max prop for Wendy.&lt;/li&gt;
+&lt;li&gt;Create a summary that displays the min, mean, and max &lt;code&gt;prop&lt;/code&gt; for Wendy.&lt;/li&gt;
 &lt;li&gt;Determine how many unique names appear in the data set. (see cheat sheet or help for &lt;code&gt;n_distinct&lt;/code&gt;).&lt;/li&gt;
 &lt;li&gt;How many times a single names was given to &lt;span class=&#34;math inline&#34;&gt;\(1\%\)&lt;/span&gt; or more of the boys or girls?&lt;/li&gt;
 &lt;/ul&gt;
@@ -123,6 +128,7 @@ bop_on(foo_foo3, head)&lt;/code&gt;&lt;/pre&gt;
     field_mouse
   ),
 head)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ugly, is not it?&lt;/p&gt;
 &lt;p&gt;The operator &lt;code&gt;%&amp;gt;%&lt;/code&gt; enables us to sequentially describe the procedure without creating extra variables.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;little_bunny() %&amp;gt;%
   hop_through(forest) %&amp;gt;%
@@ -150,7 +156,7 @@ geom_line()&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;../../post/2017-03-13-data-manipulation-dplyr_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;div id=&#34;challenge-5&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Challenge 5:&lt;/h4&gt;
-&lt;p&gt;Plot the number of unique names by year over time. Does it change? (Note in English, the same name could be given to a boy and a girl)&lt;/p&gt;
+&lt;p&gt;Plot the number of unique names by year over time. Does it change? (Note in English, the same name could be given to a boy and a girl at the same year)&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../../post/2017-03-13-data-manipulation-dplyr_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -177,13 +183,13 @@ library(nycflights13)&lt;/code&gt;&lt;/pre&gt;
 &lt;h4&gt;Challenge 6:&lt;/h4&gt;
 &lt;p&gt;Which airlines had the largest arrival delays? Try to complete the template below.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;flights %&amp;gt;%
-  tidyr::drop_na(arr_delay) %&amp;gt;%
+  filter(!is.na(arr_delay)) %&amp;gt;%
   ... join airlines to flights ... %&amp;gt;%
   group_by( ...  ) %&amp;gt;% 
   ... compute the average delay ... %&amp;gt;%
   arrange( ...order by delay...  )&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;flights %&amp;gt;%
-  tidyr::drop_na(arr_delay) %&amp;gt;%
+  filter(!is.na(arr_delay)) %&amp;gt;%
   left_join(airlines, by = &amp;quot;carrier&amp;quot;) %&amp;gt;%
   group_by(name) %&amp;gt;%
   summarise(delay = mean(arr_delay)) %&amp;gt;%
@@ -212,7 +218,7 @@ library(nycflights13)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Summary&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;dplyr&lt;/code&gt; in a library for data transformation and manipulation. It is part of a collection of packages called &lt;a href=&#34;http://www.tidyverse.org&#34;&gt;Tidyverse&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;dplyr&lt;/code&gt; is a library for data transformation and manipulation. It is part of a collection of packages called &lt;a href=&#34;http://www.tidyverse.org&#34;&gt;Tidyverse&lt;/a&gt;. It uses a modified version of data frames called &lt;a href=&#34;https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html&#34;&gt;tibbles&lt;/a&gt;.&lt;/p&gt;
 &lt;div id=&#34;sources&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Sources:&lt;/h4&gt;
 &lt;ul&gt;

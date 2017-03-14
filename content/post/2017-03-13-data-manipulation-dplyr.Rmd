@@ -19,7 +19,7 @@ Python programmers believe that there should be one -- and preferably only one -
 
 For data manipulation, we have a solid set of tools in base R like `subset`, `duplicated`, `cbind`, `rbind`, `match` and four ways to use `[` operator (numeric index, negative numeric index, logical index, and character index). For example:
 
-```{r, eval=FALSE, include=FALSE}
+```{r, eval=FALSE}
 var = c(a = 1, b = 2, c = 3, d = 4)
 var[1:2]
 var[-(3:4)]
@@ -33,7 +33,7 @@ Here I will talk about package `dplyr` that can be installed as `install.package
 
 ## Dataset babynames
 
-Install and load package `babynames`. Names of male and female babies in US Social Security Administration (from 1880 to 2014). 
+Install and load package `babynames` with names of male and female babies in US Social Security Administration (from 1880 to 2014). 
 
 Get the info about the dataset with `?babynames` and `View(babynames)`.
 
@@ -48,7 +48,7 @@ The are six single table verbs:
 * `mutate()` - create new variables
 * `summarise()` - summarise variables / create cases
 
-Download [dData Transformation Cheat Sheet](https://www.rstudio.com/resources/cheatsheets/) to see other `dplyr `data transformations.
+Download [Data Transformation Cheat Sheet](https://www.rstudio.com/resources/cheatsheets/) to see other `dplyr` data transformations.
 
 ### filter
 
@@ -56,7 +56,7 @@ Extract rows that meet logical criteria, see `?filter` for help. Also, see `?Com
 
 #### Challenge 1
 
-Try to plot a proportion of the name Wendy in US population.
+Try to plot a proportion of the name "Wendy" in US population.
 
 ```{r, echo=FALSE}
 wendy <- filter(babynames, name == "Wendy", sex == "F")
@@ -82,7 +82,7 @@ arrange(wendy, desc(prop)) #1967
 
 ### select 
 
-Extract columns by name. See `?select` and *select helpers* in the cheat sheet.
+Extract columns by name. See `?select` and *Select Helpers* in the cheat sheet.
 
 ### mutate
 
@@ -104,7 +104,7 @@ Compute table of summaries.
 
 #### Challenge 4
 
-* Create a summary that displays the min, mean, and max prop for Wendy. 
+* Create a summary that displays the min, mean, and max `prop` for Wendy. 
 * Determine how many unique names appear in the data set. (see cheat sheet or help for `n_distinct`).
 * How many times a single names was given to $1\%$ or more of the boys or girls?
 
@@ -140,6 +140,8 @@ bop_on(
 head)
 ```
 
+Ugly, is not it?
+
 The operator `%>%` enables us to sequentially describe the procedure without creating extra variables.
 
 ```{r, eval=FALSE}
@@ -173,7 +175,7 @@ geom_line()
 
 #### Challenge 5:
 
-Plot the number of unique names by year over time. Does it change? (Note in English, the same name could be given to a boy and a girl)
+Plot the number of unique names by year over time. Does it change? (Note in English, the same name could be given to a boy and a girl at the same year)
 
 ```{r, echo=FALSE}
 babynames %>%
@@ -213,7 +215,7 @@ Which airlines had the largest arrival delays? Try to complete the template belo
 
 ```{r, eval=FALSE}
 flights %>%
-  tidyr::drop_na(arr_delay) %>%
+  filter(!is.na(arr_delay)) %>%
   ... join airlines to flights ... %>%
   group_by( ...  ) %>% 
   ... compute the average delay ... %>%
@@ -223,7 +225,7 @@ flights %>%
 
 ```{r}
 flights %>%
-  tidyr::drop_na(arr_delay) %>%
+  filter(!is.na(arr_delay)) %>%
   left_join(airlines, by = "carrier") %>%
   group_by(name) %>%
   summarise(delay = mean(arr_delay)) %>%
@@ -232,7 +234,7 @@ flights %>%
 
 ## Summary 
 
-`dplyr` in a library for data transformation and manipulation. It is part of a collection of packages called [Tidyverse](http://www.tidyverse.org)
+`dplyr` is a library for data transformation and manipulation. It is part of a collection of packages called [Tidyverse](http://www.tidyverse.org). It uses a modified version of data frames called [tibbles](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html).
 
 #### Sources:
 
