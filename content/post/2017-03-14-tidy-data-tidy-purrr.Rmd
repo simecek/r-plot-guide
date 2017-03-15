@@ -118,3 +118,18 @@ ggplot(stats, aes(x = Species, y = average, fill = Species)) +
   ylab("Sepal.Length")
 ```
 
+#### Challenge 3
+
+Now try to visualise not only `Sepal.Length` but also the remaining three variables into the one graph.
+
+## purr
+
+### apply a function to each element of a vector
+
+* `map(.x, .f, ...)`
+* `map_lgl(.x, .f, ...)`
+* `map_chr(.x, .f, ...)`
+* `map_int(.x, .f, ...)`
+* `map_dbl(.x, .f, ...)`
+* `map_df(.x, .f, ..., .id = NULL)`
+* `walk(.x, .f, ...)`

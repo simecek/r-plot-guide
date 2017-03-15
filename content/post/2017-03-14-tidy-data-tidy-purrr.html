@@ -18,6 +18,9 @@ output:
 <li><a href="#separate-and-unite">separate and unite</a></li>
 <li><a href="#iris-dataset">iris dataset</a></li>
 </ul></li>
+<li><a href="#purr">purr</a><ul>
+<li><a href="#apply-a-function-to-each-element-of-a-vector">apply a function to each element of a vector</a></li>
+</ul></li>
 </ul>
 </div>
 <p>We have learned basic data manipulation with <code>dplyr</code>. Now it is time to learn reshaping of tabular data with <code>tidyr</code> and looping through elements with <code>purrr</code></p>
@@ -100,5 +103,24 @@ ggplot(iris, aes(x = Species, y = Sepal.Length)) +
   geom_errorbar(data= stats, aes(ymin = average-se, ymax = average+se), width=0.5) +
   ylab(&quot;Sepal.Length&quot;)</code></pre>
 <p><img src="/post/2017-03-14-tidy-data-tidy-purrr_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div id="challenge-3" class="section level4">
+<h4>Challenge 3</h4>
+<p>Now try to visualise not only <code>Sepal.Length</code> but also the remaining three variables into the one graph.</p>
+</div>
+</div>
+</div>
+<div id="purr" class="section level2">
+<h2>purr</h2>
+<div id="apply-a-function-to-each-element-of-a-vector" class="section level3">
+<h3>apply a function to each element of a vector</h3>
+<ul>
+<li><code>map(.x, .f, ...)</code></li>
+<li><code>map_lgl(.x, .f, ...)</code></li>
+<li><code>map_chr(.x, .f, ...)</code></li>
+<li><code>map_int(.x, .f, ...)</code></li>
+<li><code>map_dbl(.x, .f, ...)</code></li>
+<li><code>map_df(.x, .f, ..., .id = NULL)</code></li>
+<li><code>walk(.x, .f, ...)</code></li>
+</ul>
 </div>
 </div>
