@@ -1,0 +1,120 @@
+---
+title: Tidy Data (tidy, purrr)
+date: '2017-03-14'
+slug: tidy-data-tidy-purrr
+categories:
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+```{r, include=FALSE}
+suppressMessages(library(tidyverse)) 
+suppressMessages(library(babynames))
+data(iris)
+```
+
+We have learned basic data manipulation with `dplyr`. Now it is time to learn reshaping of tabular data with `tidyr` and looping through elements with `purrr`
+
+## dplyr
+
+* `spread` - move values into column names
+* `gather` - move column names into values
+* `separate` - separate variables that share a column
+* `unite` - unite a variable that is split across several columns
+
+### spread
+
+Imagine you want to calculate a ratio of number of males to females in `babynames` dataset. You can start as 
+
+```{r, eval=FALSE}
+babynames %>%
+  group_by(year, sex) %>%
+  summarise(n = sum(n))
+```
+
+And then you need something that from `n` generates two columns `males` and `females`. 
+
+```{r}
+babynames %>%
+  group_by(year, sex) %>%
+  summarise(n = sum(n)) %>%
+  spread(sex, n) %>%
+  head()
+```
+
+#### Challenge 1:
+
+Modify the code above to plot the percent of childern that are male in `babynames` dataset:
+
+```{r, echo=FALSE}
+babynames %>%
+  group_by(year, sex) %>%
+  summarise(n = sum(n)) %>%
+  spread(sex, n) %>%
+  mutate(percent_male = M / (M + F) * 100) %>%
+  ggplot(aes(year, percent_male)) + geom_line()
+```
+
+### gather
+
+`gather` is inverse function to `spread`, its collapses multiple columns into two columns, see `?gather`.
+
+#### Challenge 2:
+
+For the wide transformation of `babynames`, use `gather` to transform the dataset back into the long format with three columns. 
+
+```{r}
+wide <- babynames %>%
+  group_by(year, sex) %>%
+  summarise(n = sum(n)) %>%
+  spread(sex, n)
+```
+
+```{r, eval=FALSE, include=FALSE}
+# solution
+long <- wide %>%
+  gather("sex", "n", 2:3)
+```
+
+### separate and unite
+
+`separate` splits a column by dividing values at a specific character. `unite` unites columns into single column by combining cells.
+
+### iris dataset 
+
+Famous Fisher's dataset with measurements of sepal / petal length and width for *Iris setosa, versicolor*, and *virginica*.
+
+Let us start with some data inspection. What is the distribution of `Sepal.Length` for each specie?
+
+```{r}
+ggplot(iris, aes(x = Species, y = Sepal.Length)) + 
+  geom_boxplot() +
+  geom_jitter(width=0.2)
+```
+
+Instead of boxplots and data points, we can plot violins and means.
+
+```{r}
+stats <- iris %>%
+  group_by(Species) %>%
+  summarize(average = mean(Sepal.Length),
+            se = sd(Sepal.Length) / sqrt(n())) %>%
+  ungroup()
+
+ggplot(iris, aes(x = Species, y = Sepal.Length)) + 
+  geom_violin() +
+  geom_pointrange(data= stats, aes(x = Species, y = average, 
+                                    ymin = average-se, ymax = average+se), size=0.5)
+```
+
+Or if somebody insist - barplots and error bars.
+
+```{r}
+ggplot(stats, aes(x = Species, y = average, fill = Species)) + 
+  geom_bar(stat="identity") +
+  geom_errorbar(data= stats, aes(ymin = average-se, ymax = average+se), width=0.5) +
+  ylab("Sepal.Length")
+```
+

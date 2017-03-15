@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.19" />
+
+
+<title>Tidy Data (tidy, purrr) - Lithium Theme</title>
+<meta property="og:title" content="Tidy Data (tidy, purrr) - Lithium Theme">
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css' rel='stylesheet' type='text/css'>
+
+
+
+<link rel="stylesheet" href="../../../../css/fonts.css" media="all">
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="../../../../" class="nav-logo">
+    <img src="../../../../images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="../../../../about/">About</a></li>
+    
+    <li><a href="https://github.com/simecek">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/simecek">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">2 min read</span>
+    
+
+    <h1 class="article-title">Tidy Data (tidy, purrr)</h1>
+
+    
+    <span class="article-date">2017/03/14</span>
+    
+
+    <div class="article-content">
+      <div id="TOC">
+<ul>
+<li><a href="#dplyr">dplyr</a><ul>
+<li><a href="#spread">spread</a></li>
+<li><a href="#gather">gather</a></li>
+<li><a href="#separate-and-unite">separate and unite</a></li>
+<li><a href="#iris-dataset">iris dataset</a></li>
+</ul></li>
+</ul>
+</div>
+<p>We have learned basic data manipulation with <code>dplyr</code>. Now it is time to learn reshaping of tabular data with <code>tidyr</code> and looping through elements with <code>purrr</code></p>
+<div id="dplyr" class="section level2">
+<h2>dplyr</h2>
+<ul>
+<li><code>spread</code> - move values into column names</li>
+<li><code>gather</code> - move column names into values</li>
+<li><code>separate</code> - separate variables that share a column</li>
+<li><code>unite</code> - unite a variable that is split across several columns</li>
+</ul>
+<div id="spread" class="section level3">
+<h3>spread</h3>
+<p>Imagine you want to calculate a ratio of number of males to females in <code>babynames</code> dataset. You can start as</p>
+<pre class="r"><code>babynames %&gt;%
+  group_by(year, sex) %&gt;%
+  summarise(n = sum(n))</code></pre>
+<p>And then you need something that from <code>n</code> generates two columns <code>males</code> and <code>females</code>.</p>
+<pre class="r"><code>babynames %&gt;%
+  group_by(year, sex) %&gt;%
+  summarise(n = sum(n)) %&gt;%
+  spread(sex, n) %&gt;%
+  head()</code></pre>
+<pre><code>## Source: local data frame [6 x 3]
+## Groups: year [6]
+## 
+##    year      F      M
+##   &lt;dbl&gt;  &lt;int&gt;  &lt;int&gt;
+## 1  1880  90993 110491
+## 2  1881  91954 100745
+## 3  1882 107850 113688
+## 4  1883 112321 104629
+## 5  1884 129022 114445
+## 6  1885 133055 107800</code></pre>
+<div id="challenge-1" class="section level4">
+<h4>Challenge 1:</h4>
+<p>Modify the code above to plot the percent of childern that are male in <code>babynames</code> dataset:</p>
+<p><img src="../../../../post/2017-03-14-tidy-data-tidy-purrr_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+</div>
+<div id="gather" class="section level3">
+<h3>gather</h3>
+<p><code>gather</code> is inverse function to <code>spread</code>, its collapses multiple columns into two columns, see <code>?gather</code>.</p>
+<div id="challenge-2" class="section level4">
+<h4>Challenge 2:</h4>
+<p>For the wide transformation of <code>babynames</code>, use <code>gather</code> to transform the dataset back into the long format with three columns.</p>
+<pre class="r"><code>wide &lt;- babynames %&gt;%
+  group_by(year, sex) %&gt;%
+  summarise(n = sum(n)) %&gt;%
+  spread(sex, n)</code></pre>
+</div>
+</div>
+<div id="separate-and-unite" class="section level3">
+<h3>separate and unite</h3>
+<p><code>separate</code> splits a column by dividing values at a specific character. <code>unite</code> unites columns into single column by combining cells.</p>
+</div>
+<div id="iris-dataset" class="section level3">
+<h3>iris dataset</h3>
+<p>Famous Fisher’s dataset with measurements of sepal / petal length and width for <em>Iris setosa, versicolor</em>, and <em>virginica</em>.</p>
+<p>Let us start with some data inspection. What is the distribution of <code>Sepal.Length</code> for each specie?</p>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Sepal.Length)) + 
+  geom_boxplot() +
+  geom_jitter(width=0.2)</code></pre>
+<p><img src="../../../../post/2017-03-14-tidy-data-tidy-purrr_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Instead of boxplots and data points, we can plot violins and means.</p>
+<pre class="r"><code>stats &lt;- iris %&gt;%
+  group_by(Species) %&gt;%
+  summarize(average = mean(Sepal.Length),
+            se = sd(Sepal.Length) / sqrt(n())) %&gt;%
+  ungroup()
+
+ggplot(iris, aes(x = Species, y = Sepal.Length)) + 
+  geom_violin() +
+  geom_pointrange(data= stats, aes(x = Species, y = average, 
+                                    ymin = average-se, ymax = average+se), size=0.5)</code></pre>
+<p><img src="../../../../post/2017-03-14-tidy-data-tidy-purrr_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Or if somebody insist - barplots and error bars.</p>
+<pre class="r"><code>ggplot(stats, aes(x = Species, y = average, fill = Species)) + 
+  geom_bar(stat=&quot;identity&quot;) +
+  geom_errorbar(data= stats, aes(ymin = average-se, ymax = average+se), width=0.5) +
+  ylab(&quot;Sepal.Length&quot;)</code></pre>
+<p><img src="../../../../post/2017-03-14-tidy-data-tidy-purrr_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="../../../../images/hugo-logo.png" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+

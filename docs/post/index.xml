@@ -6,8 +6,109 @@
     <description>Recent content in Posts on Lithium Theme</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Mar 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 14 Mar 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Tidy Data (tidy, purrr)</title>
+      <link>/2017/03/14/tidy-data-tidy-purrr/</link>
+      <pubDate>Tue, 14 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/03/14/tidy-data-tidy-purrr/</guid>
+      <description>&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#dplyr&#34;&gt;dplyr&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#spread&#34;&gt;spread&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#gather&#34;&gt;gather&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#separate-and-unite&#34;&gt;separate and unite&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#iris-dataset&#34;&gt;iris dataset&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;We have learned basic data manipulation with &lt;code&gt;dplyr&lt;/code&gt;. Now it is time to learn reshaping of tabular data with &lt;code&gt;tidyr&lt;/code&gt; and looping through elements with &lt;code&gt;purrr&lt;/code&gt;&lt;/p&gt;
+&lt;div id=&#34;dplyr&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;dplyr&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;spread&lt;/code&gt; - move values into column names&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gather&lt;/code&gt; - move column names into values&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;separate&lt;/code&gt; - separate variables that share a column&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;unite&lt;/code&gt; - unite a variable that is split across several columns&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;spread&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;spread&lt;/h3&gt;
+&lt;p&gt;Imagine you want to calculate a ratio of number of males to females in &lt;code&gt;babynames&lt;/code&gt; dataset. You can start as&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;babynames %&amp;gt;%
+  group_by(year, sex) %&amp;gt;%
+  summarise(n = sum(n))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And then you need something that from &lt;code&gt;n&lt;/code&gt; generates two columns &lt;code&gt;males&lt;/code&gt; and &lt;code&gt;females&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;babynames %&amp;gt;%
+  group_by(year, sex) %&amp;gt;%
+  summarise(n = sum(n)) %&amp;gt;%
+  spread(sex, n) %&amp;gt;%
+  head()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Source: local data frame [6 x 3]
+## Groups: year [6]
+## 
+##    year      F      M
+##   &amp;lt;dbl&amp;gt;  &amp;lt;int&amp;gt;  &amp;lt;int&amp;gt;
+## 1  1880  90993 110491
+## 2  1881  91954 100745
+## 3  1882 107850 113688
+## 4  1883 112321 104629
+## 5  1884 129022 114445
+## 6  1885 133055 107800&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;challenge-1&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 1:&lt;/h4&gt;
+&lt;p&gt;Modify the code above to plot the percent of childern that are male in &lt;code&gt;babynames&lt;/code&gt; dataset:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-14-tidy-data-tidy-purrr_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;gather&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;gather&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;gather&lt;/code&gt; is inverse function to &lt;code&gt;spread&lt;/code&gt;, its collapses multiple columns into two columns, see &lt;code&gt;?gather&lt;/code&gt;.&lt;/p&gt;
+&lt;div id=&#34;challenge-2&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 2:&lt;/h4&gt;
+&lt;p&gt;For the wide transformation of &lt;code&gt;babynames&lt;/code&gt;, use &lt;code&gt;gather&lt;/code&gt; to transform the dataset back into the long format with three columns.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;wide &amp;lt;- babynames %&amp;gt;%
+  group_by(year, sex) %&amp;gt;%
+  summarise(n = sum(n)) %&amp;gt;%
+  spread(sex, n)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;separate-and-unite&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;separate and unite&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;separate&lt;/code&gt; splits a column by dividing values at a specific character. &lt;code&gt;unite&lt;/code&gt; unites columns into single column by combining cells.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;iris-dataset&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;iris dataset&lt;/h3&gt;
+&lt;p&gt;Famous Fisher’s dataset with measurements of sepal / petal length and width for &lt;em&gt;Iris setosa, versicolor&lt;/em&gt;, and &lt;em&gt;virginica&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Let us start with some data inspection. What is the distribution of &lt;code&gt;Sepal.Length&lt;/code&gt; for each specie?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(iris, aes(x = Species, y = Sepal.Length)) + 
+  geom_boxplot() +
+  geom_jitter(width=0.2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-14-tidy-data-tidy-purrr_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Instead of boxplots and data points, we can plot violins and means.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;stats &amp;lt;- iris %&amp;gt;%
+  group_by(Species) %&amp;gt;%
+  summarize(average = mean(Sepal.Length),
+            se = sd(Sepal.Length) / sqrt(n())) %&amp;gt;%
+  ungroup()
+
+ggplot(iris, aes(x = Species, y = Sepal.Length)) + 
+  geom_violin() +
+  geom_pointrange(data= stats, aes(x = Species, y = average, 
+                                    ymin = average-se, ymax = average+se), size=0.5)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-14-tidy-data-tidy-purrr_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Or if somebody insist - barplots and error bars.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(stats, aes(x = Species, y = average, fill = Species)) + 
+  geom_bar(stat=&amp;quot;identity&amp;quot;) +
+  geom_errorbar(data= stats, aes(ymin = average-se, ymax = average+se), width=0.5) +
+  ylab(&amp;quot;Sepal.Length&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;../post/2017-03-14-tidy-data-tidy-purrr_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Data Manipulation (dplyr)</title>
