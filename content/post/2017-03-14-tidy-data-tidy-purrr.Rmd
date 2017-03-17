@@ -122,14 +122,48 @@ ggplot(stats, aes(x = Species, y = average, fill = Species)) +
 
 Now try to visualise not only `Sepal.Length` but also the remaining three variables into the one graph.
 
+```{r, echo=FALSE}
+iris %>% 
+  gather("Measure", "cm", -Species) %>%
+  ggplot(aes(y=cm, x=Measure, fill=Species)) +
+  geom_boxplot(position=position_dodge(), notch=TRUE)
+```
+
+```{r, echo=FALSE}
+stats2 <- iris %>%
+  gather("Measure", "cm", -Species) %>%
+  group_by(Species, Measure) %>%
+  summarize(average = mean(cm),
+            se = sd(cm) / sqrt(n())) %>%
+  ungroup()
+
+ggplot(stats2, aes(x=Species, y=average, fill=Measure)) +
+  geom_bar(stat="identity", position = position_dodge(), color="black") +
+  geom_errorbar(aes(ymin = average-se, ymax = average+se), width=.2,position=position_dodge(.9)) +
+  ylab("cm")
+```
+
 ## purr
 
-### apply a function to each element of a vector
+### map = apply a function to each element of a vector
 
-* `map(.x, .f, ...)`
-* `map_lgl(.x, .f, ...)`
-* `map_chr(.x, .f, ...)`
-* `map_int(.x, .f, ...)`
-* `map_dbl(.x, .f, ...)`
-* `map_df(.x, .f, ..., .id = NULL)`
-* `walk(.x, .f, ...)`
+There are several flavours of `map` specifying what should be the type of output:
+
+* `map(.x, .f, ...)` - list 
+* `map_lgl(.x, .f, ...)` - logical 
+* `map_chr(.x, .f, ...)` - character
+* `map_int(.x, .f, ...)` - integer
+* `map_dbl(.x, .f, ...)` - double (real number) 
+* `map_df(.x, .f, ..., .id = NULL)` - data frame
+* `walk(.x, .f, ...)`: nothing (just run)
+
+#### Challenge 4
+
+For `iris` dataset, use `map` to calculate column means.
+
+```{r, echo=FALSE}
+iris %>%
+  select(-Species) %>%
+  map_dbl(mean)
+```
+
