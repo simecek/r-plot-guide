@@ -20,32 +20,43 @@
 &lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
 &lt;div id=&#34;TOC&#34;&gt;
 &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#text-manipulation&#34;&gt;text manipulation&lt;/a&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#base&#34;&gt;base&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#stringr&#34;&gt;stringr&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#regex&#34;&gt;regex&lt;/a&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#operators&#34;&gt;operators&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#substitutions&#34;&gt;substitutions&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#summary&#34;&gt;summary&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
-&lt;p&gt;R is not known to be a favorite tool for text processing. However, it&lt;/p&gt;
-&lt;div id=&#34;base&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;base&lt;/h2&gt;
+&lt;p&gt;R is not known to be a favorite tool for text processing. However, it contains basic functions to concatenate and split strings.&lt;/p&gt;
+&lt;div id=&#34;text-manipulation&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;text manipulation&lt;/h2&gt;
+&lt;div id=&#34;base&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;base&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;paste&lt;/code&gt;, &lt;code&gt;paste0&lt;/code&gt; - concatenate multiple strings&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;strplit&lt;/code&gt; - stlit one string into multiple string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;strplit&lt;/code&gt; - split one string into multiple strings&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;substr&lt;/code&gt; - get a substring&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div id=&#34;challenge-1&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Challenge 1:&lt;/h4&gt;
-&lt;p&gt;If &lt;code&gt;a = &amp;quot;R is awesome&amp;quot;&lt;/code&gt; and &lt;code&gt;b = &amp;quot;but sometimes sucks&amp;quot;&lt;/code&gt;. Combine those strings together, split the first one by &amp;quot; &amp;quot; character and get “sometimes” from the second one using &lt;code&gt;substr&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;If &lt;code&gt;a = &amp;quot;R is awesome&amp;quot;&lt;/code&gt; and &lt;code&gt;b = &amp;quot;but sometimes sucks&amp;quot;&lt;/code&gt; then&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Combine those strings together&lt;/li&gt;
+&lt;li&gt;Split the first one by &amp;quot; &amp;quot; character&lt;/li&gt;
+&lt;li&gt;Get “sometimes” from the second one using &lt;code&gt;substr&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;R is awesome but sometimes sucks&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;R&amp;quot;       &amp;quot;is&amp;quot;      &amp;quot;awesome&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;sometimes&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;stringr&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;stringr&lt;/h2&gt;
+&lt;div id=&#34;stringr&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;stringr&lt;/h3&gt;
 &lt;p&gt;I have very limited knowledge of &lt;code&gt;stringr&lt;/code&gt; but it is considered to be more friendly way to do string manipulation in R. It is now a part of &lt;code&gt;tidyverse&lt;/code&gt; collection.&lt;/p&gt;
 &lt;p&gt;See &lt;a href=&#34;https://github.com/tidyverse/stringr&#34; class=&#34;uri&#34;&gt;https://github.com/tidyverse/stringr&lt;/a&gt;&lt;/p&gt;
 &lt;div id=&#34;challenge-2&#34; class=&#34;section level4&#34;&gt;
@@ -54,6 +65,7 @@
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;R is awesome but sometimes sucks&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;R&amp;quot;       &amp;quot;is&amp;quot;      &amp;quot;awesome&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;sometimes&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;regex&#34; class=&#34;section level2&#34;&gt;
@@ -67,7 +79,7 @@ grep(&amp;quot;ac*b&amp;quot;, strings, value = TRUE)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The patter “ac*b&amp;quot; stands for first “a”, then any number of “c”, then “b”.&lt;/p&gt;
 &lt;div id=&#34;challenge-3&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Challenge 3:&lt;/h4&gt;
-&lt;p&gt;In &lt;code&gt;library(gapminder)&lt;/code&gt; use &lt;code&gt;gapminder&lt;/code&gt; dataset, column &lt;code&gt;country&lt;/code&gt; to search for all countried with &lt;code&gt;ee&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;In &lt;code&gt;library(gapminder)&lt;/code&gt; use &lt;code&gt;gapminder&lt;/code&gt; dataset, column &lt;code&gt;country&lt;/code&gt; to search for all countries with &lt;code&gt;ee&lt;/code&gt;.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Greece&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;operators&#34; class=&#34;section level3&#34;&gt;
@@ -81,7 +93,52 @@ grep(&amp;quot;ac*b&amp;quot;, strings, value = TRUE)&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;&lt;code&gt;|&lt;/code&gt;: an “or” operator, matches patterns on either side of the |.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;^&lt;/code&gt; and &lt;code&gt;$&lt;/code&gt;: beginning and end of the string&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;(...)&lt;/code&gt;: grouping in regular expressions. This allows you to retrieve the bits that matched various parts of your regular expression so you can alter them or use them for building up a new string. Each group can than be refer using \N, with N being the No. of (…) used. This is called backreference.&lt;/p&gt;
+&lt;div id=&#34;challenge-4&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 4:&lt;/h4&gt;
+&lt;p&gt;What will be the output of the code below (first guess, then try).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;strings &amp;lt;- c(&amp;quot;^ab&amp;quot;, &amp;quot;ab&amp;quot;, &amp;quot;abc&amp;quot;, &amp;quot;abd&amp;quot;, &amp;quot;abe&amp;quot;, &amp;quot;ab 12&amp;quot;)
+grep(&amp;quot;ab.&amp;quot;, strings, value = TRUE)
+grep(&amp;quot;ab[c-e]&amp;quot;, strings, value = TRUE)
+grep(&amp;quot;ab[^c]&amp;quot;, strings, value = TRUE)
+grep(&amp;quot;^ab&amp;quot;, strings, value = TRUE)
+grep(&amp;quot;\\^ab&amp;quot;, strings, value = TRUE)
+grep(&amp;quot;abc|abd&amp;quot;, strings, value = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;substitutions&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;substitutions&lt;/h3&gt;
+&lt;p&gt;With &lt;code&gt;sub&lt;/code&gt; and &lt;code&gt;gsub&lt;/code&gt; functions you can make one or all string substitutions.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sub(&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;balalajka&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;bblalajka&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gsub(&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;balalajka&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;bblblbjkb&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There is one additional regex operator for substitutions:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;(...)&lt;/code&gt;: grouping in regular expressions. This allows you to retrieve the bits that matched various parts of your regular expression so you can alter them or use them for building up a new string. Each group can than be refer using \N, with N being the No. of (…) used. This is called backreference.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For example, to add dash before the number in sample ids.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ids &amp;lt;- c(&amp;quot;DO01&amp;quot;, &amp;quot;DO02&amp;quot;, &amp;quot;DO03&amp;quot;, &amp;quot;DO04&amp;quot;, &amp;quot;DO05&amp;quot;)
+sub(&amp;quot;DO([0-9]*)&amp;quot;, &amp;quot;DO-\\1&amp;quot;, ids)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;DO-01&amp;quot; &amp;quot;DO-02&amp;quot; &amp;quot;DO-03&amp;quot; &amp;quot;DO-04&amp;quot; &amp;quot;DO-05&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;challenge-5&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 5:&lt;/h4&gt;
+&lt;p&gt;In &lt;code&gt;gapminder&lt;/code&gt;, find all countries that end with “land”, and replace “land” with “LAND” using backreference.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;countries &amp;lt;- unique(gapminder$country)
+lands &amp;lt;- grep(&amp;quot;land$&amp;quot;, countries, value = TRUE)
+sub(&amp;quot;(.*)land&amp;quot;, &amp;quot;\\1LAND&amp;quot;, lands)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;FinLAND&amp;quot;     &amp;quot;IceLAND&amp;quot;     &amp;quot;IreLAND&amp;quot;     &amp;quot;New ZeaLAND&amp;quot; &amp;quot;PoLAND&amp;quot;     
+## [6] &amp;quot;SwaziLAND&amp;quot;   &amp;quot;SwitzerLAND&amp;quot; &amp;quot;ThaiLAND&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;summary&lt;/h2&gt;
+&lt;div id=&#34;sources&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Sources:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://stat545.com/block022_regular-expression.html&#34;&gt;STAT545 Regular Expression in R&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html&#34;&gt;R help&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
@@ -104,6 +161,7 @@ grep(&amp;quot;ac*b&amp;quot;, strings, value = TRUE)&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;&lt;a href=&#34;#purr&#34;&gt;purr&lt;/a&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#map-apply-a-function-to-each-element-of-a-vector&#34;&gt;map = apply a function to each element of a vector&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#summary&#34;&gt;Summary&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;p&gt;We have learned basic data manipulation with &lt;code&gt;dplyr&lt;/code&gt;. Now it is time to learn reshaping of tabular data with &lt;code&gt;tidyr&lt;/code&gt; and looping through elements with &lt;code&gt;purrr&lt;/code&gt;&lt;/p&gt;
@@ -215,6 +273,15 @@ ggplot(iris, aes(x = Species, y = Sepal.Length)) +
 &lt;pre&gt;&lt;code&gt;## Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
 ##     5.843333     3.057333     3.758000     1.199333&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
+&lt;div id=&#34;sources&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Sources:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Tidy data (rstudio::conf, Tidyverse workshop)&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>

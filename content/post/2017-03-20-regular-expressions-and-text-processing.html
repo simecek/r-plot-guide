@@ -15,32 +15,43 @@ output:
 <!-- BLOGDOWN-BODY-BEFORE -->
 <div id="TOC">
 <ul>
+<li><a href="#text-manipulation">text manipulation</a><ul>
 <li><a href="#base">base</a></li>
 <li><a href="#stringr">stringr</a></li>
+</ul></li>
 <li><a href="#regex">regex</a><ul>
 <li><a href="#operators">operators</a></li>
+<li><a href="#substitutions">substitutions</a></li>
 </ul></li>
+<li><a href="#summary">summary</a></li>
 </ul>
 </div>
 <!-- /BLOGDOWN-BODY-BEFORE -->
-<p>R is not known to be a favorite tool for text processing. However, it</p>
-<div id="base" class="section level2">
-<h2>base</h2>
+<p>R is not known to be a favorite tool for text processing. However, it contains basic functions to concatenate and split strings.</p>
+<div id="text-manipulation" class="section level2">
+<h2>text manipulation</h2>
+<div id="base" class="section level3">
+<h3>base</h3>
 <ul>
 <li><code>paste</code>, <code>paste0</code> - concatenate multiple strings</li>
-<li><code>strplit</code> - stlit one string into multiple string</li>
+<li><code>strplit</code> - split one string into multiple strings</li>
 <li><code>substr</code> - get a substring</li>
 </ul>
 <div id="challenge-1" class="section level4">
 <h4>Challenge 1:</h4>
-<p>If <code>a = &quot;R is awesome&quot;</code> and <code>b = &quot;but sometimes sucks&quot;</code>. Combine those strings together, split the first one by &quot; &quot; character and get “sometimes” from the second one using <code>substr</code>.</p>
+<p>If <code>a = &quot;R is awesome&quot;</code> and <code>b = &quot;but sometimes sucks&quot;</code> then</p>
+<ul>
+<li>Combine those strings together</li>
+<li>Split the first one by &quot; &quot; character</li>
+<li>Get “sometimes” from the second one using <code>substr</code></li>
+</ul>
 <pre><code>## [1] &quot;R is awesome but sometimes sucks&quot;</code></pre>
 <pre><code>## [1] &quot;R&quot;       &quot;is&quot;      &quot;awesome&quot;</code></pre>
 <pre><code>## [1] &quot;sometimes&quot;</code></pre>
 </div>
 </div>
-<div id="stringr" class="section level2">
-<h2>stringr</h2>
+<div id="stringr" class="section level3">
+<h3>stringr</h3>
 <p>I have very limited knowledge of <code>stringr</code> but it is considered to be more friendly way to do string manipulation in R. It is now a part of <code>tidyverse</code> collection.</p>
 <p>See <a href="https://github.com/tidyverse/stringr" class="uri">https://github.com/tidyverse/stringr</a></p>
 <div id="challenge-2" class="section level4">
@@ -49,6 +60,7 @@ output:
 <pre><code>## [1] &quot;R is awesome but sometimes sucks&quot;</code></pre>
 <pre><code>## [1] &quot;R&quot;       &quot;is&quot;      &quot;awesome&quot;</code></pre>
 <pre><code>## [1] &quot;sometimes&quot;</code></pre>
+</div>
 </div>
 </div>
 <div id="regex" class="section level2">
@@ -62,7 +74,7 @@ grep(&quot;ac*b&quot;, strings, value = TRUE)</code></pre>
 <p>The patter “ac*b&quot; stands for first “a”, then any number of “c”, then “b”.</p>
 <div id="challenge-3" class="section level4">
 <h4>Challenge 3:</h4>
-<p>In <code>library(gapminder)</code> use <code>gapminder</code> dataset, column <code>country</code> to search for all countried with <code>ee</code>.</p>
+<p>In <code>library(gapminder)</code> use <code>gapminder</code> dataset, column <code>country</code> to search for all countries with <code>ee</code>.</p>
 <pre><code>## [1] &quot;Greece&quot;</code></pre>
 </div>
 <div id="operators" class="section level3">
@@ -76,6 +88,51 @@ grep(&quot;ac*b&quot;, strings, value = TRUE)</code></pre>
 <li><code>|</code>: an “or” operator, matches patterns on either side of the |.</li>
 <li><code>^</code> and <code>$</code>: beginning and end of the string</li>
 </ul>
-<p><code>(...)</code>: grouping in regular expressions. This allows you to retrieve the bits that matched various parts of your regular expression so you can alter them or use them for building up a new string. Each group can than be refer using \N, with N being the No. of (…) used. This is called backreference.</p>
+<div id="challenge-4" class="section level4">
+<h4>Challenge 4:</h4>
+<p>What will be the output of the code below (first guess, then try).</p>
+<pre class="r"><code>strings &lt;- c(&quot;^ab&quot;, &quot;ab&quot;, &quot;abc&quot;, &quot;abd&quot;, &quot;abe&quot;, &quot;ab 12&quot;)
+grep(&quot;ab.&quot;, strings, value = TRUE)
+grep(&quot;ab[c-e]&quot;, strings, value = TRUE)
+grep(&quot;ab[^c]&quot;, strings, value = TRUE)
+grep(&quot;^ab&quot;, strings, value = TRUE)
+grep(&quot;\\^ab&quot;, strings, value = TRUE)
+grep(&quot;abc|abd&quot;, strings, value = TRUE)</code></pre>
+</div>
+</div>
+<div id="substitutions" class="section level3">
+<h3>substitutions</h3>
+<p>With <code>sub</code> and <code>gsub</code> functions you can make one or all string substitutions.</p>
+<pre class="r"><code>sub(&quot;a&quot;, &quot;b&quot;, &quot;balalajka&quot;)</code></pre>
+<pre><code>## [1] &quot;bblalajka&quot;</code></pre>
+<pre class="r"><code>gsub(&quot;a&quot;, &quot;b&quot;, &quot;balalajka&quot;)</code></pre>
+<pre><code>## [1] &quot;bblblbjkb&quot;</code></pre>
+<p>There is one additional regex operator for substitutions:</p>
+<ul>
+<li><code>(...)</code>: grouping in regular expressions. This allows you to retrieve the bits that matched various parts of your regular expression so you can alter them or use them for building up a new string. Each group can than be refer using \N, with N being the No. of (…) used. This is called backreference.</li>
+</ul>
+<p>For example, to add dash before the number in sample ids.</p>
+<pre class="r"><code>ids &lt;- c(&quot;DO01&quot;, &quot;DO02&quot;, &quot;DO03&quot;, &quot;DO04&quot;, &quot;DO05&quot;)
+sub(&quot;DO([0-9]*)&quot;, &quot;DO-\\1&quot;, ids)</code></pre>
+<pre><code>## [1] &quot;DO-01&quot; &quot;DO-02&quot; &quot;DO-03&quot; &quot;DO-04&quot; &quot;DO-05&quot;</code></pre>
+<div id="challenge-5" class="section level4">
+<h4>Challenge 5:</h4>
+<p>In <code>gapminder</code>, find all countries that end with “land”, and replace “land” with “LAND” using backreference.</p>
+<pre class="r"><code>countries &lt;- unique(gapminder$country)
+lands &lt;- grep(&quot;land$&quot;, countries, value = TRUE)
+sub(&quot;(.*)land&quot;, &quot;\\1LAND&quot;, lands)</code></pre>
+<pre><code>## [1] &quot;FinLAND&quot;     &quot;IceLAND&quot;     &quot;IreLAND&quot;     &quot;New ZeaLAND&quot; &quot;PoLAND&quot;     
+## [6] &quot;SwaziLAND&quot;   &quot;SwitzerLAND&quot; &quot;ThaiLAND&quot;</code></pre>
+</div>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2>summary</h2>
+<div id="sources" class="section level4">
+<h4>Sources:</h4>
+<ul>
+<li><a href="http://stat545.com/block022_regular-expression.html">STAT545 Regular Expression in R</a></li>
+<li><a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html">R help</a></li>
+</ul>
 </div>
 </div>

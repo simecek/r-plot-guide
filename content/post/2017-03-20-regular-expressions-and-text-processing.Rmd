@@ -16,12 +16,16 @@ R is not known to be a favorite tool for text processing. However, it contains b
 ### base
 
 * `paste`, `paste0` - concatenate multiple strings
-* `strplit` - stlit one string into multiple string
+* `strplit` - split one string into multiple strings
 * `substr` - get a substring
 
 #### Challenge 1:
 
-If `a = "R is awesome"` and `b = "but sometimes sucks"`. Combine those strings together, split the first one by " " character and get "sometimes" from the second one using `substr`.
+If `a = "R is awesome"` and `b = "but sometimes sucks"` then 
+
+* Combine those strings together
+* Split the first one by " " character 
+* Get "sometimes" from the second one using `substr`
 
 ```{r, echo=FALSE}
 a = "R is awesome"
@@ -67,7 +71,7 @@ The patter "ac*b" stands for first "a", then any number of "c", then "b".
 
 #### Challenge 3:
 
-In `library(gapminder)` use `gapminder` dataset, column `country` to search for all countried with `ee`.
+In `library(gapminder)` use `gapminder` dataset, column `country` to search for all countries with `ee`.
 
 ```{r, echo=FALSE}
 library(gapminder)
@@ -84,7 +88,54 @@ grep("ee", countries, value=TRUE)
 * `|`: an “or” operator, matches patterns on either side of the |.
 * `^` and `$`: beginning and end of the string
 
+#### Challenge 4:
+
+What will be the output of the code below (first guess, then try).
+
+```{r, eval=FALSE}
+strings <- c("^ab", "ab", "abc", "abd", "abe", "ab 12")
+grep("ab.", strings, value = TRUE)
+grep("ab[c-e]", strings, value = TRUE)
+grep("ab[^c]", strings, value = TRUE)
+grep("^ab", strings, value = TRUE)
+grep("\\^ab", strings, value = TRUE)
+grep("abc|abd", strings, value = TRUE)
+```
+
+### substitutions
+
+With `sub` and `gsub` functions you can make one or all string substitutions. 
+
+```{r}
+sub("a", "b", "balalajka")
+gsub("a", "b", "balalajka")
+```
+
+There is one additional regex operator for substitutions:
+
+* `(...)`: grouping in regular expressions. This allows you to retrieve the bits that matched various parts of your regular expression so you can alter them or use them for building up a new string. Each group can than be refer using \\N, with N being the No. of (...) used. This is called backreference.
+
+For example, to add dash before the number in sample ids.
+
+```{r}
+ids <- c("DO01", "DO02", "DO03", "DO04", "DO05")
+sub("DO([0-9]*)", "DO-\\1", ids)
+```
 
 
+#### Challenge 5:
 
-`(...)`: grouping in regular expressions. This allows you to retrieve the bits that matched various parts of your regular expression so you can alter them or use them for building up a new string. Each group can than be refer using \\N, with N being the No. of (...) used. This is called backreference.
+In `gapminder`, find all countries that end with "land", and replace "land" with "LAND" using backreference. 
+
+```{r}
+countries <- unique(gapminder$country)
+lands <- grep("land$", countries, value = TRUE)
+sub("(.*)land", "\\1LAND", lands)
+```
+
+## summary
+
+#### Sources:
+
+* [STAT545 Regular Expression in R](http://stat545.com/block022_regular-expression.html)
+* [R help](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html)

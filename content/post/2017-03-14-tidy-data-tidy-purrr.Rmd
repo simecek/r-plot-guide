@@ -167,3 +167,8 @@ iris %>%
   map_dbl(mean)
 ```
 
+## Summary
+
+#### Sources:
+
+* Tidy data (rstudio::conf, Tidyverse workshop)
