@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.19" />
+
+
+<title>Regular Expressions and Text Processing - Lithium Theme</title>
+<meta property="og:title" content="Regular Expressions and Text Processing - Lithium Theme">
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css' rel='stylesheet' type='text/css'>
+
+
+
+<link rel="stylesheet" href="../../../../css/fonts.css" media="all">
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="../../../../" class="nav-logo">
+    <img src="../../../../images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="../../../../about/">About</a></li>
+    
+    <li><a href="https://github.com/simecek">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/simecek">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">2 min read</span>
+    
+
+    <h1 class="article-title">Regular Expressions and Text Processing</h1>
+
+    
+    <span class="article-date">2017/03/20</span>
+    
+
+    <div class="article-content">
+      <!-- BLOGDOWN-HEAD -->
+<!-- /BLOGDOWN-HEAD -->
+
+<!-- BLOGDOWN-BODY-BEFORE -->
+<div id="TOC">
+<ul>
+<li><a href="#base">base</a></li>
+<li><a href="#stringr">stringr</a></li>
+<li><a href="#regex">regex</a><ul>
+<li><a href="#operators">operators</a></li>
+</ul></li>
+</ul>
+</div>
+<!-- /BLOGDOWN-BODY-BEFORE -->
+<p>R is not known to be a favorite tool for text processing. However, it</p>
+<div id="base" class="section level2">
+<h2>base</h2>
+<ul>
+<li><code>paste</code>, <code>paste0</code> - concatenate multiple strings</li>
+<li><code>strplit</code> - stlit one string into multiple string</li>
+<li><code>substr</code> - get a substring</li>
+</ul>
+<div id="challenge-1" class="section level4">
+<h4>Challenge 1:</h4>
+<p>If <code>a = &quot;R is awesome&quot;</code> and <code>b = &quot;but sometimes sucks&quot;</code>. Combine those strings together, split the first one by &quot; &quot; character and get “sometimes” from the second one using <code>substr</code>.</p>
+<pre><code>## [1] &quot;R is awesome but sometimes sucks&quot;</code></pre>
+<pre><code>## [1] &quot;R&quot;       &quot;is&quot;      &quot;awesome&quot;</code></pre>
+<pre><code>## [1] &quot;sometimes&quot;</code></pre>
+</div>
+</div>
+<div id="stringr" class="section level2">
+<h2>stringr</h2>
+<p>I have very limited knowledge of <code>stringr</code> but it is considered to be more friendly way to do string manipulation in R. It is now a part of <code>tidyverse</code> collection.</p>
+<p>See <a href="https://github.com/tidyverse/stringr" class="uri">https://github.com/tidyverse/stringr</a></p>
+<div id="challenge-2" class="section level4">
+<h4>Challenge 2:</h4>
+<p>If you like <code>stringr</code>, try to do Challenge 1 with <code>stringr</code> functions.</p>
+<pre><code>## [1] &quot;R is awesome but sometimes sucks&quot;</code></pre>
+<pre><code>## [1] &quot;R&quot;       &quot;is&quot;      &quot;awesome&quot;</code></pre>
+<pre><code>## [1] &quot;sometimes&quot;</code></pre>
+</div>
+</div>
+<div id="regex" class="section level2">
+<h2>regex</h2>
+<p>Regular expressions (regex) allow you to search for pattern inside text. The very basic idea is demonstrated here:</p>
+<p><a href="http://www.dummies.com/programming/r/how-to-use-regular-expressions-in-r/" class="uri">http://www.dummies.com/programming/r/how-to-use-regular-expressions-in-r/</a></p>
+<p>In R we can use <code>grep</code> function to search for patterns, for example</p>
+<pre class="r"><code>strings &lt;- c(&quot;a&quot;, &quot;ab&quot;, &quot;acb&quot;, &quot;accb&quot;, &quot;acccb&quot;, &quot;accccb&quot;)
+grep(&quot;ac*b&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;ab&quot;     &quot;acb&quot;    &quot;accb&quot;   &quot;acccb&quot;  &quot;accccb&quot;</code></pre>
+<p>The patter “ac*b&quot; stands for first “a”, then any number of “c”, then “b”.</p>
+<div id="challenge-3" class="section level4">
+<h4>Challenge 3:</h4>
+<p>In <code>library(gapminder)</code> use <code>gapminder</code> dataset, column <code>country</code> to search for all countried with <code>ee</code>.</p>
+<pre><code>## [1] &quot;Greece&quot;</code></pre>
+</div>
+<div id="operators" class="section level3">
+<h3>operators</h3>
+<ul>
+<li><code>.</code>: matches a single character</li>
+<li><code>[...]</code>: matches any one of the characters inside the square brackets</li>
+<li><code>[^...]</code>: similar to <code>[...]</code>, but matches any characters except those inside the square brackets.</li>
+<li><code>\</code>: suppress the special meaning of metacharacters in regular expression, i.e. $ * + . ? [ ] ^ { } | ( )<br />
+</li>
+<li><code>|</code>: an “or” operator, matches patterns on either side of the |.</li>
+<li><code>^</code> and <code>$</code>: beginning and end of the string</li>
+</ul>
+<p><code>(...)</code>: grouping in regular expressions. This allows you to retrieve the bits that matched various parts of your regular expression so you can alter them or use them for building up a new string. Each group can than be refer using \N, with N being the No. of (…) used. This is called backreference.</p>
+</div>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="../../../../images/hugo-logo.png" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<script async type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    
+  </body>
+</html>
+

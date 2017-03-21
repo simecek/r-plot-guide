@@ -1,0 +1,90 @@
+---
+title: Regular Expressions and Text Processing
+date: '2017-03-20'
+slug: regular-expressions-and-text-processing
+categories:
+  - R
+output:
+  blogdown::html_page:
+    toc: true  
+---
+
+R is not known to be a favorite tool for text processing. However, it contains basic functions to concatenate and split strings. 
+
+## text manipulation
+
+### base
+
+* `paste`, `paste0` - concatenate multiple strings
+* `strplit` - stlit one string into multiple string
+* `substr` - get a substring
+
+#### Challenge 1:
+
+If `a = "R is awesome"` and `b = "but sometimes sucks"`. Combine those strings together, split the first one by " " character and get "sometimes" from the second one using `substr`.
+
+```{r, echo=FALSE}
+a = "R is awesome"
+b = "but sometimes sucks"
+paste(a, b)
+strsplit(a, " ")[[1]]
+substr(b, 5, 13)
+```
+
+### stringr
+
+I have very limited knowledge of `stringr` but it is considered to be more friendly way to do string manipulation in R. It is now a part of `tidyverse` collection.
+
+See https://github.com/tidyverse/stringr
+
+#### Challenge 2:
+
+If you like `stringr`, try to do Challenge 1 with `stringr` functions.
+
+```{r, echo=FALSE}
+library(stringr)
+a = "R is awesome"
+b = "but sometimes sucks"
+str_c(a, b, sep = " ")
+str_split(a, " ")[[1]]
+str_sub(b, 5, 13)
+```
+
+## regex
+
+Regular expressions (regex) allow you to search for pattern inside text. The very basic idea is demonstrated here:
+
+http://www.dummies.com/programming/r/how-to-use-regular-expressions-in-r/
+
+In R we can use `grep` function to search for patterns, for example
+
+```{r}
+strings <- c("a", "ab", "acb", "accb", "acccb", "accccb")
+grep("ac*b", strings, value = TRUE)
+```
+
+The patter "ac*b" stands for first "a", then any number of "c", then "b".
+
+#### Challenge 3:
+
+In `library(gapminder)` use `gapminder` dataset, column `country` to search for all countried with `ee`.
+
+```{r, echo=FALSE}
+library(gapminder)
+countries <- unique(gapminder$country)
+grep("ee", countries, value=TRUE)
+```
+
+### operators
+
+* `.`: matches a single character
+* `[...]`: matches any one of the characters inside the square brackets
+* `[^...]`: similar to  `[...]`, but matches any characters except those inside the square brackets.
+* `\`: suppress the special meaning of metacharacters in regular expression, i.e.  $ * + . ? [ ] ^ { } | ( ) \
+* `|`: an “or” operator, matches patterns on either side of the |.
+* `^` and `$`: beginning and end of the string
+
+
+
+
+`(...)`: grouping in regular expressions. This allows you to retrieve the bits that matched various parts of your regular expression so you can alter them or use them for building up a new string. Each group can than be refer using \\N, with N being the No. of (...) used. This is called backreference.

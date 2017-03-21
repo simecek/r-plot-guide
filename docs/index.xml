@@ -6,8 +6,87 @@
     <description>Recent content on Lithium Theme</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 14 Mar 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 20 Mar 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Regular Expressions and Text Processing</title>
+      <link>/2017/03/20/regular-expressions-and-text-processing/</link>
+      <pubDate>Mon, 20 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/03/20/regular-expressions-and-text-processing/</guid>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#base&#34;&gt;base&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#stringr&#34;&gt;stringr&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#regex&#34;&gt;regex&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#operators&#34;&gt;operators&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+&lt;p&gt;R is not known to be a favorite tool for text processing. However, it&lt;/p&gt;
+&lt;div id=&#34;base&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;base&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;paste&lt;/code&gt;, &lt;code&gt;paste0&lt;/code&gt; - concatenate multiple strings&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;strplit&lt;/code&gt; - stlit one string into multiple string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;substr&lt;/code&gt; - get a substring&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;challenge-1&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 1:&lt;/h4&gt;
+&lt;p&gt;If &lt;code&gt;a = &amp;quot;R is awesome&amp;quot;&lt;/code&gt; and &lt;code&gt;b = &amp;quot;but sometimes sucks&amp;quot;&lt;/code&gt;. Combine those strings together, split the first one by &amp;quot; &amp;quot; character and get “sometimes” from the second one using &lt;code&gt;substr&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;R is awesome but sometimes sucks&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;R&amp;quot;       &amp;quot;is&amp;quot;      &amp;quot;awesome&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;sometimes&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;stringr&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;stringr&lt;/h2&gt;
+&lt;p&gt;I have very limited knowledge of &lt;code&gt;stringr&lt;/code&gt; but it is considered to be more friendly way to do string manipulation in R. It is now a part of &lt;code&gt;tidyverse&lt;/code&gt; collection.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;https://github.com/tidyverse/stringr&#34; class=&#34;uri&#34;&gt;https://github.com/tidyverse/stringr&lt;/a&gt;&lt;/p&gt;
+&lt;div id=&#34;challenge-2&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 2:&lt;/h4&gt;
+&lt;p&gt;If you like &lt;code&gt;stringr&lt;/code&gt;, try to do Challenge 1 with &lt;code&gt;stringr&lt;/code&gt; functions.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;R is awesome but sometimes sucks&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;R&amp;quot;       &amp;quot;is&amp;quot;      &amp;quot;awesome&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;sometimes&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;regex&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;regex&lt;/h2&gt;
+&lt;p&gt;Regular expressions (regex) allow you to search for pattern inside text. The very basic idea is demonstrated here:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.dummies.com/programming/r/how-to-use-regular-expressions-in-r/&#34; class=&#34;uri&#34;&gt;http://www.dummies.com/programming/r/how-to-use-regular-expressions-in-r/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In R we can use &lt;code&gt;grep&lt;/code&gt; function to search for patterns, for example&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;strings &amp;lt;- c(&amp;quot;a&amp;quot;, &amp;quot;ab&amp;quot;, &amp;quot;acb&amp;quot;, &amp;quot;accb&amp;quot;, &amp;quot;acccb&amp;quot;, &amp;quot;accccb&amp;quot;)
+grep(&amp;quot;ac*b&amp;quot;, strings, value = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;ab&amp;quot;     &amp;quot;acb&amp;quot;    &amp;quot;accb&amp;quot;   &amp;quot;acccb&amp;quot;  &amp;quot;accccb&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The patter “ac*b&amp;quot; stands for first “a”, then any number of “c”, then “b”.&lt;/p&gt;
+&lt;div id=&#34;challenge-3&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 3:&lt;/h4&gt;
+&lt;p&gt;In &lt;code&gt;library(gapminder)&lt;/code&gt; use &lt;code&gt;gapminder&lt;/code&gt; dataset, column &lt;code&gt;country&lt;/code&gt; to search for all countried with &lt;code&gt;ee&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Greece&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;operators&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;operators&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.&lt;/code&gt;: matches a single character&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;[...]&lt;/code&gt;: matches any one of the characters inside the square brackets&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;[^...]&lt;/code&gt;: similar to &lt;code&gt;[...]&lt;/code&gt;, but matches any characters except those inside the square brackets.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;\&lt;/code&gt;: suppress the special meaning of metacharacters in regular expression, i.e. $ * + . ? [ ] ^ { } | ( )&lt;br /&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;|&lt;/code&gt;: an “or” operator, matches patterns on either side of the |.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;^&lt;/code&gt; and &lt;code&gt;$&lt;/code&gt;: beginning and end of the string&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;(...)&lt;/code&gt;: grouping in regular expressions. This allows you to retrieve the bits that matched various parts of your regular expression so you can alter them or use them for building up a new string. Each group can than be refer using \N, with N being the No. of (…) used. This is called backreference.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Tidy Data (tidy, purrr)</title>
