@@ -16,7 +16,7 @@ R is not known to be a favorite tool for text processing. However, it contains b
 ### base
 
 * `paste`, `paste0` - concatenate multiple strings
-* `strplit` - split one string into multiple strings
+* `strplit` - split one string into multiple strings (return value is a list!)
 * `substr` - get a substring
 
 #### Challenge 1:
@@ -39,7 +39,7 @@ substr(b, 5, 13)
 
 I have very limited knowledge of `stringr` but it is considered to be more friendly way to do string manipulation in R. It is now a part of `tidyverse` collection.
 
-See https://github.com/tidyverse/stringr
+See chapter about strings in [r4ds book](http://r4ds.had.co.nz/strings.html).
 
 #### Challenge 2:
 
@@ -59,6 +59,10 @@ str_sub(b, 5, 13)
 Regular expressions (regex) allow you to search for pattern inside text. The very basic idea is demonstrated here:
 
 http://www.dummies.com/programming/r/how-to-use-regular-expressions-in-r/
+
+For more advanced examples, see 
+
+http://r4ds.had.co.nz/strings.html#matching-patterns-with-regular-expressions
 
 In R we can use `grep` function to search for patterns, for example
 
@@ -82,9 +86,9 @@ grep("ee", countries, value=TRUE)
 ### operators
 
 * `.`: matches a single character
-* `[...]`: matches any one of the characters inside the square brackets
-* `[^...]`: similar to  `[...]`, but matches any characters except those inside the square brackets.
-* `\`: suppress the special meaning of metacharacters in regular expression, i.e.  $ * + . ? [ ] ^ { } | ( ) \
+* `[characters]`: matches any one of the characters inside the square brackets
+* `[^characters]`: similar to  `[characters]`, but matches any characters except those inside the square brackets.
+* `\`: suppress the special meaning of metacharacters in regular expression, i.e.  $ * + . ? [ ] ^ { } | ( ) \, we often need to use double `\\`
 * `|`: an “or” operator, matches patterns on either side of the |.
 * `^` and `$`: beginning and end of the string
 
@@ -137,5 +141,6 @@ sub("(.*)land", "\\1LAND", lands)
 
 #### Sources:
 
+* [R for Data Science](http://r4ds.had.co.nz/strings.html)
 * [STAT545 Regular Expression in R](http://stat545.com/block022_regular-expression.html)
 * [R help](https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html)

@@ -163,5 +163,6 @@ ggsave("my-plot.pdf", width = 6, height = 6)
 #### Sources:
 
 * Data Visualization with ggplot2 (rstudio::conf, Tidyverse workshop)
+* [R for Data Science](http://r4ds.had.co.nz/data-visualisation.html)
 * [ggplot2 documentation](http://ggplot2.org/)
 

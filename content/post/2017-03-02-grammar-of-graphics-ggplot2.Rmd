@@ -187,4 +187,5 @@ Next time we will learn how to make ggplot2 output not to look like (grey ugly) 
 #### Sources:
 
 * Data Visualization with ggplot2 (rstudio::conf, Tidyverse workshop)
+* [R for Data Science](http://r4ds.had.co.nz/data-visualisation.html)
 * [ggplot2 documentation](http://ggplot2.org/)

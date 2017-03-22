@@ -239,3 +239,4 @@ flights %>%
 #### Sources:
 
 * Data Transformation with dplyr (rstudio::conf, Tidyverse workshop)
+* [R for Data Science](http://r4ds.had.co.nz/transform.html)

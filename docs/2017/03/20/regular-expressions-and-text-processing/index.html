@@ -94,7 +94,7 @@
 <h3>base</h3>
 <ul>
 <li><code>paste</code>, <code>paste0</code> - concatenate multiple strings</li>
-<li><code>strplit</code> - split one string into multiple strings</li>
+<li><code>strplit</code> - split one string into multiple strings (return value is a list!)</li>
 <li><code>substr</code> - get a substring</li>
 </ul>
 <div id="challenge-1" class="section level4">
@@ -113,7 +113,7 @@
 <div id="stringr" class="section level3">
 <h3>stringr</h3>
 <p>I have very limited knowledge of <code>stringr</code> but it is considered to be more friendly way to do string manipulation in R. It is now a part of <code>tidyverse</code> collection.</p>
-<p>See <a href="https://github.com/tidyverse/stringr" class="uri">https://github.com/tidyverse/stringr</a></p>
+<p>See chapter about strings in <a href="http://r4ds.had.co.nz/strings.html">r4ds book</a>.</p>
 <div id="challenge-2" class="section level4">
 <h4>Challenge 2:</h4>
 <p>If you like <code>stringr</code>, try to do Challenge 1 with <code>stringr</code> functions.</p>
@@ -127,6 +127,8 @@
 <h2>regex</h2>
 <p>Regular expressions (regex) allow you to search for pattern inside text. The very basic idea is demonstrated here:</p>
 <p><a href="http://www.dummies.com/programming/r/how-to-use-regular-expressions-in-r/" class="uri">http://www.dummies.com/programming/r/how-to-use-regular-expressions-in-r/</a></p>
+<p>For more advanced examples, see</p>
+<p><a href="http://r4ds.had.co.nz/strings.html#matching-patterns-with-regular-expressions" class="uri">http://r4ds.had.co.nz/strings.html#matching-patterns-with-regular-expressions</a></p>
 <p>In R we can use <code>grep</code> function to search for patterns, for example</p>
 <pre class="r"><code>strings &lt;- c(&quot;a&quot;, &quot;ab&quot;, &quot;acb&quot;, &quot;accb&quot;, &quot;acccb&quot;, &quot;accccb&quot;)
 grep(&quot;ac*b&quot;, strings, value = TRUE)</code></pre>
@@ -141,10 +143,9 @@ grep(&quot;ac*b&quot;, strings, value = TRUE)</code></pre>
 <h3>operators</h3>
 <ul>
 <li><code>.</code>: matches a single character</li>
-<li><code>[...]</code>: matches any one of the characters inside the square brackets</li>
-<li><code>[^...]</code>: similar to <code>[...]</code>, but matches any characters except those inside the square brackets.</li>
-<li><code>\</code>: suppress the special meaning of metacharacters in regular expression, i.e. $ * + . ? [ ] ^ { } | ( )<br />
-</li>
+<li><code>[characters]</code>: matches any one of the characters inside the square brackets</li>
+<li><code>[^characters]</code>: similar to <code>[characters]</code>, but matches any characters except those inside the square brackets.</li>
+<li><code>\</code>: suppress the special meaning of metacharacters in regular expression, i.e. $ * + . ? [ ] ^ { } | ( ) , we often need to use double <code>\\</code></li>
 <li><code>|</code>: an “or” operator, matches patterns on either side of the |.</li>
 <li><code>^</code> and <code>$</code>: beginning and end of the string</li>
 </ul>
@@ -191,6 +192,7 @@ sub(&quot;(.*)land&quot;, &quot;\\1LAND&quot;, lands)</code></pre>
 <div id="sources" class="section level4">
 <h4>Sources:</h4>
 <ul>
+<li><a href="http://r4ds.had.co.nz/strings.html">R for Data Science</a></li>
 <li><a href="http://stat545.com/block022_regular-expression.html">STAT545 Regular Expression in R</a></li>
 <li><a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html">R help</a></li>
 </ul>

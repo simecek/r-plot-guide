@@ -172,3 +172,4 @@ iris %>%
 #### Sources:
 
 * Tidy data (rstudio::conf, Tidyverse workshop)
+* [R for Data Science](http://r4ds.had.co.nz/tidy-data.html)
