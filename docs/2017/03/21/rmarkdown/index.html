@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.19" />
+
+
+<title>RMarkdown - Lithium Theme</title>
+<meta property="og:title" content="RMarkdown - Lithium Theme">
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="../../../../css/fonts.css" media="all">
+<link rel="stylesheet" href="../../../../css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="../../../../" class="nav-logo">
+    <img src="../../../../images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="../../../../about/">About</a></li>
+    
+    <li><a href="https://github.com/simecek">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/simecek">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">3 min read</span>
+    
+
+    <h1 class="article-title">RMarkdown</h1>
+
+    
+    <span class="article-date">2017/03/21</span>
+    
+
+    <div class="article-content">
+      <!-- BLOGDOWN-HEAD -->
+<!-- /BLOGDOWN-HEAD -->
+
+<!-- BLOGDOWN-BODY-BEFORE -->
+<div id="TOC">
+<ul>
+<li><a href="#markdown">markdown</a></li>
+<li><a href="#options">options</a></li>
+<li><a href="#formats">formats</a></li>
+<li><a href="#summary">summary</a></li>
+</ul>
+</div>
+<!-- /BLOGDOWN-BODY-BEFORE -->
+<p>Before you start, install <code>rmarkdown</code> package and download “R Markdown Cheat Sheet” and “R Markdown Reference Guide” from</p>
+<p><a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a></p>
+<p>There exist many good introductions to RMarkdown:</p>
+<ul>
+<li><a href="http://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/">Producing Reports With knitr as SWC lesson</a></li>
+<li><a href="http://rmarkdown.rstudio.com/lesson-1.html">RStudio tutorial on RMarkdown</a></li>
+<li><a href="http://r4ds.had.co.nz/r-markdown.html">RMarkdown chapter in R for Data Science</a></li>
+<li><a href="https://www.rstudio.com/resources/webinars/getting-started-with-r-markdown/">Garrett Grolemunds’s &gt;1h webinar</a></li>
+</ul>
+<p>Try to understand enough of RMarkdown to get through Challenge 1.</p>
+<div id="markdown" class="section level2">
+<h2>markdown</h2>
+<div id="challenge-1" class="section level4">
+<h4>Challenge 1:</h4>
+<p>Create a new R Markdown file (File -&gt; New File -&gt; Document). First run “Knit” document to see HTML output. Then find or add the following formatting marks:</p>
+<ul>
+<li><strong>bold</strong>, <em>italics</em>, <code>code-type</code></li>
+<li>headers: title, main section, sub-section, sub-sub-section (its the same symbol, just repeated multiple times)</li>
+<li><a href="https://www.rstudio.com/resources/cheatsheets/">link to the page</a></li>
+<li>figure <img src="https://dfsuknfbz46oq.cloudfront.net/p/icons/rstudio.png" alt="caption" /></li>
+</ul>
+</div>
+</div>
+<div id="options" class="section level2">
+<h2>options</h2>
+<p>If you look at your <code>.Rmd</code> file from Challenge 1, you might realized a strange thing. For the first chunk (<code>summary(cars)</code>) R code is a part of HTML report while for the second chunk (<code>plot(pressure)</code>) we see only output but not R code itself. This is controlled by chunk options:</p>
+<ul>
+<li>Use <code>echo=FALSE</code> to avoid having the code itself shown.</li>
+<li>Use <code>results=&quot;hide&quot;</code> to avoid having any results printed.</li>
+<li>Use <code>eval=FALSE</code> to have the code shown but not evaluated.</li>
+<li>Use <code>warning=FALSE</code> and <code>message=FALSE</code> to hide any warnings or messages produced.</li>
+<li>Use <code>fig.height</code> and <code>fig.width</code> to control the size of the figures produced (in inches).</li>
+</ul>
+<p>If you forget a syntax you can always click on a little wheel in the chunk’s top right corner and select it in a menu. You can also run a chunk in a console after clicking on the green arrow.</p>
+<p>If you want to set default options for all chunks, you can use <code>knitr::opts_chunk$set</code> function.</p>
+<div id="challenge-2" class="section level4">
+<h4>Challenge 2</h4>
+<p>Add a new chunk with ggplot2 figure to your Rmd file. Use chunk options to control the size of a figure and to hide the code.</p>
+</div>
+</div>
+<div id="formats" class="section level2">
+<h2>formats</h2>
+<p>RMarkdown processing consist of two steps: * <code>knitr</code> package is used to run all the chunks and replace them by their output, the result is markdown (<code>.md</code>) file * some other software (like <code>pandoc</code>) process markdown file into final format</p>
+<div id="challenge-3" class="section level4">
+<h4>Challenge 3</h4>
+<p>Look at the header of your document where the output format is specified. Change it from <code>output: html_document</code> to <code>output: word_document</code> or <code>output: pdf_document</code> to produce MS Word or PDF document.</p>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2>summary</h2>
+<p>There are many other ways to use RMarkdown:</p>
+<ul>
+<li>presentation slides with <a href="https://slides.yihui.name/xaringan/#1">xaringan</a> package</li>
+<li>a blog with <a href="https://github.com/rstudio/blogdown">blogdown</a> package - like this page</li>
+<li>a book with <a href="https://bookdown.org/yihui/bookdown/">bookdown</a> package - like R for Data Science</li>
+<li>a reproducible workflow with <a href="https://jdblischak.github.io/workflowr/">workflowr</a> package</li>
+</ul>
+<p>Once something is written in markdown format, it is quite easy to switch from HTML to PDF to slides to workflowr or blog.</p>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="../../../../index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="../../../../images/hugo-logo.png" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+    
+
+    
+  </body>
+</html>
+

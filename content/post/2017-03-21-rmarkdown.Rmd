@@ -1,0 +1,73 @@
+---
+title: RMarkdown
+date: '2017-03-21'
+slug: rmarkdown
+categories:
+  - R
+output:
+  blogdown::html_page:
+    toc: true  
+---
+
+Before you start, install `rmarkdown` package and download "R Markdown Cheat Sheet" and "R Markdown Reference Guide" from
+
+https://www.rstudio.com/resources/cheatsheets/ 
+
+There exist many good introductions to RMarkdown:
+
+* [Producing Reports With knitr as SWC lesson](http://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/)
+* [RStudio tutorial on RMarkdown](http://rmarkdown.rstudio.com/lesson-1.html)
+* [RMarkdown chapter in R for Data Science](http://r4ds.had.co.nz/r-markdown.html)
+* [Garrett Grolemunds's >1h webinar](https://www.rstudio.com/resources/webinars/getting-started-with-r-markdown/)
+
+Try to understand enough of RMarkdown to get through Challenge 1.
+
+## markdown
+
+#### Challenge 1:
+
+Create a new R Markdown file (File -> New File -> Document). First run "Knit" document to see HTML output. Then find or add the following formatting marks:
+
+* **bold**, *italics*, ``code-type``
+* headers: title, main section, sub-section, sub-sub-section (its the same symbol, just repeated multiple times)
+* [link to the page](https://www.rstudio.com/resources/cheatsheets/)
+* figure ![caption](https://dfsuknfbz46oq.cloudfront.net/p/icons/rstudio.png)
+
+## options
+
+If you look at your `.Rmd` file from Challenge 1, you might realized a strange thing. For the first chunk (`summary(cars)`) R code is a part of HTML report while for the second chunk (`plot(pressure)`) we see only output but not R code itself. This is controlled by chunk options:
+
+* Use `echo=FALSE` to avoid having the code itself shown.
+* Use `results="hide"` to avoid having any results printed.
+* Use `eval=FALSE` to have the code shown but not evaluated.
+* Use `warning=FALSE` and `message=FALSE` to hide any warnings or messages produced.
+* Use `fig.height` and `fig.width` to control the size of the figures produced (in inches).
+
+If you forget a syntax you can always click on a little wheel in the chunk's top right corner and select it in a menu. You can also run a chunk in a console after clicking on the green arrow.
+
+If you want to set default options for all chunks, you can use `knitr::opts_chunk$set` function.
+
+#### Challenge 2
+
+Add a new chunk with ggplot2 figure to your Rmd file. Use chunk options to control the size of a figure and to hide the code.
+
+## formats
+
+RMarkdown processing consist of two steps:
+* `knitr` package is used to run all the chunks and replace them by their output, the result is markdown (`.md`) file
+* some other software (like `pandoc`) process markdown file into final format
+
+#### Challenge 3
+
+Look at the header of your document where the output format is specified. Change it from `output: html_document` to `output: word_document` or `output: pdf_document` to produce MS Word or PDF document. 
+
+## summary
+
+There are many other ways to use RMarkdown:
+
+* presentation slides with [xaringan](https://slides.yihui.name/xaringan/#1) package
+* a blog with [blogdown](https://github.com/rstudio/blogdown) package - like this page
+* a book with [bookdown](https://bookdown.org/yihui/bookdown/) package - like R for Data Science
+* a reproducible workflow with [workflowr](https://jdblischak.github.io/workflowr/) package
+
+Once something is written in markdown format, it is quite easy to switch from HTML to PDF to slides to workflowr or blog.

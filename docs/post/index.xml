@@ -6,8 +6,89 @@
     <description>Recent content in Posts on Lithium Theme</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 20 Mar 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 21 Mar 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>RMarkdown</title>
+      <link>/2017/03/21/rmarkdown/</link>
+      <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/03/21/rmarkdown/</guid>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#markdown&#34;&gt;markdown&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#options&#34;&gt;options&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#formats&#34;&gt;formats&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#summary&#34;&gt;summary&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+&lt;p&gt;Before you start, install &lt;code&gt;rmarkdown&lt;/code&gt; package and download “R Markdown Cheat Sheet” and “R Markdown Reference Guide” from&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.rstudio.com/resources/cheatsheets/&#34; class=&#34;uri&#34;&gt;https://www.rstudio.com/resources/cheatsheets/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;There exist many good introductions to RMarkdown:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://swcarpentry.github.io/r-novice-gapminder/15-knitr-markdown/&#34;&gt;Producing Reports With knitr as SWC lesson&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://rmarkdown.rstudio.com/lesson-1.html&#34;&gt;RStudio tutorial on RMarkdown&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://r4ds.had.co.nz/r-markdown.html&#34;&gt;RMarkdown chapter in R for Data Science&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.rstudio.com/resources/webinars/getting-started-with-r-markdown/&#34;&gt;Garrett Grolemunds’s &amp;gt;1h webinar&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Try to understand enough of RMarkdown to get through Challenge 1.&lt;/p&gt;
+&lt;div id=&#34;markdown&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;markdown&lt;/h2&gt;
+&lt;div id=&#34;challenge-1&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 1:&lt;/h4&gt;
+&lt;p&gt;Create a new R Markdown file (File -&amp;gt; New File -&amp;gt; Document). First run “Knit” document to see HTML output. Then find or add the following formatting marks:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;bold&lt;/strong&gt;, &lt;em&gt;italics&lt;/em&gt;, &lt;code&gt;code-type&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;headers: title, main section, sub-section, sub-sub-section (its the same symbol, just repeated multiple times)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.rstudio.com/resources/cheatsheets/&#34;&gt;link to the page&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;figure &lt;img src=&#34;https://dfsuknfbz46oq.cloudfront.net/p/icons/rstudio.png&#34; alt=&#34;caption&#34; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;options&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;options&lt;/h2&gt;
+&lt;p&gt;If you look at your &lt;code&gt;.Rmd&lt;/code&gt; file from Challenge 1, you might realized a strange thing. For the first chunk (&lt;code&gt;summary(cars)&lt;/code&gt;) R code is a part of HTML report while for the second chunk (&lt;code&gt;plot(pressure)&lt;/code&gt;) we see only output but not R code itself. This is controlled by chunk options:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Use &lt;code&gt;echo=FALSE&lt;/code&gt; to avoid having the code itself shown.&lt;/li&gt;
+&lt;li&gt;Use &lt;code&gt;results=&amp;quot;hide&amp;quot;&lt;/code&gt; to avoid having any results printed.&lt;/li&gt;
+&lt;li&gt;Use &lt;code&gt;eval=FALSE&lt;/code&gt; to have the code shown but not evaluated.&lt;/li&gt;
+&lt;li&gt;Use &lt;code&gt;warning=FALSE&lt;/code&gt; and &lt;code&gt;message=FALSE&lt;/code&gt; to hide any warnings or messages produced.&lt;/li&gt;
+&lt;li&gt;Use &lt;code&gt;fig.height&lt;/code&gt; and &lt;code&gt;fig.width&lt;/code&gt; to control the size of the figures produced (in inches).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you forget a syntax you can always click on a little wheel in the chunk’s top right corner and select it in a menu. You can also run a chunk in a console after clicking on the green arrow.&lt;/p&gt;
+&lt;p&gt;If you want to set default options for all chunks, you can use &lt;code&gt;knitr::opts_chunk$set&lt;/code&gt; function.&lt;/p&gt;
+&lt;div id=&#34;challenge-2&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 2&lt;/h4&gt;
+&lt;p&gt;Add a new chunk with ggplot2 figure to your Rmd file. Use chunk options to control the size of a figure and to hide the code.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;formats&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;formats&lt;/h2&gt;
+&lt;p&gt;RMarkdown processing consist of two steps: * &lt;code&gt;knitr&lt;/code&gt; package is used to run all the chunks and replace them by their output, the result is markdown (&lt;code&gt;.md&lt;/code&gt;) file * some other software (like &lt;code&gt;pandoc&lt;/code&gt;) process markdown file into final format&lt;/p&gt;
+&lt;div id=&#34;challenge-3&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 3&lt;/h4&gt;
+&lt;p&gt;Look at the header of your document where the output format is specified. Change it from &lt;code&gt;output: html_document&lt;/code&gt; to &lt;code&gt;output: word_document&lt;/code&gt; or &lt;code&gt;output: pdf_document&lt;/code&gt; to produce MS Word or PDF document.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;summary&lt;/h2&gt;
+&lt;p&gt;There are many other ways to use RMarkdown:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;presentation slides with &lt;a href=&#34;https://slides.yihui.name/xaringan/#1&#34;&gt;xaringan&lt;/a&gt; package&lt;/li&gt;
+&lt;li&gt;a blog with &lt;a href=&#34;https://github.com/rstudio/blogdown&#34;&gt;blogdown&lt;/a&gt; package - like this page&lt;/li&gt;
+&lt;li&gt;a book with &lt;a href=&#34;https://bookdown.org/yihui/bookdown/&#34;&gt;bookdown&lt;/a&gt; package - like R for Data Science&lt;/li&gt;
+&lt;li&gt;a reproducible workflow with &lt;a href=&#34;https://jdblischak.github.io/workflowr/&#34;&gt;workflowr&lt;/a&gt; package&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Once something is written in markdown format, it is quite easy to switch from HTML to PDF to slides to workflowr or blog.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Regular Expressions and Text Processing</title>
