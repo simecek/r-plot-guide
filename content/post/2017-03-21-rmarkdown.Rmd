@@ -71,3 +71,7 @@ There are many other ways to use RMarkdown:
 * a reproducible workflow with [workflowr](https://jdblischak.github.io/workflowr/) package
 
 Once something is written in markdown format, it is quite easy to switch from HTML to PDF to slides to workflowr or blog.
+
+Also with RMarkdown it is easier to make your analysis reproducible:
+
+http://kbroman.org/steps2rr/
