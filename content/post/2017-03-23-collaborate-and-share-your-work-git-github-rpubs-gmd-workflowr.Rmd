@@ -13,11 +13,11 @@ output:
 
 Git was originally invented by Linus Torvalds (also a founder of linux). It changed the way open software is developed. For example, [Tensorflow](https://github.com/tensorflow/tensorflow) project (deep learning software backed by Google) has >700 contributors and most of them are not Google employees (source: Tensorflow Dev Summit, February 2017). 
 
-We will be using a tiny franction of its functionality to collaborate and share our work. Read [Chapter 1](http://happygitwithr.com/big-picture.html) in Jenny Brian's [Happy Git and GitHub for the User](http://happygitwithr.com/).
+We will be using a tiny fraction of git/GitHub functionality to collaborate and share our work. Read [Chapter 1](http://happygitwithr.com/big-picture.html) in Jenny Brian's [Happy Git and GitHub for the useR](http://happygitwithr.com/).
 
 If you got lost, [her tutorial](https://www.rstudio.com/resources/videos/happy-git-and-gihub-for-the-user-tutorial/) at rstudio::conf might help. 
 
-![xkcd](https://imgs.xkcd.com/comics/git.png)
+![](https://imgs.xkcd.com/comics/git.png)
 
 Before Challenge 1, sign up to [github.com](https://github.com) and [install git](http://happygitwithr.com/install-git.html).
 
@@ -30,9 +30,12 @@ Follow Chapter 13 [Connect RStudio to Git and Github](http://happygitwithr.com/r
 Now, try to clone [rladies](https://github.com/rladies/) repository [praise](https://github.com/rladies/praise/). From RStudio menu choose File -> New Project -> 
 Version Control -> Git. Fill "http://github.com/rladies/praise/" as Repository URL and "praise" as Project directory name. Praise is actually a package and you should see "Build" panel in the top right part of your RStudio, select "Rebuild and load". Congratulation you have just clone and build the package. Call `praise()` function to say something nice. Finally, in praise project folder open `R/adjective.R`, add a new adjective and hit "Rebuild and load" again. You have just made a small contribution to `praise`. Call `praise()` again.
 
+
 #### Challenge 3:
 
-Use File -> Recent projects to switch back to Challenge 1 project. Create `docs` folder, copy one of your RMarkdown files  and corresponding html file into it. Commit all changes and push repository into Github. In Github, go to the repository and hit "Settings" link (github.com/USERNAME/REPOSITORY/settings). Scroll down to Github Pages. Select Source and change it from None to "master branch /docs folder". After a few second you shoul be able to access your webpage at USERNAME.github.io/REPOSITORY.
+Use File -> Recent projects to switch back to Challenge 1 project. Create `docs` folder, copy one of your RMarkdown files  and corresponding html file into it. Rename the html file to `index.html`. Commit all changes and push repository into GitHub. In GitHub, go to the repository and hit "Settings" link (github.com/USERNAME/REPOSITORY/settings). Scroll down to GitHub Pages. Select Source and change it from *None* to *master branch /docs folder*. After a few second you should be able to access your webpage at USERNAME.github.io/REPOSITORY.
+
+![](https://imgs.xkcd.com/comics/git.png)
 
 ## RPubs
 
@@ -44,11 +47,13 @@ Publish your RMarkdown HTML output at RPubs.
 
 ## GMD
 
-GMD was recently developed by Lucy McGovan and Nick Strayer. Its use and motivation for it is well described at
+[GMD](https://github.com/LucyMcGowan/GMD) was recently developed by Lucy McGowan and Nick Strayer. Read
 
 http://livefreeordichotomize.com/2017/02/24/intro-to-gmd/
 
+and install GMD with `devtools::install_github("LFOD/GMD")`.
+
 #### Challenge 5:
 
-Copy your RMarkdown to Google Docs and connect it woth GMD to RStudio.
+Copy your RMarkdown to Google Docs and connect it with GMD to RStudio.
 
