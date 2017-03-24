@@ -49,7 +49,7 @@
 &lt;h4&gt;Challenge 3:&lt;/h4&gt;
 &lt;p&gt;Use File -&amp;gt; Recent projects to switch back to Challenge 1 project. Create &lt;code&gt;docs&lt;/code&gt; folder, copy one of your RMarkdown files and corresponding html file into it. Rename the html file to &lt;code&gt;index.html&lt;/code&gt;. Commit all changes and push repository into GitHub. In GitHub, go to the repository and hit “Settings” link (github.com/USERNAME/REPOSITORY/settings). Scroll down to GitHub Pages. Select Source and change it from &lt;em&gt;None&lt;/em&gt; to &lt;em&gt;master branch /docs folder&lt;/em&gt;. After a few second you should be able to access your webpage at USERNAME.github.io/REPOSITORY.&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;https://imgs.xkcd.com/comics/git.png&#34; /&gt;
+&lt;img src=&#34;https://imgs.xkcd.com/comics/git_commit.png&#34; /&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;

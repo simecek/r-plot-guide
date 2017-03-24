@@ -35,7 +35,7 @@ Version Control -> Git. Fill "http://github.com/rladies/praise/" as Repository U
 
 Use File -> Recent projects to switch back to Challenge 1 project. Create `docs` folder, copy one of your RMarkdown files  and corresponding html file into it. Rename the html file to `index.html`. Commit all changes and push repository into GitHub. In GitHub, go to the repository and hit "Settings" link (github.com/USERNAME/REPOSITORY/settings). Scroll down to GitHub Pages. Select Source and change it from *None* to *master branch /docs folder*. After a few second you should be able to access your webpage at USERNAME.github.io/REPOSITORY.
 
-![](https://imgs.xkcd.com/comics/git.png)
+![](https://imgs.xkcd.com/comics/git_commit.png)
 
 ## RPubs
 
