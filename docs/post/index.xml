@@ -6,8 +6,69 @@
     <description>Recent content in Posts on Lithium Theme</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 Mar 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 23 Mar 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Collaborate and Share Your Work (git, GitHub, RPubs, GMD)</title>
+      <link>/2017/03/23/collaborate-and-share-your-work-github-rpubs-gmd/</link>
+      <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/03/23/collaborate-and-share-your-work-github-rpubs-gmd/</guid>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+&lt;div id=&#34;TOC&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#git-and-github&#34;&gt;Git and GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#rpubs&#34;&gt;RPubs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#gmd&#34;&gt;GMD&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+&lt;div id=&#34;git-and-github&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Git and GitHub&lt;/h2&gt;
+&lt;p&gt;Git was originally invented by Linus Torvalds (also a founder of linux). It changed the way open software is developed. For example, &lt;a href=&#34;https://github.com/tensorflow/tensorflow&#34;&gt;Tensorflow&lt;/a&gt; project (deep learning software backed by Google) has &amp;gt;700 contributors and most of them are not Google employees (source: Tensorflow Dev Summit, February 2017).&lt;/p&gt;
+&lt;p&gt;We will be using a tiny franction of its functionality to collaborate and share our work. Read &lt;a href=&#34;http://happygitwithr.com/big-picture.html&#34;&gt;Chapter 1&lt;/a&gt; in Jenny Brian’s &lt;a href=&#34;http://happygitwithr.com/&#34;&gt;Happy Git and GitHub for the User&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you got lost, &lt;a href=&#34;https://www.rstudio.com/resources/videos/happy-git-and-gihub-for-the-user-tutorial/&#34;&gt;her tutorial&lt;/a&gt; at rstudio::conf might help.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;https://imgs.xkcd.com/comics/git.png&#34; alt=&#34;xkcd&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;xkcd&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Before Challenge 1, sign up to &lt;a href=&#34;https://github.com&#34;&gt;github.com&lt;/a&gt; and &lt;a href=&#34;http://happygitwithr.com/install-git.html&#34;&gt;install git&lt;/a&gt;.&lt;/p&gt;
+&lt;div id=&#34;challenge-1&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 1:&lt;/h4&gt;
+&lt;p&gt;Follow Chapter 13 &lt;a href=&#34;http://happygitwithr.com/rstudio-git-github.html#make-a-new-repo-on-github&#34;&gt;Connect RStudio to Git and Github&lt;/a&gt; to create, clone, modify and push repository to GitHub.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;challenge-2&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 2:&lt;/h4&gt;
+&lt;p&gt;Now, try to clone &lt;a href=&#34;https://github.com/rladies/&#34;&gt;rladies&lt;/a&gt; repository &lt;a href=&#34;https://github.com/rladies/praise/&#34;&gt;praise&lt;/a&gt;. From RStudio menu choose File -&amp;gt; New Project -&amp;gt; Version Control -&amp;gt; Git. Fill “&lt;a href=&#34;http://github.com/rladies/praise/&#34; class=&#34;uri&#34;&gt;http://github.com/rladies/praise/&lt;/a&gt;” as Repository URL and “praise” as Project directory name. Praise is actually a package and you should see “Build” panel in the top right part of your RStudio, select “Rebuild and load”. Congratulation you have just clone and build the package. Call &lt;code&gt;praise()&lt;/code&gt; function to say something nice. Finally, in praise project folder open &lt;code&gt;R/adjective.R&lt;/code&gt;, add a new adjective and hit “Rebuild and load” again. You have just made a small contribution to &lt;code&gt;praise&lt;/code&gt;. Call &lt;code&gt;praise()&lt;/code&gt; again.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;challenge-3&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 3:&lt;/h4&gt;
+&lt;p&gt;Use File -&amp;gt; Recent projects to switch back to Challenge 1 project. Create &lt;code&gt;docs&lt;/code&gt; folder, copy one of your RMarkdown files and corresponding html file into it. Commit all changes and push repository into Github. In Github, go to the repository and hit “Settings” link (github.com/USERNAME/REPOSITORY/settings). Scroll down to Github Pages. Select Source and change it from None to “master branch /docs folder”. After a few second you shoul be able to access your webpage at USERNAME.github.io/REPOSITORY.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;rpubs&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;RPubs&lt;/h2&gt;
+&lt;p&gt;The easiest way to publish your Markdown is RPubs. Once your RMarkdown is generated, look for “Publish” button. You might need to create an account when doing it for the first time.&lt;/p&gt;
+&lt;div id=&#34;challenge-4&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 4:&lt;/h4&gt;
+&lt;p&gt;Publish your RMarkdown HTML output at RPubs.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;gmd&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;GMD&lt;/h2&gt;
+&lt;p&gt;GMD was recently developed by Lucy McGovan and Nick Strayer. Its use and motivation for it is well described at&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://livefreeordichotomize.com/2017/02/24/intro-to-gmd/&#34; class=&#34;uri&#34;&gt;http://livefreeordichotomize.com/2017/02/24/intro-to-gmd/&lt;/a&gt;&lt;/p&gt;
+&lt;div id=&#34;challenge-5&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Challenge 5:&lt;/h4&gt;
+&lt;p&gt;Copy your RMarkdown to Google Docs and connect it woth GMD to RStudio.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>RMarkdown</title>
